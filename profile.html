@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Profile</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #6a11cb, #2575fc);
+      color: #333;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .card {
+      background: white;
+      padding: 30px;
+      border-radius: 15px;
+      width: 450px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+      text-align: center;
+    }
+    .card h2 {
+      color: #2575fc;
+      margin-bottom: 20px;
+    }
+    .profile-pic {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background: #eee;
+      margin: 0 auto 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      color: #777;
+    }
+    .card p {
+      margin: 10px 0;
+      font-size: 16px;
+    }
+    .btn {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 10px 20px;
+      background: #2575fc;
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      transition: background 0.3s;
+    }
+    .btn:hover {
+      background: #6a11cb;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="profile-pic">Profile Picture</div>
+    <h2>User Profile</h2>
+    <p><strong>Name:</strong> John Doe</p>
+    <p><strong>Email:</strong> john@example.com</p>
+    <p><strong>Phone:</strong> +91 9876543210</p>
+    <p><strong>Bio:</strong> Passionate Developer & AI Enthusiast</p>
+    <p><strong>LinkedIn:</strong> linkedin.com/in/johndoe</p>
+    <p><strong>GitHub:</strong> github.com/johndoe</p>
+    <p><strong>Twitter:</strong> twitter.com/johndoe</p>
+    <a href="dashboard.html" class="btn">Edit Profile</a>
+  </div>
+</body>
+</html>
