@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Roadmap & Skills Advisor</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #4e54c8, #8f94fb);
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .container {
+      background: rgba(0,0,0,0.6);
+      padding: 30px;
+      border-radius: 15px;
+      width: 400px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    label {
+      display: block;
+      margin: 10px 0 5px;
+    }
+    select, input, button {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border-radius: 8px;
+      border: none;
+      outline: none;
+      font-size: 14px;
+    }
+    button {
+      background: #00c6ff;
+      color: #fff;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    button:hover {
+      background: #0072ff;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Roadmap & Skills Advisor</h2>
+    <form id="advisorForm">
+      <!-- CLASS -->
+      <label for="class">Which class are you in?</label>
+      <select id="class" name="class" required>
+        <option value="">Select</option>
+        <option value="10+">9-10</option>
+        <option value="12+">10-12</option>
+        <option value="other">Other</option>
+      </select>
+
+      <!-- INTEREST -->
+      <label for="interest">Which topic fascinates you?</label>
+      <input type="text" id="interest" name="interest" placeholder="e.g., Science, Coding, Design">
+
+      <!-- SKILLS -->
+      <label for="skills">Have you acquired any skills before?</label>
+      <input type="text" id="skills" name="skills" placeholder="e.g., Coding, Drawing, Communication">
+
+      <!-- STREAM -->
+      <label for="stream">If in 10-12, which stream do you belong to?</label>
+      <select id="stream" name="stream">
+        <option value="">Select</option>
+        <option value="Science">Science</option>
+        <option value="Commerce">Commerce</option>
+        <option value="Arts">Arts</option>
+        <option value="Other">Other</option>
+      </select>
+
+      <!-- DREAM CAREER -->
+      <label for="career">Do you have a dream career in your mind?(Optional)</label>
+      <input type="text" id="career" name="career" placeholder="e.g., Doctor, Engineer, Designer,">
+
+      <button type="submit">Continue to Chatbot</button>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById("advisorForm").addEventListener("submit", function(e){
+      e.preventDefault();
+      alert("Your responses have been saved! Redirecting to chatbot...");
+      // Here you can redirect to chatbot page
+      window.location.href = "chatbot.html";
+    });
+  </script>
+</body>
+</html>
