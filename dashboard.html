@@ -119,18 +119,6 @@
       border-left: 4px solid #00c6ff;
     }
     
-    .social-icons {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      margin: 20px 0;
-    }
-    
-    .social-icons i {
-      font-size: 24px;
-      color: #00c6ff;
-    }
-    
     button {
       background: linear-gradient(90deg, #00c6ff, #0072ff);
       border: none;
@@ -203,23 +191,48 @@
       <label for="email">Email (Required):</label>
       <input type="email" id="email" placeholder="Enter your email address" required>
 
-      <label for="insta">Instagram <span class="optional">(Optional)</span>:</label>
-      <input type="url" id="insta" placeholder="Paste Instagram profile link">
+      <label for="phone">Phone (Optional):</label>
+      <input type="tel" id="phone" placeholder="Enter your phone number">
 
-      <label for="linkedin">LinkedIn <span class="optional">(Optional)</span>:</label>
+      <label for="linkedin">LinkedIn (Optional):</label>
       <input type="url" id="linkedin" placeholder="Paste LinkedIn profile link">
 
-      <label for="github">GitHub <span class="optional">(Optional)</span>:</label>
+      <label for="github">GitHub (Optional):</label>
       <input type="url" id="github" placeholder="Paste GitHub profile link">
 
       <!-- Save Button -->
       <button onclick="saveData()">
-        <i class="fas fa-save"></i> Save Details
+        <i class="fas fa-save"></i> Save Details & View Profile
       </button>
     </div>
   </div>
 
   <script>
+    // Load saved data if available
+    window.addEventListener('DOMContentLoaded', function() {
+      const savedData = localStorage.getItem('userProfileData');
+      if (savedData) {
+        const userData = JSON.parse(savedData);
+        document.getElementById('name').value = userData.name || '';
+        document.getElementById('dob').value = userData.dob || '';
+        document.getElementById('email').value = userData.email || '';
+        document.getElementById('phone').value = userData.phone || '';
+        document.getElementById('linkedin').value = userData.linkedin || '';
+        document.getElementById('github').value = userData.github || '';
+        
+        if (userData.profilePic && userData.profilePic !== 'none') {
+          const profileImage = document.getElementById('profileImage');
+          profileImage.style.backgroundImage = userData.profilePic;
+          profileImage.style.backgroundSize = 'cover';
+          profileImage.style.backgroundPosition = 'center';
+          profileImage.innerHTML = '';
+        }
+      }
+      
+      // Add today's date as the max for date of birth
+      document.getElementById('dob').max = new Date().toISOString().split("T")[0];
+    });
+
     // Profile picture preview
     document.getElementById("profilePic").addEventListener("change", function(event) {
       const file = event.target.files[0];
@@ -241,13 +254,13 @@
       document.getElementById("profilePic").click();
     });
 
-    // Save data to backend
+    // Save data to localStorage and redirect to profile
     function saveData() {
       const userData = {
         name: document.getElementById("name").value,
         dob: document.getElementById("dob").value,
         email: document.getElementById("email").value,
-        insta: document.getElementById("insta").value,
+        phone: document.getElementById("phone").value,
         linkedin: document.getElementById("linkedin").value,
         github: document.getElementById("github").value,
         profilePic: document.getElementById("profileImage").style.backgroundImage || 'none'
@@ -258,18 +271,12 @@
         return;
       }
 
-      // In a real application, you would send this to your backend
-      console.log("User data to be saved:", userData);
+      // Save to localStorage
+      localStorage.setItem('userProfileData', JSON.stringify(userData));
       
-      // Simulate API call
-      setTimeout(() => {
-        alert("User details saved successfully!");
-        // window.location.href = "profile.html"; // Redirect to profile
-      }, 1000);
+      // Redirect to profile page
+      window.location.href = 'profile.html';
     }
-
-    // Add today's date as the max for date of birth
-    document.getElementById('dob').max = new Date().toISOString().split("T")[0];
   </script>
 </body>
 </html>
