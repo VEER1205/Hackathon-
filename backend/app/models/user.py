@@ -7,3 +7,13 @@ class User(BaseModel):
     email: EmailStr
     skills: List[str] = []
     interests: List[str] = []
+
+    class Config:
+        json_schema_extra = {
+            "example": {
+                "name": "John Doe",
+                "email": "john@example.com",
+                "skills": ["Python", "Data Science"],
+                "interests": ["AI", "ML"]
+            }
+        }

@@ -1,8 +1,12 @@
-import os
-from dotenv import load_dotenv
+from pydantic_settings import BaseSettings
 
-load_dotenv()
+class Settings(BaseSettings):
+    MONGO_URI: str
+    DB_NAME: str
 
-MONGO_URI = os.getenv("MONGO_URI", "mongodb://localhost:27017/mydatabase")
-DB_NAME = os.getenv("DB_NAME", "mydatabase")
+    class Config:
+        env_file = ".env"   # looks for backend/.env
+        env_file_encoding = "utf-8"
 
+settings = Settings()
+print("DEBUG:", settings.model_dump())  
