@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from app.routes import user_routes
+from app.routes import user_routes,gemini
 
 app = FastAPI(title="PathFinder API")
 
@@ -22,6 +22,7 @@ app.add_middleware(
 )
 
 app.include_router(user_routes.router)
+app.include_router(gemini.router,)
 
 @app.get("/", tags=["Health"])
 async def root():
