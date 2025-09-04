@@ -1,219 +1,818 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>NeuralBot - AI Assistant</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Futuro AI Assistant</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    body {
-      background: linear-gradient(135deg, #dddfe6 0%, #b5c5d6 100%);
-      color: #333;
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 20px;
-    }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #0f0f23;
+            color: #e2e8f0;
+            line-height: 1.6;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
 
-    .container {
-      width: 100%;
-      max-width: 900px;
-      background: #fdfdfd;
-      border-radius: 20px;
-      overflow: hidden;
-      box-shadow: 0 8px 25px rgba(134, 161, 172, 0.4);
-      border: 1px solid rgba(134, 161, 172, 0.3);
-      display: flex;
-      flex-direction: column;
-    }
+        .header {
+            background: #1a1a2e;
+            border-bottom: 1px solid #2d3748;
+            padding: 12px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);
+        }
 
-    .header {
-      background: #3993ad;
-      padding: 20px;
-      display: flex;
-      align-items: center;
-      color: #fff;
-    }
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
 
-    .logo {
-      width: 50px;
-      height: 50px;
-      background: #2e768a;
-      border-radius: 50%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin-right: 15px;
-      box-shadow: 0 0 10px rgba(57, 147, 173, 0.7);
-    }
+        .logo {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, #f97316, #f59e0b);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            color: white;
+            font-size: 16px;
+        }
 
-    .logo i {
-      font-size: 22px;
-      color: #fff;
-    }
+        .title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #f1f5f9;
+        }
 
-    .header h1 {
-      font-size: 26px;
-      font-weight: bold;
-    }
+        .model-info {
+            background: #2d3748;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+            color: #94a3b8;
+            font-weight: 500;
+        }
 
-    .header p {
-      font-size: 14px;
-      opacity: 0.9;
-    }
+        .chat-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            max-width: 768px;
+            margin: 0 auto;
+            width: 100%;
+            overflow: hidden;
+        }
 
-    .chat-container {
-      height: 500px;
-      overflow-y: auto;
-      padding: 20px;
-      background: #fdfdfd;
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-    }
+        .messages-container {
+            flex: 1;
+            overflow-y: auto;
+            padding: 24px;
+            scroll-behavior: smooth;
+        }
 
-    .message {
-      max-width: 75%;
-      padding: 14px 18px;
-      border-radius: 15px;
-      line-height: 1.5;
-      font-size: 15px;
-      position: relative;
-      animation: fadeIn 0.3s ease;
-    }
+        .message {
+            margin-bottom: 32px;
+            animation: fadeInUp 0.4s ease-out;
+        }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
 
-    .bot-message {
-      background: #e9f4f7;
-      align-self: flex-start;
-      border: 1px solid #86a1ac;
-      border-bottom-left-radius: 5px;
-    }
+        .message-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 8px;
+        }
 
-    .user-message {
-      background: #3993ad;
-      color: #fff;
-      align-self: flex-end;
-      border-bottom-right-radius: 5px;
-    }
+        .avatar {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 600;
+        }
 
-    .message-time {
-      font-size: 11px;
-      opacity: 0.6;
-      text-align: right;
-      margin-top: 6px;
-    }
+        .user-avatar {
+            background: #3b82f6;
+            color: white;
+        }
 
-    .input-container {
-      display: flex;
-      padding: 15px;
-      background: #fdfdfd;
-      border-top: 1px solid #ddd;
-      gap: 10px;
-    }
+        .assistant-avatar {
+            background: linear-gradient(135deg, #f97316, #f59e0b);
+            color: white;
+        }
 
-    .file-upload {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: #b5c5d6;
-      width: 45px;
-      height: 45px;
-      border-radius: 50%;
-      cursor: pointer;
-      color: #333;
-      font-size: 18px;
-      transition: all 0.3s ease;
-      position: relative;
-    }
+        .sender-name {
+            font-weight: 600;
+            color: #f1f5f9;
+            font-size: 14px;
+        }
 
-    .file-upload:hover {
-      background: #86a1ac;
-      color: #fff;
-    }
+        .timestamp {
+            font-size: 12px;
+            color: #64748b;
+            margin-left: auto;
+        }
 
-    .file-upload input {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      opacity: 0;
-      cursor: pointer;
-    }
+        .message-content {
+            margin-left: 40px;
+            font-size: 15px;
+            line-height: 1.7;
+            color: #e2e8f0;
+        }
 
-    .message-input {
-      flex: 1;
-      padding: 12px 16px;
-      border-radius: 25px;
-      border: 1px solid #b5c5d6;
-      background: #fdfdfd;
-      font-size: 15px;
-      color: #333;
-      box-shadow: inset 0px 2px 6px rgba(134, 161, 172, 0.2);
-    }
+        .user-message .message-content {
+            background: #1e293b;
+            border: 1px solid #374151;
+            border-radius: 12px;
+            padding: 16px 20px;
+            margin-left: 40px;
+            position: relative;
+        }
 
-    .message-input:focus {
-      outline: none;
-      border-color: #3993ad;
-      box-shadow: 0 0 5px rgba(57, 147, 173, 0.4);
-    }
+        .assistant-message .message-content {
+            margin-left: 40px;
+        }
 
-    .send-button {
-      background: #3993ad;
-      border: none;
-      width: 45px;
-      height: 45px;
-      border-radius: 50%;
-      color: white;
-      font-size: 18px;
-      cursor: pointer;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      transition: 0.3s ease;
-    }
+        .file-attachments {
+            margin-left: 40px;
+            margin-bottom: 12px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
 
-    .send-button:hover {
-      background: #2e768a;
-    }
-  </style>
+        .file-attachment {
+            background: #2d3748;
+            border: 1px solid #4a5568;
+            border-radius: 8px;
+            padding: 8px 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            color: #cbd5e0;
+        }
+
+        .file-icon {
+            font-size: 16px;
+        }
+
+        .file-name {
+            max-width: 150px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .file-size {
+            color: #94a3b8;
+            font-size: 12px;
+        }
+
+        .typing-indicator {
+            margin-left: 40px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #94a3b8;
+            font-size: 14px;
+            font-style: italic;
+        }
+
+        .typing-dots {
+            display: flex;
+            gap: 4px;
+        }
+
+        .typing-dot {
+            width: 4px;
+            height: 4px;
+            background: #64748b;
+            border-radius: 50%;
+            animation: typing 1.4s infinite ease-in-out;
+        }
+
+        .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+        .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes typing {
+            0%, 60%, 100% {
+                transform: translateY(0);
+                opacity: 0.4;
+            }
+            30% {
+                transform: translateY(-8px);
+                opacity: 1;
+            }
+        }
+
+        .input-container {
+            background: #1a1a2e;
+            border-top: 1px solid #2d3748;
+            padding: 16px 24px;
+            position: relative;
+        }
+
+        .input-wrapper {
+            position: relative;
+            max-width: 768px;
+            margin: 0 auto;
+        }
+
+        .attached-files {
+            margin-bottom: 12px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .attached-file {
+            background: #2d3748;
+            border: 1px solid #4a5568;
+            border-radius: 8px;
+            padding: 8px 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            color: #cbd5e0;
+        }
+
+        .remove-file {
+            cursor: pointer;
+            color: #ef4444;
+            font-weight: bold;
+            margin-left: 8px;
+            hover: color #dc2626;
+        }
+
+        .input-box {
+            display: flex;
+            align-items: flex-end;
+            gap: 12px;
+            background: #0f172a;
+            border: 1.5px solid #374151;
+            border-radius: 24px;
+            padding: 8px 16px;
+            transition: all 0.2s ease;
+        }
+
+        .input-box:focus-within {
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .file-input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .file-input {
+            position: absolute;
+            opacity: 0;
+            width: 32px;
+            height: 32px;
+            cursor: pointer;
+        }
+
+        .file-button {
+            background: transparent;
+            color: #94a3b8;
+            border: none;
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            flex-shrink: 0;
+        }
+
+        .file-button:hover {
+            background: #1e293b;
+            color: #3b82f6;
+        }
+
+        .message-input {
+            flex: 1;
+            border: none;
+            outline: none;
+            font-size: 15px;
+            line-height: 1.5;
+            resize: none;
+            background: transparent;
+            min-height: 24px;
+            max-height: 120px;
+            padding: 8px 0;
+            font-family: inherit;
+            color: #e2e8f0;
+        }
+
+        .message-input::placeholder {
+            color: #64748b;
+        }
+
+        .send-button {
+            background: #3b82f6;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            flex-shrink: 0;
+        }
+
+        .send-button:hover:not(:disabled) {
+            background: #2563eb;
+            transform: scale(1.05);
+        }
+
+        .send-button:disabled {
+            background: #374151;
+            cursor: not-allowed;
+            transform: scale(1);
+        }
+
+        .welcome-screen {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 40px;
+            color: #94a3b8;
+        }
+
+        .welcome-icon {
+            width: 64px;
+            height: 64px;
+            background: linear-gradient(135deg, #f97316, #f59e0b);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            color: white;
+            margin-bottom: 24px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+        }
+
+        .welcome-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: #f1f5f9;
+            margin-bottom: 8px;
+        }
+
+        .welcome-subtitle {
+            font-size: 16px;
+            margin-bottom: 32px;
+            max-width: 400px;
+        }
+
+        .suggestions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 12px;
+            max-width: 500px;
+            width: 100%;
+        }
+
+        .suggestion {
+            background: #1a1a2e;
+            border: 1px solid #2d3748;
+            border-radius: 12px;
+            padding: 16px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: left;
+        }
+
+        .suggestion:hover {
+            border-color: #3b82f6;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .suggestion-title {
+            font-weight: 600;
+            color: #f1f5f9;
+            margin-bottom: 4px;
+            font-size: 14px;
+        }
+
+        .suggestion-desc {
+            font-size: 13px;
+            color: #94a3b8;
+        }
+
+        .drag-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(59, 130, 246, 0.1);
+            backdrop-filter: blur(4px);
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            border: 3px dashed #3b82f6;
+        }
+
+        .drag-overlay.active {
+            display: flex;
+        }
+
+        .drag-text {
+            font-size: 24px;
+            font-weight: 600;
+            color: #3b82f6;
+            margin-bottom: 8px;
+        }
+
+        .drag-subtext {
+            color: #64748b;
+            font-size: 16px;
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                padding: 12px 16px;
+            }
+            
+            .messages-container {
+                padding: 16px;
+            }
+            
+            .input-container {
+                padding: 12px 16px;
+            }
+            
+            .message-content, .user-message .message-content {
+                margin-left: 32px;
+            }
+            
+            .typing-indicator, .file-attachments {
+                margin-left: 32px;
+            }
+            
+            .suggestions {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
-  <div class="container">
+    <div class="drag-overlay" id="dragOverlay">
+        <div class="drag-text">📁 Drop files here</div>
+        <div class="drag-subtext">Release to upload files</div>
+    </div>
+
     <div class="header">
-      <div class="logo"><i class="fas fa-robot"></i></div>
-      <div>
-        <h1>NeuralBot</h1>
-        <p>AI Assistant with Multi-Modal Capabilities</p>
-      </div>
+        <div class="header-left">
+            <div class="logo">F</div>
+            <div class="title">Futuro</div>
+        </div>
     </div>
 
-    <div class="chat-container" id="chatContainer">
-      <div class="message bot-message">
-        <div>Hello! I'm NeuralBot, your AI assistant. How can I help you today?</div>
-        <div class="message-time">12:00 PM</div>
-      </div>
+    <div class="chat-container">
+        <div class="messages-container" id="messagesContainer">
+            <div class="welcome-screen" id="welcomeScreen">
+                <div class="welcome-icon">🤖</div>
+                <h1 class="welcome-title">Hello! I'm Futuro</h1>
+                <p class="welcome-subtitle">I'm an AI assistant created by Anthropic. I can help you with text, images, documents, and code.</p>
+                
+                <div class="suggestions">
+                    <div class="suggestion" onclick="sendSuggestion('Help me write a professional email')">
+                        <div class="suggestion-title">✍ Writing</div>
+                        <div class="suggestion-desc">Help me write a professional email</div>
+                    </div>
+                    <div class="suggestion" onclick="sendSuggestion('Analyze this document for key insights')">
+                        <div class="suggestion-title">📄 Analysis</div>
+                        <div class="suggestion-desc">Analyze this document for key insights</div>
+                    </div>
+                    <div class="suggestion" onclick="sendSuggestion('Help me plan a healthy meal')">
+                        <div class="suggestion-title">🥗 Planning</div>
+                        <div class="suggestion-desc">Help me plan a healthy meal</div>
+                    </div>
+                    <div class="suggestion" onclick="sendSuggestion('Debug my Python code')">
+                        <div class="suggestion-title">💻 Coding</div>
+                        <div class="suggestion-desc">Debug my Python code</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="input-container">
+            <div class="input-wrapper">
+                <div class="attached-files" id="attachedFiles"></div>
+                <div class="input-box">
+                    <div class="file-input-wrapper">
+                        <input type="file" class="file-input" id="fileInput" multiple accept="/">
+                        <button class="file-button" type="button">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <textarea 
+                        class="message-input" 
+                        id="messageInput" 
+                        placeholder="Message Futuro..."
+                        rows="1"
+                    ></textarea>
+                    <button class="send-button" id="sendButton" onclick="sendMessage()">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="m21.426 11.095-17-8A1 1 0 0 0 3.03 4.242L4.969 12 3.03 19.758a1 1 0 0 0 1.396 1.147l17-8a1 1 0 0 0 0-1.81zM5.481 6.376l10.518 4.972H8a1 1 0 0 0 0 2h8.001l-10.518 4.972L6.313 13H11a1 1 0 0 0 0-2H6.313l-.832-5.624z"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <div class="input-container">
-      <label class="file-upload">
-        <i class="fas fa-paperclip"></i>
-        <input type="file" multiple>
-      </label>
-      <input type="text" class="message-input" placeholder="Type your message here...">
-      <button class="send-button"><i class="fas fa-paper-plane"></i></button>
-    </div>
-  </div>
+    <script>
+        const messagesContainer = document.getElementById('messagesContainer');
+        const messageInput = document.getElementById('messageInput');
+        const sendButton = document.getElementById('sendButton');
+        const welcomeScreen = document.getElementById('welcomeScreen');
+        const fileInput = document.getElementById('fileInput');
+        const attachedFiles = document.getElementById('attachedFiles');
+        const dragOverlay = document.getElementById('dragOverlay');
+        
+        let messageCount = 0;
+        let selectedFiles = [];
+
+        // Auto-resize textarea
+        messageInput.addEventListener('input', function() {
+            this.style.height = 'auto';
+            this.style.height = (this.scrollHeight) + 'px';
+        });
+
+        // Send message on Enter (but allow Shift+Enter for new line)
+        messageInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                sendMessage();
+            }
+        });
+
+        // File input handling
+        fileInput.addEventListener('change', function(e) {
+            handleFiles(e.target.files);
+        });
+
+        // Drag and drop handling
+        document.addEventListener('dragover', function(e) {
+            e.preventDefault();
+            dragOverlay.classList.add('active');
+        });
+
+        document.addEventListener('dragleave', function(e) {
+            if (e.clientX === 0 && e.clientY === 0) {
+                dragOverlay.classList.remove('active');
+            }
+        });
+
+        document.addEventListener('drop', function(e) {
+            e.preventDefault();
+            dragOverlay.classList.remove('active');
+            handleFiles(e.dataTransfer.files);
+        });
+
+        function handleFiles(files) {
+            for (let file of files) {
+                if (!selectedFiles.find(f => f.name === file.name && f.size === file.size)) {
+                    selectedFiles.push(file);
+                }
+            }
+            renderAttachedFiles();
+        }
+
+        function renderAttachedFiles() {
+            attachedFiles.innerHTML = '';
+            selectedFiles.forEach((file, index) => {
+                const fileDiv = document.createElement('div');
+                fileDiv.className = 'attached-file';
+                
+                const fileIcon = getFileIcon(file.type);
+                const fileSize = formatFileSize(file.size);
+                
+                fileDiv.innerHTML = `
+                    <span class="file-icon">${fileIcon}</span>
+                    <span class="file-name">${file.name}</span>
+                    <span class="file-size">(${fileSize})</span>
+                    <span class="remove-file" onclick="removeFile(${index})">×</span>
+                `;
+                
+                attachedFiles.appendChild(fileDiv);
+            });
+        }
+
+        function removeFile(index) {
+            selectedFiles.splice(index, 1);
+            renderAttachedFiles();
+        }
+
+        function getFileIcon(mimeType) {
+            if (mimeType.startsWith('image/')) return '🖼';
+            if (mimeType.startsWith('video/')) return '🎥';
+            if (mimeType.startsWith('audio/')) return '🎵';
+            if (mimeType.includes('pdf')) return '📄';
+            if (mimeType.includes('document') || mimeType.includes('word')) return '📝';
+            if (mimeType.includes('spreadsheet') || mimeType.includes('excel')) return '📊';
+            if (mimeType.includes('presentation') || mimeType.includes('powerpoint')) return '📋';
+            if (mimeType.includes('text')) return '📄';
+            if (mimeType.includes('zip') || mimeType.includes('rar')) return '🗜';
+            return '📁';
+        }
+
+        function formatFileSize(bytes) {
+            if (bytes === 0) return '0 B';
+            const k = 1024;
+            const sizes = ['B', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(1)) + ' ' + sizes[i];
+        }
+
+        function sendSuggestion(text) {
+            sendMessage(text);
+        }
+
+        function sendMessage(text = null) {
+            const message = text || messageInput.value.trim();
+            if (!message && selectedFiles.length === 0) return;
+
+            // Hide welcome screen on first message
+            if (welcomeScreen) {
+                welcomeScreen.style.display = 'none';
+            }
+
+            // Add user message with files
+            addMessage(message || 'Uploaded files', 'user', [...selectedFiles]);
+            
+            // Clear input and files
+            messageInput.value = '';
+            messageInput.style.height = 'auto';
+            selectedFiles = [];
+            renderAttachedFiles();
+            
+            // Show typing indicator
+            showTypingIndicator();
+            
+            // Simulate Futuro-like responses
+            setTimeout(() => {
+                hideTypingIndicator();
+                generateResponse(message);
+            }, 800 + Math.random() * 1500);
+        }
+
+        function addMessage(content, sender, files = []) {
+            messageCount++;
+            const messageDiv = document.createElement('div');
+            messageDiv.className = message ${sender}-message;
+            
+            const now = new Date();
+            const timeString = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            
+            const avatar = sender === 'user' ? 'U' : 'C';
+            const senderName = sender === 'user' ? 'You' : 'Futuro';
+            
+            let filesHtml = '';
+            if (files.length > 0) {
+                filesHtml = '<div class="file-attachments">';
+                files.forEach(file => {
+                    const fileIcon = getFileIcon(file.type);
+                    const fileSize = formatFileSize(file.size);
+                    filesHtml += `
+                        <div class="file-attachment">
+                            <span class="file-icon">${fileIcon}</span>
+                            <span class="file-name">${file.name}</span>
+                            <span class="file-size">(${fileSize})</span>
+                        </div>
+                    `;
+                });
+                filesHtml += '</div>';
+            }
+            
+            messageDiv.innerHTML = `
+                <div class="message-header">
+                    <div class="avatar ${sender}-avatar">${avatar}</div>
+                    <div class="sender-name">${senderName}</div>
+                    <div class="timestamp">${timeString}</div>
+                </div>
+                ${filesHtml}
+                ${content ? <div class="message-content">${content}</div> : ''}
+            `;
+            
+            messagesContainer.appendChild(messageDiv);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        function showTypingIndicator() {
+            const typingDiv = document.createElement('div');
+            typingDiv.className = 'message assistant-message';
+            typingDiv.id = 'typingIndicator';
+            
+            typingDiv.innerHTML = `
+                <div class="message-header">
+                    <div class="avatar assistant-avatar">C</div>
+                    <div class="sender-name">Futuro</div>
+                </div>
+                <div class="typing-indicator">
+                    <span>Thinking</span>
+                    <div class="typing-dots">
+                        <div class="typing-dot"></div>
+                        <div class="typing-dot"></div>
+                        <div class="typing-dot"></div>
+                    </div>
+                </div>
+            `;
+            
+            messagesContainer.appendChild(typingDiv);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        function hideTypingIndicator() {
+            const typingIndicator = document.getElementById('typingIndicator');
+            if (typingIndicator) {
+                typingIndicator.remove();
+            }
+        }
+
+        function generateResponse(userMessage) {
+            const responses = [
+                "I'd be happy to help you with that! Let me break this down for you step by step.",
+                "That's a great question. Based on what you're asking, here's what I would recommend:",
+                "I understand what you're looking for. Here's my thoughts on this:",
+                "Thanks for asking! I can definitely help you with this. Let me provide you with a comprehensive answer.",
+                "That's an interesting topic. I'll do my best to give you a helpful and accurate response.",
+                "I appreciate you bringing this to my attention. Here's what I can tell you about this:",
+                "Let me think through this carefully and provide you with a thoughtful response."
+            ];
+            
+            // Add file-aware responses
+            if (selectedFiles.length > 0) {
+                responses.push("I can see you've uploaded some files. Let me analyze them and provide you with insights.");
+                responses.push("Thanks for sharing those files! I'll examine them and give you a detailed response.");
+            }
+            
+            // Add some context-aware responses
+            if (userMessage && userMessage.toLowerCase().includes('code') || userMessage && userMessage.toLowerCase().includes('program')) {
+                responses.push("I'd be glad to help you with coding! Could you share more details about what you're working on?");
+            }
+            if (userMessage && userMessage.toLowerCase().includes('write') || userMessage && userMessage.toLowerCase().includes('email')) {
+                responses.push("I can definitely help you with writing! Let me craft something appropriate for your needs.");
+            }
+            if (userMessage && userMessage.toLowerCase().includes('explain') || userMessage && userMessage.toLowerCase().includes('what is')) {
+                responses.push("Great question! I'll explain this in a clear and accessible way.");
+            }
+            
+            const randomResponse = responses[Math.floor(Math.random() * responses.length)];
+            addMessage(randomResponse, 'assistant');
+        }
+    </script>
 </body>
 </html>
