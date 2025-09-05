@@ -1,194 +1,332 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Profile</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Profile Dashboard</title>
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
-    
     body {
-      background: linear-gradient(135deg, #6a11cb, #2575fc);
-      color: #333;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      margin: 0;
-      padding: 20px;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f0f3ff;
+      margin: 20px;
+      color: #222;
     }
-    
-    .card {
+    .container {
       background: white;
-      padding: 40px;
-      border-radius: 20px;
-      width: 500px;
-      max-width: 90%;
-      box-shadow: 0 15px 30px rgba(0,0,0,0.2);
-      text-align: center;
-      transition: transform 0.3s ease;
-    }
-    
-    .card:hover {
-      transform: translateY(-5px);
-    }
-    
-    .card h2 {
-      color: #2575fc;
-      margin-bottom: 25px;
-      font-size: 28px;
+      border-radius: 15px;
+      padding: 30px;
+      max-width: 900px;
+      margin: auto;
+      box-shadow: 0 12px 25px rgba(0,0,0,0.1);
       position: relative;
-      display: inline-block;
+      overflow: hidden;
     }
-    
-    .card h2::after {
+    .container::before, .container::after {
       content: '';
       position: absolute;
-      bottom: -10px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 50px;
-      height: 3px;
-      background: linear-gradient(90deg, #6a11cb, #2575fc);
-      border-radius: 3px;
-    }
-    
-    .profile-pic {
-      width: 150px;
-      height: 150px;
       border-radius: 50%;
-      background: linear-gradient(135deg, #6a11cb, #2575fc);
-      margin: 0 auto 25px;
+      background: #1750d9;
+      opacity: 0.2;
+      z-index: 0;
+    }
+    .container::before {
+      width: 250px;
+      height: 250px;
+      top: -100px;
+      left: -100px;
+    }
+    .container::after {
+      width: 350px;
+      height: 350px;
+      bottom: -175px;
+      right: -175px;
+    }
+    header {
       display: flex;
       align-items: center;
-      justify-content: center;
-      color: white;
-      font-size: 16px;
-      box-shadow: 0 8px 20px rgba(38, 117, 252, 0.4);
-      border: 4px solid white;
-      background-size: cover;
-      background-position: center;
+      gap: 10px;
+      margin-bottom: 25px;
+      position: relative;
+      z-index: 1;
     }
-    
-    .card p {
-      margin: 15px 0;
-      font-size: 17px;
-      text-align: left;
-      padding-left: 20px;
+    header img {
+      height: 28px;
+      width: 28px;
+    }
+    header h1 {
+      font-weight: 700;
+      font-size: 22px;
+      margin: 0;
+      user-select: none;
+    }
+    h2 {
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 15px;
+      position: relative;
+      z-index: 1;
+    }
+    .career-progression {
+      position: relative;
+      margin-bottom: 50px;
+      z-index: 1;
+    }
+    .forward-vision {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background-color: white;
+      border-radius: 20px;
+      border: 1px solid #2c7bf2;
+      color: #2c7bf2;
+      font-size: 14px;
+      font-weight: 600;
+      padding: 4px 12px;
+      position: absolute;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      user-select: none;
+    }
+    .forward-vision .dot {
+      height: 10px;
+      width: 10px;
+      border-radius: 50%;
+      background-color: #2c7bf2;
+    }
+    .line-chart {
+      width: 100%;
+      height: 220px;
+    }
+    .chart-label {
+      font-size: 11px;
+      fill: #999;
+      user-select: none;
+    }
+    .skills-section {
+      display: flex;
+      gap: 40px;
+      align-items: center;
+      margin-bottom: 40px;
+      position: relative;
+      z-index: 1;
+    }
+    .donut-chart-container {
+      width: 260px;
+      height: 260px;
       position: relative;
     }
-    
-    .card p::before {
-      content: "•";
-      color: #2575fc;
-      font-weight: bold;
+    .donut-center {
       position: absolute;
-      left: 0;
+      top: 50%;
+      left: 50%;
+      background: white;
+      border-radius: 50%;
+      width: 100px;
+      height: 100px;
+      transform: translate(-50%, -50%);
+      box-shadow: 0 2px 6px #e1e8ff;
+      pointer-events: none;
+      z-index: 2;
     }
-    
-    .card strong {
-      color: #2575fc;
-      font-weight: 600;
+    .skills-legend {
+      display: flex;
+      flex-direction: column;
+      font-size: 14px;
+      gap: 10px;
+      flex: 1;
     }
-    
-    .btn {
-      display: inline-block;
-      margin-top: 25px;
-      padding: 14px 30px;
-      background: linear-gradient(135deg, #6a11cb, #2575fc);
-      color: white;
-      text-decoration: none;
-      border-radius: 50px;
-      transition: all 0.3s ease;
-      font-weight: 600;
-      font-size: 16px;
-      box-shadow: 0 8px 20px rgba(38, 117, 252, 0.4);
+    .skills-legend-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      user-select: none;
+    }
+    .skill-color {
+      width: 14px;
+      height: 14px;
+      border-radius: 3px;
+    }
+    .skill-stars {
+      margin-left: 6px;
+      color: #f5bc11;
+    }
+    .about-me {
+      display: flex;
+      gap: 25px;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+    .profile-pic {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+    }
+    .about-text {
+      flex: 1;
+    }
+    .about-text h3 {
+      margin: 0 0 10px 0;
+      font-weight: 700;
+      font-size: 18px;
+    }
+    .about-text p {
+      font-size: 14px;
+      color: #555;
+      line-height: 1.4;
+      margin-bottom: 15px;
+    }
+    .btn-follow {
       border: none;
+      background: #1750d9;
+      color: white;
+      padding: 8px 20px;
+      font-weight: 600;
+      border-radius: 6px;
       cursor: pointer;
+      transition: background-color 0.3s ease;
+      user-select: none;
     }
-    
-    .btn:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 12px 25px rgba(38, 117, 252, 0.5);
-      background: linear-gradient(135deg, #2575fc, #6a11cb);
+    .btn-follow:hover {
+      background: #0f3dbb;
     }
-    
-    .empty-field {
-      color: #999;
-      font-style: italic;
-    }
-    
-    @media (max-width: 500px) {
-      .card {
-        padding: 30px 20px;
+    @media (max-width: 700px) {
+      .skills-section {
+        flex-direction: column;
+        align-items: flex-start;
       }
-      
+      .about-me {
+        flex-direction: column;
+        align-items: flex-start;
+      }
       .profile-pic {
-        width: 120px;
-        height: 120px;
-      }
-      
-      .card p {
-        font-size: 16px;
+        width: 80px;
+        height: 80px;
       }
     }
   </style>
 </head>
 <body>
-  <div class="card">
-    <div class="profile-pic" id="profileImage">Profile Picture</div>
-    <h2>User Profile</h2>
-    
-    <p><strong>Name:</strong> <span id="name" class="empty-field">Not provided</span></p>
-    <p><strong>Email:</strong> <span id="email" class="empty-field">Not provided</span></p>
-    <p><strong>Date of Birth:</strong> <span id="dob" class="empty-field">Not provided</span></p>
-    <p><strong>Phone:</strong> <span id="phone" class="empty-field">Not provided</span></p>
-    <p><strong>LinkedIn:</strong> <span id="linkedin" class="empty-field">Not provided</span></p>
-    <p><strong>GitHub:</strong> <span id="github" class="empty-field">Not provided</span></p>
-    
-    <a href="dashboard.html" class="btn">Edit Profile</a>
-  </div>
+  <div class="container" role="main">
+    <!-- About Me Section -->
+    <section class="about-me" aria-labelledby="about-title">
+      <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="Profile picture of user" class="profile-pic" />
+      <div class="about-text">
+        <h3 id="about-title">About Me</h3>
+        <p>I’m a passionate developer focused on creating intuitive dashboards and data-driven applications. Skilled in software development, design, and project management, I aim to merge creativity with technical expertise.</p>
+        <button class="btn-follow" aria-label="Follow Me button">Follow Me</button>
+      </div>
+    </section>
 
-  <script>
-    // Load data from localStorage
-    window.addEventListener('DOMContentLoaded', function() {
-      const savedData = localStorage.getItem('userProfileData');
-      if (savedData) {
-        const userData = JSON.parse(savedData);
-        
-        // Update profile page with user data
-        document.getElementById('name').textContent = userData.name || 'Not provided';
-        document.getElementById('name').className = '';
-        
-        document.getElementById('email').textContent = userData.email || 'Not provided';
-        document.getElementById('email').className = '';
-        
-        document.getElementById('dob').textContent = userData.dob || 'Not provided';
-        document.getElementById('dob').className = '';
-        
-        document.getElementById('phone').textContent = userData.phone || 'Not provided';
-        if (!userData.phone) document.getElementById('phone').className = 'empty-field';
-        
-        document.getElementById('linkedin').textContent = userData.linkedin || 'Not provided';
-        if (!userData.linkedin) document.getElementById('linkedin').className = 'empty-field';
-        
-        document.getElementById('github').textContent = userData.github || 'Not provided';
-        if (!userData.github) document.getElementById('github').className = 'empty-field';
-        
-        // Update profile picture
-        const profileImage = document.getElementById('profileImage');
-        if (userData.profilePic && userData.profilePic !== 'none') {
-          profileImage.style.backgroundImage = userData.profilePic;
-          profileImage.textContent = '';
-        } else {
-          profileImage.textContent = 'Profile Picture';
-        }
-      }
-    });
-  </script>
+    <!-- Career Progression Section -->
+    <section class="career-progression" aria-labelledby="career-title">
+      <h2 id="career-title">Career Progression</h2>
+      <div role="img" aria-label="Career progression line chart showing growth from 2019 to 2023">
+        <div class="forward-vision">
+          <span class="dot"></span> Forward Vision
+        </div>
+        <svg class="line-chart" viewBox="0 0 900 220" aria-hidden="true" focusable="false">
+          <!-- grid lines -->
+          <line x1="50" y1="30" x2="50" y2="180" stroke="#eee" stroke-width="1"></line>
+          <line x1="150" y1="30" x2="150" y2="180" stroke="#eee" stroke-width="1"></line>
+          <line x1="250" y1="30" x2="250" y2="180" stroke="#eee" stroke-width="1"></line>
+          <line x1="350" y1="30" x2="350" y2="180" stroke="#eee" stroke-width="1"></line>
+          <line x1="450" y1="30" x2="450" y2="180" stroke="#eee" stroke-width="1"></line>
+          <line x1="550" y1="30" x2="550" y2="180" stroke="#eee" stroke-width="1"></line>
+          <line x1="650" y1="30" x2="650" y2="180" stroke="#eee" stroke-width="1"></line>
+          <line x1="750" y1="30" x2="750" y2="180" stroke="#eee" stroke-width="1"></line>
+          <line x1="850" y1="30" x2="850" y2="180" stroke="#eee" stroke-width="1"></line>
+          <!-- Horizontal year lines -->
+          <text x="10" y="75" class="chart-label">2019</text>
+          <text x="10" y="130" class="chart-label">2020</text>
+          <text x="10" y="183" class="chart-label">2021</text>
+          <!-- Progression Line -->
+          <polyline fill="none" stroke="#2c7bf2" stroke-width="3" points="60,160 140,110 230,110 310,110 400,106 480,100 560,95 635,90 720,60 810,40" />
+          <!-- Data points -->
+          <circle cx="60" cy="160" r="7" fill="#2c7bf2" />
+          <circle cx="140" cy="110" r="7" fill="#2c7bf2" />
+          <circle cx="230" cy="110" r="7" fill="#2c7bf2" />
+          <circle cx="310" cy="110" r="7" fill="#2c7bf2" />
+          <circle cx="400" cy="106" r="7" fill="#2c7bf2" />
+          <circle cx="480" cy="100" r="7" fill="#2c7bf2" />
+          <circle cx="560" cy="95" r="7" fill="#2c7bf2" />
+          <circle cx="635" cy="90" r="7" fill="#2c7bf2" />
+          <circle cx="720" cy="60" r="7" fill="#2c7bf2" />
+          <circle cx="810" cy="40" r="9" fill="#2c7bf2" filter="url(#glow)" />
+          <defs>
+            <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+              <feDropShadow dx="0" dy="0" stdDeviation="4" flood-color="#2c7bf2" flood-opacity="0.7"/>
+            </filter>
+          </defs>
+        </svg>
+      </div>
+    </section>
+
+    <!-- Segmented Skills Section -->
+    <section aria-labelledby="skills-title" class="skills-section">
+      <div class="donut-chart-container" aria-label="Segmented skills donut chart" role="img">
+        <svg width="260" height="260" viewBox="0 0 260 260" aria-hidden="true" focusable="false">
+          <!-- Base Circle -->
+          <circle r="100" cx="130" cy="130" fill="#f0f3ff" />
+          
+          <!-- Circumference ≈ 628 -->
+          <!-- Software (15%) -->
+          <circle r="100" cx="130" cy="130" fill="transparent"
+                  stroke="#e03e5a" stroke-width="30"
+                  stroke-dasharray="94 534"
+                  transform="rotate(-90 130 130)" />
+          
+          <!-- Software Development (20%) -->
+          <circle r="100" cx="130" cy="130" fill="transparent"
+                  stroke="#e41d7c" stroke-width="30"
+                  stroke-dasharray="126 502"
+                  transform="rotate(-36 130 130)" />
+          
+          <!-- Project Management (15%) -->
+          <circle r="100" cx="130" cy="130" fill="transparent"
+                  stroke="#fbc906" stroke-width="30"
+                  stroke-dasharray="94 534"
+                  transform="rotate(36 130 130)" />
+          
+          <!-- Data Analysis (10%) -->
+          <circle r="100" cx="130" cy="130" fill="transparent"
+                  stroke="#95c33d" stroke-width="30"
+                  stroke-dasharray="63 565"
+                  transform="rotate(90 130 130)" />
+          
+          <!-- Communication (10%) -->
+          <circle r="100" cx="130" cy="130" fill="transparent"
+                  stroke="#e29540" stroke-width="30"
+                  stroke-dasharray="63 565"
+                  transform="rotate(126 130 130)" />
+          
+          <!-- UI/UX Design (20%) -->
+          <circle r="100" cx="130" cy="130" fill="transparent"
+                  stroke="#67c4db" stroke-width="30"
+                  stroke-dasharray="126 502"
+                  transform="rotate(162 130 130)" />
+          
+          <!-- Graphic Design (10%) -->
+          <circle r="100" cx="130" cy="130" fill="transparent"
+                  stroke="#1a56db" stroke-width="30"
+                  stroke-dasharray="63 565"
+                  transform="rotate(234 130 130)" />
+        </svg>
+        <div class="donut-center" aria-hidden="true"></div>
+      </div>
+      <div class="skills-legend">
+        <div class="skills-legend-item"><div class="skill-color" style="background:#e03e5a;"></div> Software <span class="skill-stars">★★★★★</span></div>
+        <div class="skills-legend-item"><div class="skill-color" style="background:#e41d7c;"></div> Software Development <span class="skill-stars">★★★★☆</span></div>
+        <div class="skills-legend-item"><div class="skill-color" style="background:#fbc906;"></div> Project Management <span class="skill-stars">★★★☆☆</span></div>
+        <div class="skills-legend-item"><div class="skill-color" style="background:#95c33d;"></div> Data Analysis <span class="skill-stars">★★☆☆☆</span></div>
+        <div class="skills-legend-item"><div class="skill-color" style="background:#e29540;"></div> Communication <span class="skill-stars">★★☆☆☆</span></div>
+        <div class="skills-legend-item"><div class="skill-color" style="background:#67c4db;"></div> UI/UX Design <span class="skill-stars">★★★★★</span></div>
+        <div class="skills-legend-item"><div class="skill-color" style="background:#1a56db;"></div> Graphic Design <span class="skill-stars">★★☆☆☆</span></div>
+      </div>
+    </section>
+  </div>
 </body>
 </html>

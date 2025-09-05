@@ -7,7 +7,7 @@ genai.configure(api_key=settings.API_KEY)
 
 router = APIRouter()
 
-@router.post("/ask/")
+@router.get("/ask/")
 async def ask_gemini(prompt: str):
     try:
         model = genai.GenerativeModel("gemini-2.5-flash")  # safer choice
