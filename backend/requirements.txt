@@ -1,7 +1,6 @@
-fastapi
-uvicorn
-pydantic[email]
-pymongo
-python-dotenv
-google-generativeai
-email-validator
+fastapi==0.115.0
+uvicorn==0.30.6
+pydantic[email]==2.8.0
+pymongo==4.9.1
+python-dotenv==1.0.1
+google-generativeai==0.7.2
