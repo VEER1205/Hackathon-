@@ -4,3 +4,4 @@ pydantic[email]
 pymongo
 python-dotenv
 google-generativeai
+email-validator
