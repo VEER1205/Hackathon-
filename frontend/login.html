@@ -23,13 +23,12 @@
       }
 
       body {
-        /* background: #121212; */
-        background-image: radial-gradient(
-          circle,
-          rgb(87, 87, 87),
-          rgb(24, 24, 24)
-        ); /* Dark background */
+        background: #121212;
+        background-image: radial-gradient(#555555,#121212); /* Dark background */
+        color: #e0e0e0;
+        overflow-x: hidden; /* Prevents horizontal scrollbar */
       }
+
       /* Navbar custom color */
       .navbar-custom {
         background: rgba(0, 0, 0, 0.5); /* Semi-transparent dark background */
@@ -38,24 +37,29 @@
         color: #e0e0e0;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
       }
+
       .navbar-custom .fw-bold {
         color: #00aaff !important; /* Glow blue logo color */
       }
+
       .navbar-custom .nav-link {
         color: #e0e0e0 !important;
         transition: color 0.3s ease;
       }
+
       .navbar-custom .nav-link:hover {
         color: #00aaff !important; /* Glow blue on hover */
         text-shadow: 0 0 8px rgba(0, 170, 255, 0.8); /* Glow effect */
       }
 
-      .page-content {
-        margin-top: 150px;
+      .main-content-wrapper {
         display: flex;
         justify-content: center;
         align-items: center;
-        min-height: calc(100vh - 150px);
+        min-height: 100vh;
+        gap: 50px;
+        padding-top: 150px; /* Adjust for navbar height */
+        padding-bottom: 50px;
       }
 
       .container-box {
@@ -279,14 +283,29 @@
       .toggle-left {
         transform: translateX(-200%);
       }
+
       .container-box.active .toggle-left {
         transform: translateX(0);
       }
+
       .toggle-right {
         right: 0;
       }
+
       .container-box.active .toggle-right {
         transform: translateX(200%);
+      }
+
+      /* New CSS for Spline Animation */
+      #spline-container {
+        width: 500px;
+        height: 500px;
+      }
+
+      @media (max-width: 992px) {
+        #spline-container {
+          display: none;
+        }
       }
     </style>
   </head>
@@ -313,7 +332,12 @@
       </ul>
     </header>
 
-    <div class="page-content">
+    <div class="main-content-wrapper">
+      <div id="spline-container">
+        <script type="module" src="https://unpkg.com/@splinetool/viewer@1.10.56/build/spline-viewer.js"></script>
+<spline-viewer url="https://prod.spline.design/DaC8UYKAAv0obxsv/scene.splinecode"></spline-viewer>
+      </div>
+
       <div class="container-box" id="container">
         <div class="form-container sign-up">
           <form>
