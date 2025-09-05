@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Futuro - Career Guidance Platform</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/a2e0e6ad63.js" crossorigin="anonymous"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300;400;600&family=Orbitron:wght@400;600;800&display=swap" rel="stylesheet">
+    
+    <style>
+      /* Base Styles */
+      :root {
+        /* Blues & Accents */
+        --primary: #1e88e5;      /* Bright Blue (main accent) */
+        --secondary: #64b5f6;    /* Soft Sky Blue (gradients/highlights) */
+        --accent: #0d47a1;       /* Deep Navy (shadows / strong accents) */
+
+        /* Background (dark blue gradient) */
+        --background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+
+        /* Card background */
+        --card-bg: #0f172a; /* deep blue for cards */
+
+        /* Text */
+        --text-primary: #ffffff;
+        --text-secondary: #cfd8dc;
+
+        /* Glows (all blue now) */
+        --glow-primary: 0 0 10px rgba(30,136,229,.7), 0 0 20px rgba(30,136,229,.5);
+        --glow-secondary: 0 0 10px rgba(100,181,246,.7), 0 0 20px rgba(100,181,246,.5);
+        --glow-accent: 0 0 10px rgba(13,71,161,.7), 0 0 20px rgba(13,71,161,.5);
+
+        /* Sizes (reduced by ~20%) */
+        --card-width: 240px;     /* was 300px */
+        --card-height: 336px;    /* was 420px */
+        --carousel-radius: 320px;/* was 400px */
+        --transition-speed: 0.5s;
+      }
+
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+
+      html, body {
+        height: 100%;
+        font-family: "Chakra Petch", sans-serif;
+        background: var(--background); /* use gradient */
+        color: var(--text-primary);
+        overflow-x: hidden;
+      }
+
+      /* Typography */
+      h1, h2, h3, h4, h5, h6 {
+        font-family: "Orbitron", sans-serif;
+        font-weight: 700;
+        letter-spacing: 1px;
+      }
+
+      .title {
+        font-size: 2.5rem;
+        margin-bottom: 0.5rem;
+        background: linear-gradient(90deg, var(--primary), var(--secondary));
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        text-shadow: 0 0 15px rgba(30,136,229,.45);
+        animation: pulse 3s infinite alternate;
+      }
+
+      /* Starry Background */
+      .cosmos-background {
+        position: fixed; inset: 0; z-index: -1;
+        background: radial-gradient(ellipse at bottom, #0d1b26 0%, #0a0f14 100%);
+        overflow: hidden;
+      }
+      .stars-container {
+        position: absolute; inset: 0;
+        background-image:
+          radial-gradient(1px 1px at 25% 25%, rgba(255,255,255,.9), transparent),
+          radial-gradient(1px 1px at 50% 50%, rgba(255,255,255,.7), transparent),
+          radial-gradient(2px 2px at 75% 75%, rgba(255,255,255,.6), transparent),
+          radial-gradient(2px 2px at 100% 100%, rgba(255,255,255,.5), transparent);
+        background-size: 200px 200px, 300px 300px, 400px 400px, 600px 600px;
+        background-repeat: repeat;
+        animation: twinkle 10s linear infinite;
+      }
+      @keyframes twinkle {
+        0% { background-position: 0 0, 0 0, 0 0, 0 0; }
+        100% { background-position: 200px 200px, 300px 300px, 400px 400px, 600px 600px; }
+      }
+
+      /* Navbar Styles */
+      .navbar {
+        background-color: rgba(13, 30, 60, 0.8) !important;
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid rgba(30,136,229,.35);
+      }
+      
+      .navbar-brand {
+        font-family: "Orbitron", sans-serif;
+        font-weight: 700;
+        color: var(--text-primary) !important;
+        text-shadow: var(--glow-primary);
+      }
+      
+      .nav-link {
+        color: var(--text-secondary) !important;
+        transition: all 0.3s ease;
+      }
+      
+      .nav-link:hover {
+        color: var(--secondary) !important;
+        text-shadow: var(--glow-secondary);
+      }
+      
+      .btn-outline-light {
+        border-color: var(--primary);
+        color: var(--primary);
+      }
+      
+      .btn-outline-light:hover {
+        background-color: var(--primary);
+        border-color: var(--primary);
+        color: var(--text-primary);
+      }
+      
+      .btn-signup {
+        background-color: var(--secondary);
+        color: var(--accent) !important;
+        font-weight: 600;
+      }
+      
+      .btn-signup:hover {
+        background-color: var(--primary);
+        color: var(--text-primary) !important;
+      }
+
+      /* Hero Section */
+      .hero-section {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        padding-top: 4rem;
+      }
+      
+      .hero-content {
+        text-align: center;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 2rem;
+      }
+      
+      .hero-title {
+        font-size: 3.5rem;
+        margin-bottom: 1.5rem;
+        background: linear-gradient(90deg, var(--primary), var(--secondary));
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        text-shadow: 0 0 20px rgba(30,136,229,.5);
+      }
+      
+      .hero-subtitle {
+        font-size: 1.2rem;
+        color: var(--text-secondary);
+        margin-bottom: 2.5rem;
+        line-height: 1.6;
+      }
+      
+      .hero-btn {
+        background: linear-gradient(to right, var(--primary), var(--secondary));
+        border: none;
+        padding: 0.8rem 2.5rem;
+        font-size: 1.1rem;
+        border-radius: 50px;
+        color: white;
+        font-weight: 600;
+        box-shadow: var(--glow-primary);
+        transition: all 0.3s ease;
+      }
+      
+      .hero-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 25px rgba(30,136,229,.5);
+      }
+
+      /* Features Section */
+      .features-section {
+        padding: 5rem 0;
+      }
+      
+      .feature-card {
+        background: rgba(13, 30, 60, 0.6);
+        border-radius: 16px;
+        padding: 2rem;
+        height: 100%;
+        border: 1px solid rgba(30,136,229,.2);
+        transition: all 0.3s ease;
+      }
+      
+      .feature-card:hover {
+        transform: translateY(-10px);
+        box-shadow: var(--glow-primary);
+        border-color: var(--primary);
+      }
+      
+      .feature-icon {
+        width: 70px;
+        height: 70px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--primary), var(--accent));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 1.5rem;
+        font-size: 1.8rem;
+      }
+      
+      .feature-title {
+        color: var(--secondary);
+        margin-bottom: 1rem;
+        font-size: 1.5rem;
+      }
+      
+      .feature-text {
+        color: var(--text-secondary);
+        line-height: 1.6;
+      }
+
+      /* Carousel Container */
+      .carousel-section {
+        padding: 5rem 0;
+        position: relative;
+      }
+      
+      .carousel-container {
+        position: relative;
+        width: 100%;
+        height: 500px;
+        perspective: 1000px;
+        transform-style: preserve-3d;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        touch-action: none;
+        margin: 3rem auto;
+      }
+      .carousel {
+        position: relative;
+        width: var(--carousel-radius);
+        height: var(--carousel-radius);
+        transform-style: preserve-3d;
+        transition: transform .5s ease;
+      }
+
+      /* Memory Cards */
+      .memory-card {
+        position: absolute;
+        width: var(--card-width);
+        height: var(--card-height);
+        left: 50%; top: 50%;
+        margin-left: calc(var(--card-width) / -2);
+        margin-top: calc(var(--card-height) / -2);
+        transform-style: preserve-3d;
+        transition: transform .8s cubic-bezier(.175,.885,.32,1.275);
+        cursor: pointer;
+      }
+      .card-inner {
+        position: relative; width: 100%; height: 100%;
+        transform-style: preserve-3d;
+        transition: transform .8s cubic-bezier(.175,.885,.32,1.275);
+      }
+      .memory-card:hover .card-inner { transform: translateZ(20px); }
+      .memory-card.flipped .card-inner { transform: rotateY(180deg); }
+
+      .card-front, .card-back {
+        position: absolute; inset: 0;
+        backface-visibility: hidden;
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 8px 30px rgba(0,0,0,.45);
+      }
+
+      .card-front {
+        /* blue-tinted glass card */
+        background: linear-gradient(135deg, rgba(13, 30, 60, .85), rgba(10, 20, 40, .9));
+        border: 1px solid rgba(30,136,229,.35);
+        transform-style: preserve-3d;
+      }
+
+      .card-back {
+        background: linear-gradient(135deg, rgba(10, 20, 40, .9), rgba(13, 30, 60, .85));
+        border: 1px solid rgba(100,181,246,.35);
+        transform: rotateY(180deg);
+      }
+
+      .card-content {
+        padding: 20px;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+      }
+
+      .memory-date {
+        font-family: "Orbitron", sans-serif;
+        font-size: .8rem;
+        color: var(--secondary);
+        margin-bottom: 10px;
+        text-shadow: 0 0 5px rgba(100,181,246,.6);
+      }
+
+      .memory-card h3 {
+        font-size: 1.5rem;
+        margin-bottom: 15px;
+        color: var(--text-primary);
+        text-shadow: 0 0 10px rgba(255,255,255,.35);
+      }
+
+      .memory-image {
+        width: 100%; height: 150px; margin-bottom: 15px;
+        display: flex; justify-content: center; align-items: center;
+        position: relative; overflow: hidden; border-radius: 10px;
+        background: rgba(0, 0, 0, .25);
+      }
+      .memory-image i {
+        color: var(--primary);
+        font-size: 4rem;
+        text-shadow: var(--glow-primary);
+        animation: pulse 3s infinite alternate;
+        z-index: 2;
+      }
+
+      .glitch-effect {
+        position: absolute; inset: 0;
+        background: linear-gradient(
+          45deg,
+          transparent 65%,
+          rgba(30,136,229,.25) 70%,
+          transparent 75%
+        );
+        background-size: 200% 200%;
+        animation: glitch 3s linear infinite;
+        z-index: 1;
+      }
+      @keyframes glitch {
+        0% { background-position: 0 0; }
+        25% { background-position: 100% 0; }
+        50% { background-position: 100% 100%; }
+        75% { background-position: 0 100%; }
+        100% { background-position: 0 0; }
+      }
+
+      .memory-preview {
+        font-size: .9rem;
+        color: var(--text-secondary);
+        margin-bottom: 15px;
+        flex-grow: 1;
+      }
+      .card-back .card-content p {
+        font-size: .9rem;
+        color: var(--text-secondary);
+        margin-bottom: 20px;
+        line-height: 1.5;
+        flex-grow: 1;
+      }
+
+      .memory-coordinates {
+        font-family: "Orbitron", sans-serif;
+        font-size: .8rem;
+        color: var(--secondary);
+        display: flex; flex-direction: column; gap: 5px;
+      }
+      .time-stamp { color: var(--accent); }
+
+      .card-glow {
+        position: absolute; inset: 0;
+        border-radius: 16px; pointer-events: none;
+        background: radial-gradient(circle at 50% 50%, rgba(30,136,229,.12), transparent 70%);
+        opacity: 0; transition: opacity .3s ease;
+      }
+      .memory-card:hover .card-glow { opacity: 1; }
+
+      /* Controls */
+      .carousel-controls {
+        position: absolute; bottom: -50px; left: 50%;
+        transform: translateX(-50%);
+        display: flex; align-items: center; gap: 20px; z-index: 10;
+      }
+      .control-btn {
+        background: rgba(10, 20, 40, .7);
+        border: 1px solid var(--primary);
+        color: var(--text-primary);
+        width: 40px; height: 40px; border-radius: 50%;
+        display: flex; justify-content: center; align-items: center;
+        cursor: pointer; transition: all .3s ease;
+        box-shadow: var(--glow-primary);
+      }
+      .control-btn:hover { background: rgba(13, 30, 60, .9); transform: scale(1.1); }
+
+      /* Footer */
+      footer {
+        background: rgba(10, 20, 40, 0.8);
+        border-top: 1px solid rgba(30,136,229,.35);
+        padding: 2rem 0;
+        margin-top: 4rem;
+      }
+      
+      .footer-text {
+        color: var(--text-secondary);
+        text-align: center;
+      }
+
+      @keyframes pulse { 0%,100%{opacity:.85} 50%{opacity:1} }
+
+      /* Responsive */
+      @media (max-width: 768px) {
+        :root{
+          --card-width: 220px;
+          --card-height: 308px;
+          --carousel-radius: 280px;
+        }
+        .hero-title { font-size: 2.5rem; }
+        .carousel-container { height: 420px; }
+        .memory-card h3 { font-size: 1.2rem; }
+        .memory-image { height: 120px; }
+      }
+      @media (max-width: 576px) {
+        :root{
+          --card-width: 200px;
+          --card-height: 288px;
+          --carousel-radius: 240px;
+        }
+        .hero-title { font-size: 2rem; }
+        .carousel-container { height: 380px; }
+        .navbar-brand { font-size: 1.2rem; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="cosmos-background"><div class="stars-container"></div></div>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+      <div class="container">
+        <a class="navbar-brand d-flex align-items-center" href="#">
+          <img src="https://via.placeholder.com/40" alt="Futuro Logo" width="40" height="40" class="me-2 rounded-circle">
+          <span>Futuro</span>
+        </a>
+        
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item"><a class="nav-link active" href="#">Home</a></li>
+            <li class="nav-item"><a class="nav-link" href="#">Features</a></li>
+            <li class="nav-item"><a class="nav-link" href="#">Pricing</a></li>
+            <li class="nav-item"><a class="nav-link" href="#">FAQs</a></li>
+            <li class="nav-item"><a class="nav-link" href="#">About</a></li>
+          </ul>
+          
+          <div class="d-flex">
+            <a href="#" class="btn btn-outline-light me-2">Login</a>
+            <a href="#" class="btn btn-signup">Sign-up</a>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+      <div class="container">
+        <div class="hero-content">
+          <h1 class="hero-title">Your Career Journey Starts Here</h1>
+          <p class="hero-subtitle">
+            Get personalized career guidance, explore different paths, and connect with mentors 
+            who can help you achieve your professional dreams.
+          </p>
+          <button class="hero-btn">Start Your Journey Now</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section">
+      <div class="container">
+        <h2 class="text-center title mb-5">How Futuro Helps You</h2>
+        
+        <div class="row g-4">
+          <div class="col-md-4">
+            <div class="feature-card">
+              <div class="feature-icon">
+                <i class="fas fa-robot"></i>
+              </div>
+              <h3 class="feature-title">AI Career Advisor</h3>
+              <p class="feature-text">
+                Chat with our intelligent advisor to get personalized career recommendations.
+              </p>
+            </div>
+          </div>
+          
+          <div class="col-md-4">
+            <div class="feature-card">
+              <div class="feature-icon">
+                <i class="fas fa-chart-line"></i>
+              </div>
+              <h3 class="feature-title">Career Tracking</h3>
+              <p class="feature-text">
+                Monitor your progress and get insights into your career development.
+              </p>
+            </div>
+          </div>
+          
+          <div class="col-md-4">
+            <div class="feature-card">
+              <div class="feature-icon">
+                <i class="fas fa-users"></i>
+              </div>
+              <h3 class="feature-title">Community Support</h3>
+              <p class="feature-text">
+                Connect with other students and professionals in your field of interest.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Carousel Section -->
+    <section class="carousel-section">
+      <div class="container">
+        <h2 class="text-center title mb-5">Explore Career Resources</h2>
+        
+        <div class="carousel-container">
+          <div class="carousel" id="memory-carousel">
+            <!-- Card 1 -->
+            <div class="memory-card" data-memory-id="1">
+              <div class="card-inner">
+                <div class="card-front">
+                  <div class="card-content">
+                    <div class="memory-date">TOPIC: LinkedIn</div>
+                    <h3>LinkedIn Automation</h3>
+                    <div class="memory-image">
+                      <i class="fa-solid fa-network-wired"></i>
+                      <div class="glitch-effect"></div>
+                    </div>
+                    <p class="memory-preview">Automate networking and grow professional connections responsibly...</p>
+                    <div class="card-glow"></div>
+                  </div>
+                </div>
+                <div class="card-back">
+                  <div class="card-content">
+                    <h3>LinkedIn Automation</h3>
+                    <p>
+                      Tools can help you schedule posts, send invites, and track engagement. Always use them ethically and focus on genuine relationships.
+                    </p>
+                    <div class="memory-coordinates">
+                      <span><i class="fa-solid fa-location-dot"></i> linkedin.com</span>
+                      <span class="time-stamp"><i class="fa-regular fa-clock"></i> 09:00:00</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="memory-card" data-memory-id="2">
+              <div class="card-inner">
+                <div class="card-front">
+                  <div class="card-content">
+                    <div class="memory-date">PLATFORMS</div>
+                    <h3>Coursera & Udemy</h3>
+                    <div class="memory-image">
+                      <i class="fa-solid fa-graduation-cap"></i>
+                      <div class="glitch-effect"></div>
+                    </div>
+                    <p class="memory-preview">Access online courses to upskill from anywhere in the world...</p>
+                    <div class="card-glow"></div>
+                  </div>
+                </div>
+                <div class="card-back">
+                  <div class="card-content">
+                    <h3>Coursera & Udemy</h3>
+                    <p>
+                      Explore courses from top universities and experts. Earn certificates to boost your resume and practical knowledge.
+                    </p>
+                    <div class="memory-coordinates">
+                      <span><i class="fa-solid fa-location-dot"></i> coursera.org / udemy.com</span>
+                      <span class="time-stamp"><i class="fa-regular fa-clock"></i> Anytime</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="memory-card" data-memory-id="3">
+              <div class="card-inner">
+                <div class="card-front">
+                  <div class="card-content">
+                    <div class="memory-date">GUIDE</div>
+                    <h3>Roadmap After 10th</h3>
+                    <div class="memory-image">
+                      <i class="fa-solid fa-road"></i>
+                      <div class="glitch-effect"></div>
+                    </div>
+                    <p class="memory-preview">Choose the right path — Science, Commerce, or Arts — wisely...</p>
+                    <div class="card-glow"></div>
+                  </div>
+                </div>
+                <div class="card-back">
+                  <div class="card-content">
+                    <h3>Roadmap After 10th</h3>
+                    <p>
+                      Align your stream choice with long-term goals. Explore opportunities like IT, design, business, or humanities early.
+                    </p>
+                    <div class="memory-coordinates">
+                      <span><i class="fa-solid fa-location-dot"></i> Career Guide</span>
+                      <span class="time-stamp"><i class="fa-regular fa-clock"></i> --:--:--</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 4 -->
+            <div class="memory-card" data-memory-id="4">
+              <div class="card-inner">
+                <div class="card-front">
+                  <div class="card-content">
+                    <div class="memory-date">TRACKER</div>
+                    <h3>Market Signal Tracker</h3>
+                    <div class="memory-image">
+                      <i class="fa-solid fa-chart-line"></i>
+                      <div class="glitch-effect"></div>
+                    </div>
+                    <p class="memory-preview">Stay updated with job market trends and industry signals...</p>
+                    <div class="card-glow"></div>
+                  </div>
+                </div>
+                <div class="card-back">
+                  <div class="card-content">
+                    <h3>Market Signal Tracker</h3>
+                    <p>
+                      Analyze demand for skills, sectors on the rise, and opportunities for future career growth.
+                    </p>
+                    <div class="memory-coordinates">
+                      <span><i class="fa-solid fa-location-dot"></i> Market Insights</span>
+                      <span class="time-stamp"><i class="fa-regular fa-clock"></i> Live</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 5 -->
+            <div class="memory-card" data-memory-id="5">
+              <div class="card-inner">
+                <div class="card-front">
+                  <div class="card-content">
+                    <div class="memory-date">EXPERIENCE</div>
+                    <h3>Internship Ideas</h3>
+                    <div class="memory-image">
+                      <i class="fa-solid fa-lightbulb"></i>
+                      <div class="glitch-effect"></div>
+                    </div>
+                    <p class="memory-preview">Discover exciting internships to build real-world skills...</p>
+                    <div class="card-glow"></div>
+                  </div>
+                </div>
+                <div class="card-back">
+                  <div class="card-content">
+                    <h3>Internship Ideas</h3>
+                    <p>
+                      Look for opportunities in startups, NGOs, or research. Even small roles can build big skills.
+                    </p>
+                    <div class="memory-coordinates">
+                      <span><i class="fa-solid fa-location-dot"></i> internship portals</span>
+                      <span class="time-stamp"><i class="fa-regular fa-clock"></i> Seasonal</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 6 -->
+            <div class="memory-card" data-memory-id="6">
+              <div class="card-inner">
+                <div class="card-front">
+                  <div class="card-content">
+                    <div class="memory-date">COURSES</div>
+                    <h3>Extra Courses Hub</h3>
+                    <div class="memory-image">
+                      <i class="fa-solid fa-certificate"></i>
+                      <div class="glitch-effect"></div>
+                    </div>
+                    <p class="memory-preview">Google, Microsoft, and IBM certifications at your fingertips...</p>
+                    <div class="card-glow"></div>
+                  </div>
+                </div>
+                <div class="card-back">
+                  <div class="card-content">
+                    <h3>Extra Courses Hub</h3>
+                    <p>
+                      Enroll in free and paid certifications to enhance your portfolio and gain industry-recognized skills.
+                    </p>
+                    <div class="memory-coordinates">
+                      <span><i class="fa-solid fa-location-dot"></i> online portals</span>
+                      <span class="time-stamp"><i class="fa-regular fa-clock"></i> Flexible</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 7 -->
+            <div class="memory-card" data-memory-id="7">
+              <div class="card-inner">
+                <div class="card-front">
+                  <div class="card-content">
+                    <div class="memory-date">CREATIVITY</div>
+                    <h3>Project Ideas</h3>
+                    <div class="memory-image">
+                      <i class="fa-solid fa-gears"></i>
+                      <div class="glitch-effect"></div>
+                    </div>
+                    <p class="memory-preview">Kickstart your innovation journey with beginner to advanced project concepts...</p>
+                    <div class="card-glow"></div>
+                  </div>
+                </div>
+                <div class="card-back">
+                  <div class="card-content">
+                    <h3>Project Ideas</h3>
+                    <p>
+                      From building simple apps to AI-powered tools, explore hands-on projects that strengthen skills and showcase creativity in your portfolio.
+                    </p>
+                    <div class="memory-coordinates">
+                      <span><i class="fa-solid fa-location-dot"></i> GitHub / Portfolios</span>
+                      <span class="time-stamp"><i class="fa-regular fa-clock"></i> Ongoing</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="carousel-controls">
+          <button id="prev-btn" class="control-btn">
+            <i class="fa-solid fa-chevron-left"></i>
+          </button>
+          <button id="next-btn" class="control-btn">
+            <i class="fa-solid fa-chevron-right"></i>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <div class="container">
+        <p class="footer-text">&copy; 2023 Futuro - Career Guidance Platform. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const carousel = document.getElementById("memory-carousel");
+        const cards = document.querySelectorAll(".memory-card");
+        const prevBtn = document.getElementById("prev-btn");
+        const nextBtn = document.getElementById("next-btn");
+
+        let currentIndex = 0;
+        let startX;
+        let isDragging = false;
+        let theta = 0;
+        let radius = window.innerWidth <= 768 ? 250 : 400;
+        const totalCards = cards.length;
+
+        function init() {
+          arrangeCards();
+          prevBtn.addEventListener("click", prevCard);
+          nextBtn.addEventListener("click", nextCard);
+          cards.forEach((card) => card.addEventListener("click", flipCard));
+          carousel.addEventListener("mousedown", dragStart);
+          carousel.addEventListener("touchstart", dragStart, { passive: true });
+          document.addEventListener("mousemove", drag);
+          document.addEventListener("touchmove", drag, { passive: false });
+          document.addEventListener("mouseup", dragEnd);
+          document.addEventListener("touchend", dragEnd);
+          document.addEventListener("keydown", handleKeyDown);
+        }
+
+        function arrangeCards() {
+          const angle = 360 / totalCards;
+          cards.forEach((card, index) => {
+            const cardAngle = angle * index;
+            card.style.transform = rotateY(${cardAngle}deg) translateZ(${radius}px);
+            card.dataset.index = index;
+          });
+        }
+
+        function rotateCarousel() {
+          carousel.style.transform = rotateY(${theta}deg);
+          currentIndex = Math.round(Math.abs(theta / (360 / totalCards)) % totalCards);
+          if (currentIndex >= totalCards) currentIndex = 0;
+        }
+
+        function nextCard() { theta -= 360 / totalCards; rotateCarousel(); }
+        function prevCard() { theta += 360 / totalCards; rotateCarousel(); }
+
+        function flipCard(e) {
+          const card = e.currentTarget;
+          const cardIndex = parseInt(card.dataset.index);
+          if (cardIndex === currentIndex) card.classList.toggle("flipped");
+        }
+
+        function dragStart(e) {
+          e.preventDefault();
+          isDragging = true;
+          startX = e.pageX || e.touches[0].pageX;
+        }
+        function drag(e) {
+          if (!isDragging) return;
+          e.preventDefault();
+          const currentX = e.pageX || (e.touches ? e.touches[0].pageX : startX);
+          const diffX = currentX - startX;
+          const sensitivity = 0.5;
+          const newTheta = theta + diffX * sensitivity;
+          carousel.style.transform = rotateY(${newTheta}deg);
+        }
+        function dragEnd(e) {
+          if (!isDragging) return;
+          isDragging = false;
+          const currentX = e.pageX || (e.changedTouches ? e.changedTouches[0].pageX : startX);
+          const diffX = currentX - startX;
+          if (Math.abs(diffX) > 20) {
+            if (diffX > 0) prevCard(); else nextCard();
+          } else {
+            const anglePerCard = 360 / totalCards;
+            const snapAngle = Math.round(theta / anglePerCard) * anglePerCard;
+            theta = snapAngle;
+            rotateCarousel();
+          }
+        }
+        function handleKeyDown(e) {
+          if (e.key === "ArrowLeft") nextCard();
+          else if (e.key === "ArrowRight") prevCard();
+          else if (e.key === "Enter" || e.key === " ") {
+            const currentCard = document.querySelector(.memory-card[data-index="${currentIndex}"]);
+            if (currentCard) currentCard.classList.toggle("flipped");
+          }
+        }
+
+        window.addEventListener("resize", () => {
+          radius = window.innerWidth <= 768 ? 250 : 400;
+          arrangeCards();
+          rotateCarousel();
+        });
+
+        init();
+      });
+    </script>
+  </body>
+</html>
