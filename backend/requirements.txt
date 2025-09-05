@@ -1,5 +1,6 @@
 fastapi
 uvicorn
-python-dotenv
+pydantic[email]
 pymongo
+python-dotenv
 google-generativeai
