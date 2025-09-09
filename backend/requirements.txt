@@ -10,5 +10,6 @@ pydantic_settings
 itsdangerous==2.1.2
 python-jose[cryptography] 
 passlib[bcrypt] 
+authlib
 python-multipart
 passlib[bcrypt]
