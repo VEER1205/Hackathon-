@@ -8,14 +8,6 @@
     {
       "source": "/dashboard",
       "destination": "/dashboard.html"
-    },
-    {
-      "source": "/chatbot",
-      "destination": "/chatbot.html"
-    },
-    {
-      "source": "/feture",
-      "destination": "/feature.html"
     }
   ],
   "headers": [
