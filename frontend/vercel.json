@@ -1,12 +1,5 @@
 {
-  "name": "futuro-career-website",
-  "version": "1.0.0",
-  "builds": [
-    {
-      "src": "*.html",
-      "use": "@vercel/static"
-    }
-  ],
+  "version": 2,
   "routes": [
     {
       "src": "/(.*)",
@@ -35,32 +28,20 @@
   ],
   "rewrites": [
     {
-      "source": "/about",
-      "destination": "/about.html"
+      "source": "/login",
+      "destination": "/login.html"
     },
     {
-      "source": "/features",
-      "destination": "/features.html"
+      "source": "/dashboard",
+      "destination": "/dashboard.html"
     },
     {
-      "source": "/pricing",
-      "destination": "/pricing.html"
+      "source": "/chatbot",
+      "destination": "/chatbot.html"
     },
     {
-      "source": "/contact",
-      "destination": "/contact.html"
-    },
-    {
-      "source": "/blog",
-      "destination": "/blog.html"
-    },
-    {
-      "source": "/resources",
-      "destination": "/resources.html"
-    },
-    {
-      "source": "/faq",
-      "destination": "/faq.html"
+      "source": "/feture",
+      "destination": "/feature.html"
     }
   ],
   "cleanUrls": true,
