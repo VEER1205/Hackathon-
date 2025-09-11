@@ -6,20 +6,20 @@
       "dest": "/$1"
     },
     {
-      "src": "/login",
-      "dest": "/login.html"
+       "source": "/login",
+      "destination": "/login.html"
     },
     {
-      "src": "/dashboard",
-      "dest": "/dashboard.html"
+      "source": "/dashboard",
+      "destination": "/dashboard.html"
     },
     {
-      "src": "/chatbot",
-      "dest": "/chatbot.html"
+      "source": "/chatbot",
+      "destination": "/chatbot.html"
     },
     {
-      "src": "/feture",
-      "dest": "/feature.html"
+      "source": "/feature",
+      "destination": "/feature.html"
     }
   ]
 }
