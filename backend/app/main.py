@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from starlette.middleware.sessions import SessionMiddleware
 import os
+from app.config import settings
 from app.routes import user_routes,gemini, auth_routes
 
 app = FastAPI(title="PathFinder API")
@@ -16,13 +17,18 @@ origins = [
 ]
 
 app.add_middleware(
+    SessionMiddleware,
+    secret_key=settings.SESSION_SECRET
+)
+
+app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"], 
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
-app.add_middleware(SessionMiddleware, secret_key=os.getenv("SESSION_SECRET", "super-secret-key"))
+
 
 app.include_router(user_routes.router)
 app.include_router(gemini.router,)

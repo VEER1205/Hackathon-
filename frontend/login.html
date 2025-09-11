@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Login Page | Caged Coder</title>
+    <title>Login Page | Futuro</title>
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -24,14 +24,13 @@
 
       body {
         background: #121212;
-        background-image: radial-gradient(#555555,#121212); /* Dark background */
+        background-image: radial-gradient(#555555, #121212);
         color: #e0e0e0;
-        overflow-x: hidden; /* Prevents horizontal scrollbar */
+        overflow-x: hidden;
       }
 
-      /* Navbar custom color */
       .navbar-custom {
-        background: rgba(0, 0, 0, 0.5); /* Semi-transparent dark background */
+        background: rgba(0, 0, 0, 0.5);
         backdrop-filter: blur(10px);
         border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         color: #e0e0e0;
@@ -39,7 +38,7 @@
       }
 
       .navbar-custom .fw-bold {
-        color: #00aaff !important; /* Glow blue logo color */
+        color: #00aaff !important;
       }
 
       .navbar-custom .nav-link {
@@ -48,8 +47,8 @@
       }
 
       .navbar-custom .nav-link:hover {
-        color: #00aaff !important; /* Glow blue on hover */
-        text-shadow: 0 0 8px rgba(0, 170, 255, 0.8); /* Glow effect */
+        color: #00aaff !important;
+        text-shadow: 0 0 8px rgba(0, 170, 255, 0.8);
       }
 
       .main-content-wrapper {
@@ -58,14 +57,14 @@
         align-items: center;
         min-height: 100vh;
         gap: 50px;
-        padding-top: 150px; /* Adjust for navbar height */
+        padding-top: 150px;
         padding-bottom: 50px;
       }
 
       .container-box {
-        background-color: #1e1e1e; /* Darker container background */
+        background-color: #1e1e1e;
         border-radius: 30px;
-        box-shadow: 0 0 30px rgba(0, 170, 255, 0.3); /* Blue glow shadow */
+        box-shadow: 0 0 30px rgba(0, 170, 255, 0.3);
         position: relative;
         overflow: hidden;
         width: 768px;
@@ -76,8 +75,6 @@
 
       .container-box p {
         font-size: 14px;
-        line-height: 20px;
-        letter-spacing: 0.3px;
         margin: 20px 0;
         color: #b0b0b0;
       }
@@ -88,7 +85,7 @@
       }
 
       .container-box a {
-        color: #00aaff; /* Glow blue link color */
+        color: #00aaff;
         font-size: 13px;
         text-decoration: none;
         margin: 15px 0 10px;
@@ -103,7 +100,6 @@
         border: 1px solid transparent;
         border-radius: 8px;
         font-weight: 600;
-        letter-spacing: 0.5px;
         text-transform: uppercase;
         margin-top: 10px;
         cursor: pointer;
@@ -114,18 +110,6 @@
       .container-box button:hover {
         background-color: #00c0ff;
         box-shadow: 0 0 15px rgba(0, 192, 255, 0.8);
-      }
-
-      .container-box button.hidden {
-        background-color: transparent;
-        border-color: #fff;
-        color: #fff;
-        box-shadow: none;
-      }
-
-      .container-box button.hidden:hover {
-        background-color: rgba(255, 255, 255, 0.1);
-        box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
       }
 
       .container-box form {
@@ -139,9 +123,9 @@
       }
 
       .container-box input {
-        background-color: #2a2a2a; /* Dark input background */
+        background-color: #2a2a2a;
         color: #e0e0e0;
-        border: 1px solid #00aaff; /* Blue border */
+        border: 1px solid #00aaff;
         margin: 8px 0;
         padding: 10px 15px;
         font-size: 13px;
@@ -187,11 +171,6 @@
       }
 
       @keyframes move {
-        0%,
-        49.99% {
-          opacity: 0;
-          z-index: 1;
-        }
         50%,
         100% {
           opacity: 1;
@@ -215,7 +194,6 @@
         width: 40px;
         height: 40px;
         transition: all 0.3s ease;
-        box-shadow: 0 0 5px rgba(0, 170, 255, 0.5);
       }
 
       .social-icons a:hover {
@@ -242,16 +220,13 @@
       }
 
       .toggle {
-        background: #003366; /* Deep blue background */
         background: linear-gradient(to right, #003366, #0077b3);
         color: #fff;
         position: relative;
         left: -100%;
         height: 100%;
         width: 200%;
-        transform: translateX(0);
         transition: all 0.6s ease-in-out;
-        box-shadow: 0 0 20px rgba(0, 170, 255, 0.5);
       }
 
       .container-box.active .toggle {
@@ -272,14 +247,6 @@
         transition: all 0.6s ease-in-out;
       }
 
-      .toggle-panel h1 {
-        text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
-      }
-
-      .toggle-panel p {
-        color: #e0e0e0;
-      }
-
       .toggle-left {
         transform: translateX(-200%);
       }
@@ -296,7 +263,6 @@
         transform: translateX(200%);
       }
 
-      /* New CSS for Spline Animation */
       #spline-container {
         width: 500px;
         height: 500px;
@@ -322,7 +288,6 @@
           <span class="fw-bold">Futuro</span>
         </a>
       </div>
-
       <ul class="nav mx-auto">
         <li><a href="index.html" class="nav-link px-3">Home</a></li>
         <li><a href="#" class="nav-link px-3">Features</a></li>
@@ -334,50 +299,62 @@
 
     <div class="main-content-wrapper">
       <div id="spline-container">
-        <script type="module" src="https://unpkg.com/@splinetool/viewer@1.10.56/build/spline-viewer.js"></script>
-<spline-viewer url="https://prod.spline.design/DaC8UYKAAv0obxsv/scene.splinecode"></spline-viewer>
+        <script
+          type="module"
+          src="https://unpkg.com/@splinetool/viewer@1.10.56/build/spline-viewer.js"
+        ></script>
+        <spline-viewer
+          url="https://prod.spline.design/DaC8UYKAAv0obxsv/scene.splinecode"
+        ></spline-viewer>
       </div>
 
       <div class="container-box" id="container">
+        <!-- Signup -->
         <div class="form-container sign-up">
-          <form>
+          <form id="signupForm">
             <h1 style="color: #00aaff">Create Account</h1>
             <div class="social-icons">
-              <a href="#"><i class="fa-brands fa-google-plus-g"></i></a>
+              <a href="#" id="googleSignup"
+                ><i class="fa-brands fa-google-plus-g"></i
+              ></a>
             </div>
             <span>or use your email for registration</span>
-            <input type="text" placeholder="Name" />
-            <input type="email" placeholder="Email" />
-            <input type="password" placeholder="Password" />
-            <button>Sign Up</button>
+            <input type="text" placeholder="Name" required />
+            <input type="email" placeholder="Email" required />
+            <input type="password" placeholder="Password" required />
+            <button type="submit">Sign Up</button>
           </form>
         </div>
 
+        <!-- Login -->
         <div class="form-container sign-in">
-          <form>
+          <form id="loginForm">
             <h1 style="color: #00aaff">Sign In</h1>
             <div class="social-icons">
-              <a href="#"><i class="fa-brands fa-google-plus-g"></i></a>
+              <a href="#" id="googleLogin"
+                ><i class="fa-brands fa-google-plus-g"></i
+              ></a>
             </div>
             <span>or use your email password</span>
-            <input type="email" placeholder="Email" />
-            <input type="password" placeholder="Password" />
+            <input type="email" placeholder="Email" required />
+            <input type="password" placeholder="Password" required />
             <a href="#">Forget Your Password?</a>
-            <button>Sign In</button>
+            <button type="submit">Sign In</button>
           </form>
         </div>
 
+        <!-- Toggle -->
         <div class="toggle-container">
           <div class="toggle">
             <div class="toggle-panel toggle-left">
               <h1>Welcome Back!</h1>
-              <p>Enter your personal details to use all of site features</p>
+              <p>Enter your personal details to use all site features</p>
               <button class="hidden" id="login">Sign In</button>
             </div>
             <div class="toggle-panel toggle-right">
               <h1>Hello, Friend!</h1>
               <p>
-                Register with your personal details to use all of site features
+                Register with your personal details to use all site features
               </p>
               <button class="hidden" id="register">Sign Up</button>
             </div>
@@ -394,9 +371,79 @@
       registerBtn.addEventListener("click", () => {
         container.classList.add("active");
       });
-
       loginBtn.addEventListener("click", () => {
         container.classList.remove("active");
+      });
+
+      const API_BASE = "http://127.0.0.1:8000"; // change if backend runs elsewhere
+
+      // Signup
+      document
+        .getElementById("signupForm")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+          const inputs = e.target.querySelectorAll("input");
+          const name = inputs[0].value;
+          const email = inputs[1].value;
+          const password = inputs[2].value;
+
+          try {
+            const res = await fetch(`${API_BASE}/users/signup`, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(
+                {
+                  username: name,
+                  email: email,
+                  password: password,
+                }
+              ),
+            });
+            if (!res.ok) throw new Error("Signup failed");
+            alert("✅ Signup successful! Please login now.");
+          } catch (err) {
+            alert("❌ Signup Error: " + err.message);
+          }
+        });
+
+      // Login
+      document
+        .getElementById("loginForm")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+          const inputs = e.target.querySelectorAll("input");
+          const email = inputs[0].value;
+          const password = inputs[1].value;
+
+          try {
+            const res = await fetch(`${API_BASE}/users/login`, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(
+                {
+                  email: email,
+                  password: password,
+                }
+              ),
+            });
+            if (!res.ok) throw new Error("Login failed");
+            const data = await res.json();
+            localStorage.setItem("token", data.access_token);
+            alert("✅ Login successful!");
+            window.location.href ="index1.html"; // redirect to dashboard or home
+          } catch (err) {
+            alert("❌ Login Error: " + err.message);
+          }
+        });
+
+      // Google Login / Signup
+      document.getElementById("googleLogin").addEventListener("click", (e) => {
+        e.preventDefault();
+        window.location.href = `${API_BASE}/auth/google/login`;
+      });
+      document.getElementById("googleSignup").addEventListener("click", (e) => {
+        e.preventDefault();
+        window.location.href = `${API_BASE}/auth/google/login`;
       });
     </script>
   </body>

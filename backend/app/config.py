@@ -9,10 +9,10 @@ class Settings(BaseSettings):
     # Required (no defaults)
     API_KEY: str
     SECRET_KEY: str
-    google_client_id: str
-    google_client_secret: str
-    google_redirect_uri: str
-    session_secret: str
+    GOOGLE_CLIENT_ID: str
+    GOOGLE_CLIENT_SECRET: str
+    GOOGLE_REDIRECT_URI: str
+    SESSION_SECRET: str
 
     class Config:
         env_file = ".env"
