@@ -430,7 +430,7 @@
             const data = await res.json();
             localStorage.setItem("token", data.access_token);
             alert("✅ Login successful!");
-            window.location.href ="index1.html"; // redirect to dashboard or home
+            window.location.href ="index.html"; // redirect to dashboard or home
           } catch (err) {
             alert("❌ Login Error: " + err.message);
           }
