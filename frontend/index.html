@@ -613,7 +613,7 @@
 
                 <!-- Desktop Auth Buttons -->
                 <div class="auth-buttons">
-                    <button class="btn btn-ghost">Login</button>
+                    <button class="btn btn-ghost" onclick="window.location.href='login.html'">Login</button>
                     <button class="btn btn-hero">Sign Up</button>
                 </div>
             </div>
@@ -908,7 +908,9 @@
                 });
             });
         });
-
+        async function Hello() {
+          fetch('https://hackathon-pflh.onrender.com');
+        }
         // Update active navigation link on scroll
         window.addEventListener('scroll', () => {
             let current = '';

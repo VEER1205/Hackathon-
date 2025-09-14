@@ -50,6 +50,6 @@ async def google_callback(request: Request):
     access_token = create_access_token(data={"sub": user_info["email"]})
 
     # ✅ Redirect back to frontend with token
-    redirect_url = f"http://youtube.com"
+    redirect_url = f"https://futuroai.vercel.app/"
     return RedirectResponse(url=redirect_url)
 
