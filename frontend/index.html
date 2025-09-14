@@ -1,1768 +1,934 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Futuro - Your Career Journey Starts Here</title>
-    <meta
-      name="description"
-      content="Get personalized career guidance, explore different paths, and connect with mentors to achieve your professional dreams."
-    />
-
-    <!-- Preload critical resources -->
-    <link
-      rel="preload"
-      href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Inter:wght@400;600;700&display=swap"
-      as="style"
-    />
-    <link
-      rel="preload"
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-      as="style"
-    />
-
-    <!-- Fonts and CSS -->
-    <link
-      href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Inter:wght@400;600;700&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
-    <link
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
-      rel="stylesheet"
-    />
-
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Futuro - AI-Powered Career Growth Platform</title>
+    <meta name="description" content="Unlock your career potential with Futuro's AI-powered platform. Get personalized course recommendations, practice interviews, and track market trends.">
+    <meta name="author" content="Futuro">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <meta property="og:title" content="Futuro - AI-Powered Career Growth Platform">
+    <meta property="og:description" content="Unlock your career potential with Futuro's AI-powered platform. Get personalized course recommendations, practice interviews, and track market trends.">
+    <meta property="og:type" content="website">
+    
     <style>
-      /* CSS Custom Properties for better maintainability */
-      :root {
-        /* Color Palette */
-        --primary-blue: #3993ad;
-        --secondary-blue: #86a1ac;
-        --accent-blue: #b5c5d6;
-        --light-bg: #cdd7f9;
-        --text-primary: #333;
-        --text-secondary: #555;
-        --text-muted: #777;
-        --card-bg: #fdfdfd;
-        --glass-bg: rgba(255, 255, 255, 0.85);
-        --shadow-light: rgba(0, 0, 0, 0.08);
-        --shadow-medium: rgba(0, 0, 0, 0.12);
-        --shadow-strong: rgba(0, 0, 0, 0.15);
-
-        /* Layout Variables */
-        --card-width: 240px;
-        --card-height: 336px;
-        --carousel-radius: 320px;
-        --transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        --transition-spring: 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-
-        /* Spacing Scale */
-        --space-xs: 0.5rem;
-        --space-sm: 1rem;
-        --space-md: 1.5rem;
-        --space-lg: 2rem;
-        --space-xl: 3rem;
-
-        /* Border Radius Scale */
-        --radius-sm: 8px;
-        --radius-md: 12px;
-        --radius-lg: 16px;
-        --radius-xl: 24px;
-        --radius-full: 9999px;
-      }
-
-      /* Reset and Base Styles */
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-
-      html {
-        scroll-behavior: smooth;
-        font-size: 16px;
-      }
-
-      body {
-        font-family: "Inter", sans-serif;
-        background: linear-gradient(135deg, #dddfe6 0%, var(--light-bg) 100%);
-        color: var(--text-primary);
-        line-height: 1.6;
-        overflow-x: hidden;
-        min-height: 100vh;
-      }
-
-      /* Typography System */
-      .font-display {
-        font-family: "Orbitron", sans-serif;
-        font-weight: 700;
-        letter-spacing: 0.5px;
-      }
-
-      .text-gradient {
-        background: linear-gradient(
-          45deg,
-          var(--primary-blue),
-          var(--secondary-blue)
-        );
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-      }
-
-      /* Enhanced Navbar */
-      .navbar {
-        background: var(--glass-bg);
-        backdrop-filter: blur(10px);
-        border-bottom: 1px solid rgba(181, 197, 214, 0.3);
-        box-shadow: 0 4px 20px var(--shadow-light);
-        position: sticky;
-        top: 0;
-        z-index: 1000;
-        transition: all var(--transition-smooth);
-      }
-
-      .navbar.scrolled {
-        background: rgba(255, 255, 255, 0.95);
-        backdrop-filter: blur(15px);
-        box-shadow: 0 8px 30px var(--shadow-medium);
-      }
-
-      .navbar-brand {
-        font-size: 1.5rem;
-        font-weight: 700;
-        color: var(--text-primary) !important;
-        transition: transform var(--transition-smooth);
-      }
-
-      .navbar-brand:hover {
-        transform: scale(1.05);
-      }
-
-      .navbar-brand .brand-text {
-        color: var(--primary-blue);
-        margin-left: var(--space-xs);
-      }
-
-      .nav-link {
-        color: var(--text-primary) !important;
-        font-weight: 500;
-        position: relative;
-        transition: all var(--transition-smooth);
-        padding: var(--space-xs) var(--space-sm) !important;
-      }
-
-      .nav-link::after {
-        content: "";
-        position: absolute;
-        width: 0;
-        height: 2px;
-        bottom: 0;
-        left: 50%;
-        background: var(--primary-blue);
-        transition: all var(--transition-smooth);
-        transform: translateX(-50%);
-      }
-
-      .nav-link:hover {
-        color: var(--primary-blue) !important;
-        transform: translateY(-2px);
-      }
-
-      .nav-link:hover::after {
-        width: 80%;
-      }
-
-      /* Enhanced Buttons */
-      .btn-modern {
-        padding: 12px 24px;
-        border-radius: var(--radius-full);
-        font-weight: 600;
-        transition: all var(--transition-smooth);
-        border: none;
-        position: relative;
-        overflow: hidden;
-      }
-
-      .btn-modern::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: -100%;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(
-          90deg,
-          transparent,
-          rgba(255, 255, 255, 0.2),
-          transparent
-        );
-        transition: left var(--transition-smooth);
-      }
-
-      .btn-modern:hover::before {
-        left: 100%;
-      }
-
-      .btn-primary-modern {
-        background: linear-gradient(
-          135deg,
-          var(--primary-blue),
-          var(--secondary-blue)
-        );
-        color: white;
-        box-shadow: 0 4px 15px rgba(57, 147, 173, 0.3);
-      }
-
-      .btn-primary-modern:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 8px 25px rgba(57, 147, 173, 0.4);
-      }
-
-      .btn-outline-modern {
-        border: 2px solid var(--primary-blue);
-        color: var(--primary-blue);
-        background: transparent;
-      }
-
-      .btn-outline-modern:hover {
-        background: var(--primary-blue);
-        color: white;
-        transform: translateY(-2px);
-      }
-
-      /* Hero Section Enhancement */
-      .hero-section {
-        background: var(--glass-bg);
-        backdrop-filter: blur(10px);
-        border-radius: var(--radius-xl);
-        box-shadow: 0 20px 60px var(--shadow-light);
-        max-width: 1000px;
-        margin: var(--space-xl) auto;
-        padding: var(--space-xl);
-        position: relative;
-        overflow: hidden;
-      }
-
-      .hero-section::before {
-        content: "";
-        position: absolute;
-        top: -50%;
-        left: -50%;
-        width: 200%;
-        height: 200%;
-        background: radial-gradient(
-          circle,
-          rgba(57, 147, 173, 0.05) 0%,
-          transparent 70%
-        );
-        animation: rotate 20s linear infinite;
-        pointer-events: none;
-      }
-
-      @keyframes rotate {
-        from {
-          transform: rotate(0deg);
-        }
-        to {
-          transform: rotate(360deg);
-        }
-      }
-
-      .hero-content {
-        position: relative;
-        z-index: 2;
-        text-align: center;
-      }
-
-      .hero-title {
-        font-size: clamp(2rem, 5vw, 3rem);
-        margin-bottom: var(--space-md);
-        animation: fadeInUp 1s ease-out;
-      }
-
-      .hero-subtitle {
-        font-size: 1.125rem;
-        color: var(--text-secondary);
-        max-width: 600px;
-        margin: 0 auto var(--space-xl);
-        animation: fadeInUp 1s ease-out 0.2s both;
-      }
-
-      /* Enhanced Feature Cards */
-      .feature-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        gap: var(--space-lg);
-        margin: var(--space-xl) 0;
-      }
-
-      .feature-card {
-        background: var(--card-bg);
-        padding: var(--space-xl);
-        border-radius: var(--radius-lg);
-        box-shadow: 0 10px 30px var(--shadow-light);
-        text-align: center;
-        transition: all var(--transition-smooth);
-        position: relative;
-        overflow: hidden;
-        border: 1px solid rgba(181, 197, 214, 0.2);
-      }
-
-      .feature-card::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: -100%;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(
-          90deg,
-          transparent,
-          rgba(57, 147, 173, 0.05),
-          transparent
-        );
-        transition: left var(--transition-smooth);
-      }
-
-      .feature-card:hover::before {
-        left: 100%;
-      }
-
-      .feature-card:hover {
-        transform: translateY(-10px);
-        box-shadow: 0 20px 50px var(--shadow-medium);
-      }
-
-      .feature-icon {
-        width: 80px;
-        height: 80px;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin: 0 auto var(--space-md);
-        font-size: 2rem;
-        color: white;
-        position: relative;
-        overflow: hidden;
-      }
-
-      .feature-icon::after {
-        content: "";
-        position: absolute;
-        inset: -2px;
-        border-radius: inherit;
-        background: linear-gradient(
-          45deg,
-          transparent,
-          rgba(255, 255, 255, 0.3),
-          transparent
-        );
-        opacity: 0;
-        transition: opacity var(--transition-smooth);
-      }
-
-      .feature-card:hover .feature-icon::after {
-        opacity: 1;
-        animation: shimmer 1.5s ease-in-out infinite;
-      }
-
-      @keyframes shimmer {
-        0% {
-          transform: translateX(-100%) rotate(45deg);
-        }
-        100% {
-          transform: translateX(100%) rotate(45deg);
-        }
-      }
-
-      .feature-icon-1 {
-        background: linear-gradient(135deg, var(--primary-blue), #2980b9);
-      }
-      .feature-icon-2 {
-        background: linear-gradient(135deg, var(--secondary-blue), #5dade2);
-      }
-      .feature-icon-3 {
-        background: linear-gradient(135deg, var(--accent-blue), #85c1e9);
-      }
-
-      .feature-title {
-        font-size: 1.5rem;
-        font-weight: 600;
-        color: var(--primary-blue);
-        margin-bottom: var(--space-sm);
-      }
-
-      .feature-description {
-        color: var(--text-secondary);
-        line-height: 1.6;
-      }
-
-      /* Section Divider Enhancement */
-      .section-divider {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin: var(--space-xl) 0;
-        position: relative;
-      }
-
-      .section-divider::before,
-      .section-divider::after {
-        content: "";
-        flex: 1;
-        height: 2px;
-        background: linear-gradient(
-          to right,
-          transparent,
-          var(--primary-blue),
-          transparent
-        );
-        opacity: 0.6;
-      }
-
-      .section-divider h2 {
-        margin: 0 var(--space-lg);
-        font-size: 2rem;
-        white-space: nowrap;
-      }
-
-      /* Enhanced Carousel Section */
-      .carousel-section {
-        padding: var(--space-xl) 0;
-        position: relative;
-      }
-
-      .carousel-container {
-        position: relative;
-        height: 600px;
-        perspective: 1200px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin-bottom: var(--space-lg);
-      }
-
-      .memory-carousel {
-        position: relative;
-        width: var(--carousel-radius);
-        height: var(--carousel-radius);
-        transform-style: preserve-3d;
-        transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-      }
-
-      /* Enhanced Memory Cards */
-      .memory-card {
-        position: absolute;
-        width: var(--card-width);
-        height: var(--card-height);
-        left: 50%;
-        top: 50%;
-        margin-left: calc(var(--card-width) / -2);
-        margin-top: calc(var(--card-height) / -2);
-        transform-style: preserve-3d;
-        transition: all var(--transition-spring);
-        cursor: pointer;
-      }
-
-      .card-inner {
-        position: relative;
-        width: 100%;
-        height: 100%;
-        transform-style: preserve-3d;
-        transition: transform var(--transition-spring);
-      }
-
-      .memory-card:hover .card-inner {
-        transform: translateZ(30px) scale(1.02);
-      }
-
-      .memory-card.flipped .card-inner {
-        transform: rotateY(180deg);
-      }
-
-      .card-face {
-        position: absolute;
-        inset: 0;
-        backface-visibility: hidden;
-        border-radius: var(--radius-lg);
-        overflow: hidden;
-        box-shadow: 0 15px 40px var(--shadow-strong);
-        border: 1px solid rgba(181, 197, 214, 0.3);
-      }
-
-      .card-front {
-        background: var(--card-bg);
-      }
-
-      .card-back {
-        background: var(--card-bg);
-        transform: rotateY(180deg);
-      }
-
-      .card-content {
-        padding: var(--space-lg);
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-        position: relative;
-      }
-
-      .memory-category {
-        font-size: 0.75rem;
-        font-weight: 600;
-        color: var(--primary-blue);
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        margin-bottom: var(--space-sm);
-      }
-
-      .memory-title {
-        font-size: 1.5rem;
-        font-weight: 600;
-        color: var(--text-primary);
-        margin-bottom: var(--space-md);
-      }
-
-      .memory-visual {
-        width: 100%;
-        height: 140px;
-        margin-bottom: var(--space-md);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background: linear-gradient(
-          135deg,
-          rgba(57, 147, 173, 0.1),
-          rgba(181, 197, 214, 0.1)
-        );
-        border-radius: var(--radius-md);
-        position: relative;
-        overflow: hidden;
-      }
-
-      .memory-visual i {
-        color: var(--primary-blue);
-        font-size: 3rem;
-        animation: float 3s ease-in-out infinite;
-        z-index: 2;
-      }
-
-      @keyframes float {
-        0%,
-        100% {
-          transform: translateY(0);
-        }
-        50% {
-          transform: translateY(-10px);
-        }
-      }
-
-      .visual-effect {
-        position: absolute;
-        inset: 0;
-        background: linear-gradient(
-          45deg,
-          transparent 30%,
-          rgba(255, 255, 255, 0.1) 50%,
-          transparent 70%
-        );
-        transform: translateX(-100%);
-        animation: sweep 3s ease-in-out infinite;
-      }
-
-      @keyframes sweep {
-        0% {
-          transform: translateX(-100%);
-        }
-        50% {
-          transform: translateX(100%);
-        }
-        100% {
-          transform: translateX(-100%);
-        }
-      }
-
-      .memory-preview,
-      .memory-details {
-        font-size: 0.9rem;
-        color: var(--text-secondary);
-        line-height: 1.5;
-        flex-grow: 1;
-      }
-
-      .memory-meta {
-        font-size: 0.8rem;
-        color: var(--text-muted);
-        display: flex;
-        flex-direction: column;
-        gap: var(--space-xs);
-        margin-top: auto;
-      }
-
-      .memory-meta i {
-        margin-right: var(--space-xs);
-        color: var(--primary-blue);
-      }
-
-      /* Enhanced Controls */
-      .carousel-controls {
-        display: flex;
-        justify-content: center;
-        gap: var(--space-md);
-        margin-top: var(--space-lg);
-      }
-
-      .control-btn {
-        width: 50px;
-        height: 50px;
-        border-radius: 50%;
-        background: var(--glass-bg);
-        backdrop-filter: blur(10px);
-        border: 2px solid var(--primary-blue);
-        color: var(--primary-blue);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        transition: all var(--transition-smooth);
-        box-shadow: 0 4px 15px var(--shadow-light);
-      }
-
-      .control-btn:hover {
-        background: var(--primary-blue);
-        color: white;
-        transform: scale(1.1);
-        box-shadow: 0 8px 25px rgba(57, 147, 173, 0.4);
-      }
-
-      .control-btn:active {
-        transform: scale(0.95);
-      }
-
-      /* Animations */
-      @keyframes fadeInUp {
-        from {
-          opacity: 0;
-          transform: translateY(30px);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
-
-      .animate-on-scroll {
-        opacity: 0;
-        transform: translateY(30px);
-        transition: all 0.8s ease-out;
-      }
-
-      .animate-on-scroll.visible {
-        opacity: 1;
-        transform: translateY(0);
-      }
-
-      /* Loading States */
-      .loading {
-        position: relative;
-        overflow: hidden;
-      }
-
-      .loading::after {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: -100%;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(
-          90deg,
-          transparent,
-          rgba(255, 255, 255, 0.6),
-          transparent
-        );
-        animation: loading 1.5s ease-in-out infinite;
-      }
-
-      @keyframes loading {
-        0% {
-          left: -100%;
-        }
-        100% {
-          left: 100%;
-        }
-      }
-
-      /* Accessibility Improvements */
-      .sr-only {
-        position: absolute;
-        width: 1px;
-        height: 1px;
-        padding: 0;
-        margin: -1px;
-        overflow: hidden;
-        clip: rect(0, 0, 0, 0);
-        white-space: nowrap;
-        border: 0;
-      }
-
-      .focus-visible {
-        outline: 2px solid var(--primary-blue);
-        outline-offset: 2px;
-      }
-
-      /* Responsive Design */
-      @media (max-width: 1200px) {
+        /* Futuro Design System - Professional AI/Career Platform Theme */
         :root {
-          --carousel-radius: 280px;
+            --background: 240 10% 3.9%;
+            --foreground: 0 0% 98%;
+            --card: 240 10% 5.9%;
+            --card-foreground: 0 0% 98%;
+            --popover: 240 10% 5.9%;
+            --popover-foreground: 0 0% 98%;
+            
+            /* Primary - Deep Professional Blue */
+            --primary: 217 91% 60%;
+            --primary-foreground: 0 0% 98%;
+            --primary-glow: 217 91% 70%;
+            
+            /* Secondary - Elegant Purple */
+            --secondary: 262 83% 58%;
+            --secondary-foreground: 0 0% 98%;
+            
+            /* Accent - Vibrant Cyan */
+            --accent: 188 94% 63%;
+            --accent-foreground: 240 10% 3.9%;
+            
+            --muted: 240 5% 15%;
+            --muted-foreground: 240 5% 64.9%;
+            --destructive: 0 62.8% 30.6%;
+            --destructive-foreground: 0 0% 98%;
+            --border: 240 5% 26%;
+            --input: 240 5% 26%;
+            --ring: 217 91% 60%;
+            --radius: 0.75rem;
+            
+            /* Custom Design Tokens */
+            --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-glow)));
+            --gradient-secondary: linear-gradient(135deg, hsl(var(--secondary)), hsl(var(--accent)));
+            --gradient-hero: linear-gradient(135deg, hsl(var(--background)) 0%, hsl(240 15% 9%) 100%);
+            --gradient-card: linear-gradient(145deg, hsl(var(--card)) 0%, hsl(240 8% 8%) 100%);
+            
+            /* Shadows with brand colors */
+            --shadow-primary: 0 10px 40px -10px hsl(var(--primary) / 0.3);
+            --shadow-secondary: 0 10px 40px -10px hsl(var(--secondary) / 0.3);
+            --shadow-glow: 0 0 60px hsl(var(--primary-glow) / 0.4);
+            --shadow-elegant: 0 20px 60px -10px hsl(240 10% 3.9% / 0.8);
+            
+            /* Animation variables */
+            --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-bounce: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
         }
-      }
 
-      @media (max-width: 768px) {
-        :root {
-          --card-width: 220px;
-          --card-height: 308px;
-          --carousel-radius: 250px;
-        }
-
-        .carousel-container {
-          height: 480px;
-        }
-
-        .feature-grid {
-          grid-template-columns: 1fr;
-          gap: var(--space-md);
-        }
-
-        .section-divider h2 {
-          font-size: 1.5rem;
-        }
-
-        .navbar-nav {
-          text-align: center;
-          padding: var(--space-sm) 0;
-        }
-      }
-
-      @media (max-width: 576px) {
-        :root {
-          --card-width: 200px;
-          --card-height: 288px;
-          --carousel-radius: 220px;
-        }
-
-        .hero-section {
-          margin: var(--space-md);
-          padding: var(--space-lg);
-        }
-
-        .carousel-container {
-          height: 420px;
-        }
-      }
-
-      /* Reduced Motion */
-      @media (prefers-reduced-motion: reduce) {
         * {
-          animation-duration: 0.01ms !important;
-          animation-iteration-count: 1 !important;
-          transition-duration: 0.01ms !important;
-        }
-      }
-
-      /* Dark Mode Support */
-      @media (prefers-color-scheme: dark) {
-        :root {
-          --text-primary: #f0f0f0;
-          --text-secondary: #c0c0c0;
-          --text-muted: #a0a0a0;
-          --card-bg: #1a1a1a;
-          --glass-bg: rgba(0, 0, 0, 0.7);
-          --light-bg: #2a2a2a;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
         body {
-          background: linear-gradient(135deg, #1a1a1a 0%, var(--light-bg) 100%);
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background: var(--gradient-hero);
+            color: hsl(var(--foreground));
+            min-height: 100vh;
+            line-height: 1.6;
         }
-      }
 
-      /* Performance Optimizations */
-      .will-change-transform {
-        will-change: transform;
-      }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            font-weight: 700;
+            letter-spacing: -0.025em;
+        }
 
-      .gpu-accelerated {
-        transform: translateZ(0);
-      }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        /* Header Styles */
+        .header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 50;
+            background: hsl(var(--background) / 0.8);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid hsl(var(--border) / 0.5);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 4rem;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .logo-icon {
+            width: 2.5rem;
+            height: 2.5rem;
+            scale: 0.05;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav {
+            display: none;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .nav a {
+            color: hsl(var(--muted-foreground));
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav a:hover {
+            color: hsl(var(--primary));
+        }
+
+        .nav a.active {
+            color: hsl(var(--foreground));
+        }
+
+        .auth-buttons {
+            display: none;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition-smooth);
+            cursor: pointer;
+            border: none;
+            font-family: inherit;
+        }
+
+        .btn-ghost {
+            background: transparent;
+            color: hsl(var(--muted-foreground));
+        }
+
+        .btn-ghost:hover {
+            color: hsl(var(--primary));
+        }
+
+        .btn-hero {
+            position: relative;
+            overflow: hidden;
+            border-radius: 0.5rem;
+            padding: 0.75rem 2rem;
+            font-weight: 600;
+            transition: all 0.3s;
+            background: var(--gradient-primary);
+            color: white;
+            box-shadow: var(--shadow-primary);
+        }
+
+        .btn-hero:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-glow);
+        }
+
+        .btn-hero-outline {
+            position: relative;
+            overflow: hidden;
+            border-radius: 0.5rem;
+            padding: 0.75rem 2rem;
+            font-weight: 600;
+            border: 2px solid hsl(var(--primary) / 0.5);
+            background: transparent;
+            color: hsl(var(--primary));
+            transition: all 0.3s;
+        }
+
+        .btn-hero-outline:hover {
+            background: hsl(var(--primary));
+            color: hsl(var(--primary-foreground));
+            border-color: hsl(var(--primary));
+            transform: translateY(-2px);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            padding-top: 4rem;
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+        }
+
+        .hero-bg-element {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(96px);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .hero-bg-element:nth-child(1) {
+            top: 25%;
+            left: 25%;
+            width: 16rem;
+            height: 16rem;
+            background: hsl(var(--primary) / 0.1);
+        }
+
+        .hero-bg-element:nth-child(2) {
+            bottom: 25%;
+            right: 25%;
+            width: 20rem;
+            height: 20rem;
+            background: hsl(var(--secondary) / 0.1);
+            animation-delay: 2s;
+        }
+
+        .hero-bg-element:nth-child(3) {
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 24rem;
+            height: 24rem;
+            background: hsl(var(--accent) / 0.05);
+            animation-delay: 4s;
+        }
+
+        .hero-content {
+            text-align: center;
+            max-width: 64rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: hsl(var(--primary) / 0.1);
+            border: 1px solid hsl(var(--primary) / 0.2);
+            border-radius: 9999px;
+            padding: 0.5rem 1rem;
+            margin-bottom: 2rem;
+            animation: slideUp 0.8s ease-out forwards;
+        }
+
+        .hero-badge svg {
+            width: 1rem;
+            height: 1rem;
+            color: hsl(var(--primary));
+        }
+
+        .hero-badge span {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: hsl(var(--primary));
+        }
+
+        .hero-title {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            animation: slideUp 0.8s ease-out forwards;
+            animation-delay: 0.2s;
+        }
+
+        .text-gradient-primary {
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .text-gradient-secondary {
+            background: var(--gradient-secondary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: hsl(var(--muted-foreground));
+            margin-bottom: 2rem;
+            max-width: 48rem;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.6;
+            animation: fadeInDelay 1s ease-out forwards;
+            animation-delay: 0.4s;
+        }
+
+        .hero-buttons {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 4rem;
+            animation: fadeInDelay 1s ease-out forwards;
+            animation-delay: 0.6s;
+        }
+
+        .hero-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            animation: fadeInDelay 1s ease-out forwards;
+            animation-delay: 0.8s;
+        }
+
+        .hero-stat {
+            text-align: center;
+        }
+
+        .hero-stat-number {
+            font-size: 1.875rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .hero-stat-label {
+            font-size: 0.875rem;
+            color: hsl(var(--muted-foreground));
+        }
+
+        /* Section Styles */
+        .section {
+            padding: 5rem 0;
+            position: relative;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .section-subtitle {
+            font-size: 1.25rem;
+            color: hsl(var(--muted-foreground));
+            max-width: 48rem;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        /* About Section */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 3rem;
+            align-items: center;
+            margin-bottom: 4rem;
+        }
+
+        .about-content {
+            text-align: left;
+        }
+
+        .about-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: hsl(var(--foreground));
+        }
+
+        .about-content p {
+            font-size: 1.125rem;
+            color: hsl(var(--muted-foreground));
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .about-visual {
+            position: relative;
+        }
+
+        .about-card {
+            width: 100%;
+            height: 16rem;
+            border-radius: 1rem;
+            background: linear-gradient(135deg, hsl(var(--primary) / 0.2), hsl(var(--secondary) / 0.2));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(8px);
+            border: 1px solid hsl(var(--primary) / 0.1);
+        }
+
+        .about-card-content {
+            text-align: center;
+        }
+
+        .about-card svg {
+            width: 4rem;
+            height: 4rem;
+            color: hsl(var(--primary));
+            margin: 0 auto 1rem;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        /* Feature Cards */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            position: relative;
+            overflow: hidden;
+            border-radius: 0.75rem;
+            border: 1px solid hsl(var(--border) / 0.5);
+            background: var(--gradient-card);
+            backdrop-filter: blur(10px);
+            transition: var(--transition-smooth);
+            padding: 2rem;
+        }
+
+        .feature-card:hover {
+            border-color: hsl(var(--primary) / 0.5);
+            box-shadow: var(--shadow-primary);
+            transform: translateY(-4px);
+        }
+
+        .feature-icon {
+            width: 3.5rem;
+            height: 3.5rem;
+            border-radius: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            transition: transform 0.3s;
+        }
+
+        .feature-card:hover .feature-icon {
+            transform: scale(1.1);
+        }
+
+        .feature-icon svg {
+            width: 1.75rem;
+            height: 1.75rem;
+            color: white;
+        }
+
+        .feature-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: hsl(var(--foreground));
+            transition: color 0.3s;
+        }
+
+        .feature-card:hover .feature-title {
+            color: hsl(var(--primary));
+        }
+
+        .feature-description {
+            color: hsl(var(--muted-foreground));
+            line-height: 1.6;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, hsl(var(--primary) / 0.05), hsl(var(--secondary) / 0.05));
+            border-radius: 0.75rem;
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+        }
+
+        .feature-card:hover::before {
+            opacity: 1;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            text-align: center;
+            margin-top: 4rem;
+        }
+
+        .cta-section p {
+            font-size: 1.125rem;
+            color: hsl(var(--muted-foreground));
+            margin-bottom: 1.5rem;
+        }
+
+        /* Animations */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            33% { transform: translateY(-10px) rotate(1deg); }
+            66% { transform: translateY(-5px) rotate(-1deg); }
+        }
+
+        @keyframes glow {
+            from { box-shadow: 0 0 20px hsl(var(--primary) / 0.3); }
+            to { box-shadow: 0 0 40px hsl(var(--primary) / 0.6); }
+        }
+
+        @keyframes slideUp {
+            from { 
+                opacity: 0; 
+                transform: translateY(30px); 
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0); 
+            }
+        }
+
+        @keyframes fadeInDelay {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Responsive Design */
+        @media (min-width: 768px) {
+            .nav { display: flex; }
+            .auth-buttons { display: flex; }
+            .hero-title { font-size: 4rem; }
+            .hero-buttons { 
+                flex-direction: row; 
+                gap: 1.5rem;
+            }
+            .about-grid { 
+                grid-template-columns: 1fr 1fr; 
+            }
+            .values-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .hero-title { font-size: 4.5rem; }
+            .features-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
     </style>
-  </head>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <!-- Logo -->
+                <div class="logo">
+                    <div class="logo-icon"><img src="logo1.png" alt="Futuro Logo"></div>
+                    <span class="logo-text">Futuro</span>
+                </div>
 
-  <body>
-    <!-- Navigation -->
-    <nav
-      class="navbar navbar-expand-lg"
-      role="navigation"
-      aria-label="Main navigation"
-    >
-      <div class="container-fluid">
-        <a
-          class="navbar-brand d-flex align-items-center"
-          href="#"
-          aria-label="Futuro Home"
-        >
-          <i class="fa-solid fa-rocket" aria-hidden="true"></i>
-          <span class="brand-text">Futuro</span>
-        </a>
+                <!-- Desktop Navigation -->
+                <nav class="nav">
+                    <a href="#home" class="active">Home</a>
+                    <a href="#about">About</a>
+                    <a href="#features">Features</a>
+                    <a href="#chatbot">Chat Bot</a>
+                    <a href="#psychometric-test">Psychometric Test</a>
+                </nav>
 
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarNav"
-          aria-controls="navbarNav"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
+                <!-- Desktop Auth Buttons -->
+                <div class="auth-buttons">
+                    <button class="btn btn-ghost">Login</button>
+                    <button class="btn btn-hero">Sign Up</button>
+                </div>
+            </div>
+        </div>
+    </header>
 
-        <div
-          class="collapse navbar-collapse justify-content-center"
-          id="navbarNav"
-        >
-          <ul class="navbar-nav">
-            <li class="nav-item">
-              <a class="nav-link" href="#home" aria-current="page">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#features">Features</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#resources">Resources</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#pricing">Pricing</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#about">About</a>
-            </li>
-          </ul>
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <!-- Animated Background Elements -->
+        <div class="hero-bg">
+            <div class="hero-bg-element"></div>
+            <div class="hero-bg-element"></div>
+            <div class="hero-bg-element"></div>
         </div>
 
-        <div class="d-flex gap-2">
-          <button
-            class="btn btn-modern btn-outline-modern"
-            onclick="buttonClicked('login')"
-          >
-            Login
-          </button>
-          <button
-            class="btn btn-modern btn-primary-modern"
-            onclick="location.href='/signup'"
-          >
-            Sign Up
-          </button>
+        <div class="container">
+            <div class="hero-content">
+                <!-- Badge -->
+                <div class="hero-badge">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.582a.5.5 0 0 1 0 .962L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"/>
+                    </svg>
+                    <span>AI-Powered Career Growth</span>
+                </div>
+
+                <!-- Main Heading -->
+                <h1 class="hero-title">
+                    Your Future Starts with 
+                    <span class="text-gradient-primary">Futuro</span>
+                </h1>
+
+                <!-- Subheading -->
+                <p class="hero-subtitle">
+                    Unlock your career potential with our AI-powered platform. Get personalized course recommendations, 
+                    practice interviews, and track market trends - all in one intelligent ecosystem.
+                </p>
+
+                <!-- CTA Buttons -->
+                <div class="hero-buttons">
+                    <button class="btn btn-hero">
+                        Get Started Today
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-left: 0.5rem;">
+                            <path d="M5 12h14"/>
+                            <path d="m12 5 7 7-7 7"/>
+                        </svg>
+                    </button>
+                    <button class="btn btn-hero-outline">
+                        Watch Demo
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-left: 0.5rem;">
+                            <path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.582a.5.5 0 0 1 0 .962L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"/>
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- Stats -->
+                <div class="hero-stats">
+                    <div class="hero-stat">
+                        <div class="hero-stat-number text-gradient-primary">--</div>
+                        <div class="hero-stat-label">Active Users</div>
+                    </div>
+                    <div class="hero-stat">
+                        <div class="hero-stat-number text-gradient-secondary">--</div>
+                        <div class="hero-stat-label">Success Rate</div>
+                    </div>
+                    <div class="hero-stat">
+                        <div class="hero-stat-number text-gradient-primary">--</div>
+                        <div class="hero-stat-label">Courses</div>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-    </nav>
+    </section>
 
-    <main>
-      <!-- Hero Section -->
-      <section id="home" class="container-fluid px-3">
-        <div class="hero-section animate-on-scroll">
-          <div class="hero-content">
-            <h1 class="hero-title font-display text-gradient">
-              Your Career Journey Starts Here
-            </h1>
-            <p class="hero-subtitle">
-              Get personalized career guidance, explore different paths, and
-              connect with mentors who can help you achieve your professional
-              dreams with cutting-edge AI technology and real-world insights.
-            </p>
-
-            <div class="feature-grid">
-              <article class="feature-card animate-on-scroll">
-                <div class="feature-icon feature-icon-1">
-                  <i class="fas fa-robot" aria-hidden="true"></i>
-                </div>
-                <h3 class="feature-title">AI Career Advisor</h3>
-                <p class="feature-description">
-                  Chat with our intelligent advisor powered by advanced AI to
-                  get personalized career recommendations tailored to your
-                  skills and interests.
+    <!-- About Section -->
+    <section id="about" class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title text-gradient-primary">About Futuro</h2>
+                <p class="section-subtitle">
+                    We're revolutionizing career development through artificial intelligence, 
+                    making professional growth accessible, personalized, and effective for everyone.
                 </p>
-              </article>
-
-              <article class="feature-card animate-on-scroll">
-                <div class="feature-icon feature-icon-2">
-                  <i class="fas fa-chart-line" aria-hidden="true"></i>
-                </div>
-                <h3 class="feature-title">Career Tracking</h3>
-                <p class="feature-description">
-                  Monitor your progress with detailed analytics and get
-                  actionable insights into your career development journey.
-                </p>
-              </article>
-
-              <article class="feature-card animate-on-scroll">
-                <div class="feature-icon feature-icon-3">
-                  <i class="fas fa-users" aria-hidden="true"></i>
-                </div>
-                <h3 class="feature-title">Community Support</h3>
-                <p class="feature-description">
-                  Connect with like-minded students, professionals, and mentors
-                  in your field through our vibrant community platform.
-                </p>
-              </article>
             </div>
 
-            <button
-              class="btn btn-modern btn-primary-modern btn-lg"
-              onclick="startJourney()"
-            >
-              <i class="fas fa-rocket me-2" aria-hidden="true"></i>
-              Start Your Journey Now
-            </button>
-          </div>
-        </div>
-      </section>
+            <!-- Main Content -->
+            <div class="about-grid">
+                <div class="about-content">
+                    <h3>Empowering Your Professional Journey</h3>
+                    <p>
+                        At Futuro, we believe that everyone deserves access to intelligent career guidance. 
+                        Our platform combines cutting-edge AI technology with deep industry insights to 
+                        provide personalized recommendations that align with your unique goals and aspirations.
+                    </p>
+                    <p>
+                        Whether you're just starting your career, looking to make a transition, or aiming 
+                        to reach the next level, Futuro adapts to your needs and provides actionable insights 
+                        that drive real results.
+                    </p>
+                </div>
 
-      <!-- Section Divider -->
-      <div class="section-divider animate-on-scroll">
-        <h2 class="font-display text-gradient">Explore Resources</h2>
-      </div>
-
-      <!-- Carousel Section -->
-      <section
-        id="resources"
-        class="carousel-section"
-        aria-label="Career resources carousel"
-      >
-        <div class="carousel-container">
-          <div
-            class="memory-carousel will-change-transform"
-            id="memory-carousel"
-            role="group"
-            aria-label="Career resource cards"
-          >
-            <!-- Memory Cards -->
-            <article
-              class="memory-card gpu-accelerated"
-              data-memory-id="1"
-              tabindex="0"
-              role="button"
-              aria-label="LinkedIn Automation resource"
-            >
-              <div class="card-inner">
-                <div class="card-face card-front">
-                  <div class="card-content">
-                    <div class="memory-category">LinkedIn</div>
-                    <h3 class="memory-title">LinkedIn Automation</h3>
-                    <div class="memory-visual">
-                      <i
-                        class="fa-solid fa-network-wired"
-                        aria-hidden="true"
-                      ></i>
-                      <div class="visual-effect"></div>
+                <div class="about-visual">
+                    <div class="about-card">
+                        <div class="about-card-content">
+                            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/>
+                                <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/>
+                                <path d="M4 22h16"/>
+                                <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/>
+                                <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/>
+                                <path d="M18 2H6v7a6 6 0 0 0 12 0Z"/>
+                            </svg>
+                            <p style="font-size: 1.125rem; font-weight: 600; color: hsl(var(--foreground)); margin-bottom: 0.5rem;">AI-Powered Intelligence</p>
+                            <p style="color: hsl(var(--muted-foreground));">Personalized for You</p>
+                        </div>
                     </div>
-                    <p class="memory-preview">
-                      Automate networking and grow professional connections
-                      responsibly with ethical automation tools...
-                    </p>
-                  </div>
                 </div>
-                <div class="card-face card-back">
-                  <div class="card-content">
-                    <h3 class="memory-title">LinkedIn Automation</h3>
-                    <p class="memory-details">
-                      Professional automation tools can help you schedule posts,
-                      send personalized connection requests, and track
-                      engagement metrics. Always prioritize authentic
-                      relationships and comply with LinkedIn's terms of service
-                      for sustainable growth.
-                    </p>
-                    <div class="memory-meta">
-                      <span
-                        ><i
-                          class="fa-solid fa-location-dot"
-                          aria-hidden="true"
-                        ></i>
-                        linkedin.com</span
-                      >
-                      <span
-                        ><i class="fa-regular fa-clock" aria-hidden="true"></i>
-                        Business Hours</span
-                      >
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </article>
-
-            <article
-              class="memory-card gpu-accelerated"
-              data-memory-id="2"
-              tabindex="0"
-              role="button"
-              aria-label="Online learning platforms resource"
-            >
-              <div class="card-inner">
-                <div class="card-face card-front">
-                  <div class="card-content">
-                    <div class="memory-category">Learning Platforms</div>
-                    <h3 class="memory-title">Coursera & Udemy</h3>
-                    <div class="memory-visual">
-                      <i
-                        class="fa-solid fa-graduation-cap"
-                        aria-hidden="true"
-                      ></i>
-                      <div class="visual-effect"></div>
-                    </div>
-                    <p class="memory-preview">
-                      Access premium online courses from top universities and
-                      industry experts worldwide...
-                    </p>
-                  </div>
-                </div>
-                <div class="card-face card-back">
-                  <div class="card-content">
-                    <h3 class="memory-title">Coursera & Udemy</h3>
-                    <p class="memory-details">
-                      Explore thousands of courses from universities like
-                      Stanford, MIT, and Google. Earn certificates, develop new
-                      skills, and advance your career with flexible learning
-                      schedules that fit your lifestyle.
-                    </p>
-                    <div class="memory-meta">
-                      <span
-                        ><i
-                          class="fa-solid fa-location-dot"
-                          aria-hidden="true"
-                        ></i>
-                        coursera.org / udemy.com</span
-                      >
-                      <span
-                        ><i class="fa-regular fa-clock" aria-hidden="true"></i>
-                        Self-paced</span
-                      >
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </article>
-
-            <article
-              class="memory-card gpu-accelerated"
-              data-memory-id="3"
-              tabindex="0"
-              role="button"
-              aria-label="Career roadmap after 10th grade resource"
-            >
-              <div class="card-inner">
-                <div class="card-face card-front">
-                  <div class="card-content">
-                    <div class="memory-category">Career Guide</div>
-                    <h3 class="memory-title">Roadmap After 10th</h3>
-                    <div class="memory-visual">
-                      <i class="fa-solid fa-road" aria-hidden="true"></i>
-                      <div class="visual-effect"></div>
-                    </div>
-                    <p class="memory-preview">
-                      Make informed decisions about your academic stream -
-                      Science, Commerce, or Arts...
-                    </p>
-                  </div>
-                </div>
-                <div class="card-face card-back">
-                  <div class="card-content">
-                    <h3 class="memory-title">Roadmap After 10th</h3>
-                    <p class="memory-details">
-                      Strategic planning for your future starts with choosing
-                      the right stream. Explore career opportunities in STEM,
-                      business, humanities, and emerging fields like AI, design
-                      thinking, and digital marketing.
-                    </p>
-                    <div class="memory-meta">
-                      <span
-                        ><i
-                          class="fa-solid fa-location-dot"
-                          aria-hidden="true"
-                        ></i>
-                        Career Guidance Center</span
-                      >
-                      <span
-                        ><i class="fa-regular fa-clock" aria-hidden="true"></i>
-                        Critical Decision Point</span
-                      >
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </article>
-
-            <article
-              class="memory-card gpu-accelerated"
-              data-memory-id="4"
-              tabindex="0"
-              role="button"
-              aria-label="Market trends tracker resource"
-            >
-              <div class="card-inner">
-                <div class="card-face card-front">
-                  <div class="card-content">
-                    <div class="memory-category">Market Intelligence</div>
-                    <h3 class="memory-title">Market Signal Tracker</h3>
-                    <div class="memory-visual">
-                      <i class="fa-solid fa-chart-line" aria-hidden="true"></i>
-                      <div class="visual-effect"></div>
-                    </div>
-                    <p class="memory-preview">
-                      Stay ahead with real-time job market trends and emerging
-                      industry signals...
-                    </p>
-                  </div>
-                </div>
-                <div class="card-face card-back">
-                  <div class="card-content">
-                    <h3 class="memory-title">Market Signal Tracker</h3>
-                    <p class="memory-details">
-                      Advanced analytics track skill demand, salary trends, and
-                      emerging opportunities. Get insights into future-ready
-                      careers and make data-driven decisions about your
-                      professional development.
-                    </p>
-                    <div class="memory-meta">
-                      <span
-                        ><i
-                          class="fa-solid fa-location-dot"
-                          aria-hidden="true"
-                        ></i>
-                        Market Analytics</span
-                      >
-                      <span
-                        ><i class="fa-regular fa-clock" aria-hidden="true"></i>
-                        Real-time</span
-                      >
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </article>
-
-            <article
-              class="memory-card gpu-accelerated"
-              data-memory-id="5"
-              tabindex="0"
-              role="button"
-              aria-label="Internship opportunities resource"
-            >
-              <div class="card-inner">
-                <div class="card-face card-front">
-                  <div class="card-content">
-                    <div class="memory-category">Experience</div>
-                    <h3 class="memory-title">Internship Hub</h3>
-                    <div class="memory-visual">
-                      <i class="fa-solid fa-briefcase" aria-hidden="true"></i>
-                      <div class="visual-effect"></div>
-                    </div>
-                    <p class="memory-preview">
-                      Discover exciting internships to build real-world skills
-                      and industry connections...
-                    </p>
-                  </div>
-                </div>
-                <div class="card-face card-back">
-                  <div class="card-content">
-                    <h3 class="memory-title">Internship Hub</h3>
-                    <p class="memory-details">
-                      Curated opportunities across startups, Fortune 500
-                      companies, NGOs, and research institutions. Build your
-                      portfolio while gaining valuable industry experience and
-                      professional mentorship.
-                    </p>
-                    <div class="memory-meta">
-                      <span
-                        ><i
-                          class="fa-solid fa-location-dot"
-                          aria-hidden="true"
-                        ></i>
-                        Global Opportunities</span
-                      >
-                      <span
-                        ><i class="fa-regular fa-clock" aria-hidden="true"></i>
-                        Seasonal Cycles</span
-                      >
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </article>
-
-            <article
-              class="memory-card gpu-accelerated"
-              data-memory-id="6"
-              tabindex="0"
-              role="button"
-              aria-label="Professional certifications resource"
-            >
-              <div class="card-inner">
-                <div class="card-face card-front">
-                  <div class="card-content">
-                    <div class="memory-category">Certifications</div>
-                    <h3 class="memory-title">Certification Hub</h3>
-                    <div class="memory-visual">
-                      <i class="fa-solid fa-certificate" aria-hidden="true"></i>
-                      <div class="visual-effect"></div>
-                    </div>
-                    <p class="memory-preview">
-                      Google, Microsoft, AWS, and IBM certifications to boost
-                      your professional credentials...
-                    </p>
-                  </div>
-                </div>
-                <div class="card-face card-back">
-                  <div class="card-content">
-                    <h3 class="memory-title">Certification Hub</h3>
-                    <p class="memory-details">
-                      Industry-recognized certifications from leading tech
-                      companies. Validate your expertise in cloud computing,
-                      data science, digital marketing, and emerging technologies
-                      to stand out in competitive markets.
-                    </p>
-                    <div class="memory-meta">
-                      <span
-                        ><i
-                          class="fa-solid fa-location-dot"
-                          aria-hidden="true"
-                        ></i>
-                        Online Platforms</span
-                      >
-                      <span
-                        ><i class="fa-regular fa-clock" aria-hidden="true"></i>
-                        Self-paced</span
-                      >
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </article>
-
-            <article
-              class="memory-card gpu-accelerated"
-              data-memory-id="7"
-              tabindex="0"
-              role="button"
-              aria-label="Project development resource"
-            >
-              <div class="card-inner">
-                <div class="card-face card-front">
-                  <div class="card-content">
-                    <div class="memory-category">Innovation</div>
-                    <h3 class="memory-title">Project Catalyst</h3>
-                    <div class="memory-visual">
-                      <i class="fa-solid fa-rocket" aria-hidden="true"></i>
-                      <div class="visual-effect"></div>
-                    </div>
-                    <p class="memory-preview">
-                      Transform ideas into reality with guided project
-                      development and innovation frameworks...
-                    </p>
-                  </div>
-                </div>
-                <div class="card-face card-back">
-                  <div class="card-content">
-                    <h3 class="memory-title">Project Catalyst</h3>
-                    <p class="memory-details">
-                      From AI applications to sustainable solutions, get
-                      step-by-step guidance to build impressive projects.
-                      Showcase your creativity, technical skills, and
-                      problem-solving abilities to potential employers.
-                    </p>
-                    <div class="memory-meta">
-                      <span
-                        ><i
-                          class="fa-solid fa-location-dot"
-                          aria-hidden="true"
-                        ></i>
-                        Innovation Labs</span
-                      >
-                      <span
-                        ><i class="fa-regular fa-clock" aria-hidden="true"></i>
-                        Continuous</span
-                      >
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </article>
-          </div>
-        </div>
-
-        <div class="carousel-controls">
-          <button
-            id="prev-btn"
-            class="control-btn"
-            aria-label="Previous resource card"
-          >
-            <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
-          </button>
-          <button
-            id="next-btn"
-            class="control-btn"
-            aria-label="Next resource card"
-          >
-            <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
-          </button>
-        </div>
-
-        <!-- Progress Indicator -->
-        <div class="carousel-progress mt-4 d-flex justify-content-center">
-          <div class="progress" style="width: 200px; height: 4px">
-            <div
-              class="progress-bar bg-primary"
-              role="progressbar"
-              style="width: 14.3%"
-              aria-valuenow="1"
-              aria-valuemin="1"
-              aria-valuemax="7"
-            ></div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Call to Action Section -->
-      <section class="cta-section py-5" id="get-started">
-        <div class="container text-center">
-          <div class="row justify-content-center">
-            <div class="col-lg-8">
-              <h2 class="font-display text-gradient mb-4">
-                Ready to Transform Your Career?
-              </h2>
-              <p class="lead mb-5">
-                Join thousands of students and professionals who have
-                accelerated their career growth with Futuro's AI-powered
-                guidance and comprehensive resources.
-              </p>
-              <div class="d-flex gap-3 justify-content-center flex-wrap">
-                <button
-                  class="btn btn-modern btn-primary-modern btn-lg"
-                  onclick="startFreeTrial()"
-                >
-                  <i class="fas fa-play me-2" aria-hidden="true"></i>
-                  Start Free Trial
-                </button>
-                <button
-                  class="btn btn-modern btn-outline-modern btn-lg"
-                  onclick="bookDemo()"
-                >
-                  <i class="fas fa-calendar me-2" aria-hidden="true"></i>
-                  Book a Demo
-                </button>
-              </div>
             </div>
-          </div>
-        </div>
-      </section>
-    </main>
 
-    <!-- Scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+            <!-- Values Grid -->
+            <div class="values-grid">
+                <div class="feature-card">
+                    <div class="feature-icon" style="background: var(--gradient-primary);">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"/>
+                            <circle cx="12" cy="12" r="6"/>
+                            <circle cx="12" cy="12" r="2"/>
+                        </svg>
+                    </div>
+                    <h4 class="feature-title">Mission-Driven</h4>
+                    <p class="feature-description">
+                        We're committed to democratizing access to high-quality career development 
+                        resources through innovative AI technology.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon" style="background: var(--gradient-secondary);">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+                            <circle cx="9" cy="7" r="4"/>
+                            <path d="m22 21-2-2"/>
+                            <path d="m16 16-2-2"/>
+                        </svg>
+                    </div>
+                    <h4 class="feature-title">User-Centric</h4>
+                    <p class="feature-description">
+                        Every feature is designed with our users in mind, ensuring intuitive 
+                        experiences that deliver meaningful value.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon" style="background: linear-gradient(135deg, hsl(var(--accent)), hsl(var(--primary)));">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/>
+                            <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/>
+                            <path d="M4 22h16"/>
+                            <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/>
+                            <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/>
+                            <path d="M18 2H6v7a6 6 0 0 0 12 0Z"/>
+                        </svg>
+                    </div>
+                    <h4 class="feature-title">Innovation First</h4>
+                    <p class="feature-description">
+                        We continuously push the boundaries of what's possible in AI-powered 
+                        career development and professional growth.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title text-gradient-primary">Powerful Features</h2>
+                <p class="section-subtitle">
+                    Explore our comprehensive suite of AI-powered tools designed to accelerate 
+                    your career growth and unlock your professional potential.
+                </p>
+            </div>
+
+            <div class="features-grid">
+                <!-- LinkedIn Authentication -->
+                <div class="feature-card">
+                    <div class="feature-icon" style="background: linear-gradient(135deg, #0077B5, #00A0DC);">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+                            <rect width="4" height="12" x="2" y="9"/>
+                            <circle cx="4" cy="4" r="2"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">LinkedIn Authentication</h3>
+                    <p class="feature-description">
+                        Seamlessly connect your LinkedIn profile to unlock personalized career insights and networking opportunities tailored to your professional background.
+                    </p>
+                </div>
+
+                <!-- Udemy Course Recommendations -->
+                <div class="feature-card">
+                    <div class="feature-icon" style="background: linear-gradient(135deg, #A435F0, #EC5252);">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+                            <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Udemy Course Recommendations</h3>
+                    <p class="feature-description">
+                        Get AI-powered course suggestions from Udemy's extensive library, perfectly matched to your career goals and skill development needs.
+                    </p>
+                </div>
+
+                <!-- AI Chatbot -->
+                <div class="feature-card">
+                    <div class="feature-icon" style="background: var(--gradient-primary);">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M3 6V5c0-1.1.9-2 2-2h2"/>
+                            <path d="M11 3h3"/>
+                            <path d="M18 3h1c1.1 0 2 .9 2 2"/>
+                            <path d="M21 9v2"/>
+                            <path d="M21 15c0 1.1-.9 2-2 2h-1"/>
+                            <path d="M14 17h-3"/>
+                            <path d="m7 17-4 4v-5"/>
+                            <path d="M9 12a1 1 0 0 0-1-1H6a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1z"/>
+                            <path d="M9 7a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1z"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">AI Chatbot</h3>
+                    <p class="feature-description">
+                        Chat with our intelligent assistant 24/7 for instant career advice, skill assessments, and personalized guidance on your professional journey.
+                    </p>
+                </div>
+
+                <!-- Psychometric Test -->
+                <div class="feature-card">
+                    <div class="feature-icon" style="background: var(--gradient-secondary);">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 1.98-3A2.5 2.5 0 0 1 9.5 2Z"/>
+                            <path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-1.98-3A2.5 2.5 0 0 0 14.5 2Z"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Psychometric Test</h3>
+                    <p class="feature-description">
+                        Discover your personality traits, work preferences, and cognitive abilities through comprehensive assessments that guide your career decisions.
+                    </p>
+                </div>
+
+                <!-- Market Tracking -->
+                <div class="feature-card">
+                    <div class="feature-icon" style="background: linear-gradient(135deg, hsl(var(--accent)), hsl(var(--primary)));">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="22,7 13.5,15.5 8.5,10.5 2,17"/>
+                            <polyline points="16,7 22,7 22,13"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Market Tracking</h3>
+                    <p class="feature-description">
+                        Stay ahead with real-time job market trends, salary insights, and industry demand analysis to make informed career moves.
+                    </p>
+                </div>
+
+                <!-- Interview Questions -->
+                <div class="feature-card">
+                    <div class="feature-icon" style="background: linear-gradient(135deg, #FF6B6B, #4ECDC4);">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Interview Questions</h3>
+                    <p class="feature-description">
+                        Practice with our extensive database of interview questions, get feedback on your responses, and boost your confidence for any interview.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Bottom CTA -->
+            <div class="cta-section">
+                <p>Ready to transform your career with AI?</p>
+                <button class="btn btn-hero">Start Your Journey Today</button>
+            </div>
+        </div>
+    </section>
 
     <script>
-      // Enhanced Carousel System
-      function buttonClicked(link) {
-        window.location.href = `${link}.html`; // Redirects to the specified link
-      }
-      class FuturoCarousel {
-        constructor() {
-          this.carousel = document.getElementById("memory-carousel");
-          this.cards = document.querySelectorAll(".memory-card");
-          this.prevBtn = document.getElementById("prev-btn");
-          this.nextBtn = document.getElementById("next-btn");
-          this.progressBar = document.querySelector(".progress-bar");
-
-          this.currentIndex = 0;
-          this.totalCards = this.cards.length;
-          this.theta = 0;
-          this.radius = this.getRadius();
-          this.isAnimating = false;
-          this.touchStartX = 0;
-          this.touchEndX = 0;
-
-          this.init();
-        }
-
-        init() {
-          this.arrangeCards();
-          this.bindEvents();
-          this.updateProgress();
-          this.preloadResources();
-        }
-
-        getRadius() {
-          const width = window.innerWidth;
-          if (width <= 576) return 220;
-          if (width <= 768) return 250;
-          if (width <= 1200) return 280;
-          return 320;
-        }
-
-        arrangeCards() {
-          const angleStep = 360 / this.totalCards;
-          this.cards.forEach((card, index) => {
-            const angle = angleStep * index;
-            card.style.transform = `rotateY(${angle}deg) translateZ(${this.radius}px)`;
-            card.dataset.index = index;
-          });
-        }
-
-        bindEvents() {
-          // Button controls
-          this.prevBtn.addEventListener("click", () => this.previous());
-          this.nextBtn.addEventListener("click", () => this.next());
-
-          // Card interactions
-          this.cards.forEach((card) => {
-            card.addEventListener("click", (e) => this.handleCardClick(e));
-            card.addEventListener("keydown", (e) => this.handleCardKeydown(e));
-          });
-
-          // Touch events
-          this.carousel.addEventListener(
-            "touchstart",
-            (e) => this.handleTouchStart(e),
-            { passive: true }
-          );
-          this.carousel.addEventListener(
-            "touchend",
-            (e) => this.handleTouchEnd(e),
-            { passive: true }
-          );
-
-          // Keyboard navigation
-          document.addEventListener("keydown", (e) =>
-            this.handleGlobalKeydown(e)
-          );
-
-          // Resize handling
-          window.addEventListener("resize", () => this.handleResize());
-
-          // Intersection Observer for animations
-          this.setupIntersectionObserver();
-        }
-
-        previous() {
-          if (this.isAnimating) return;
-          this.theta += 360 / this.totalCards;
-          this.rotateCarousel();
-        }
-
-        next() {
-          if (this.isAnimating) return;
-          this.theta -= 360 / this.totalCards;
-          this.rotateCarousel();
-        }
-
-        rotateCarousel() {
-          this.isAnimating = true;
-          this.carousel.style.transform = `rotateY(${this.theta}deg)`;
-
-          // Update current index
-          this.currentIndex =
-            Math.round(Math.abs(this.theta / (360 / this.totalCards))) %
-            this.totalCards;
-
-          // Update progress
-          this.updateProgress();
-
-          // Reset animation lock
-          setTimeout(() => {
-            this.isAnimating = false;
-          }, 600);
-        }
-
-        handleCardClick(e) {
-          const card = e.currentTarget;
-          const cardIndex = parseInt(card.dataset.index);
-
-          // If card is in focus, flip it
-          if (cardIndex === this.currentIndex) {
-            card.classList.toggle("flipped");
-
-            // Announce state change for screen readers
-            const isFlipped = card.classList.contains("flipped");
-            const announcement = isFlipped
-              ? "Card flipped to show details"
-              : "Card flipped to show summary";
-            this.announceToScreenReader(announcement);
-          } else {
-            // Navigate to clicked card
-            const targetTheta = -(360 / this.totalCards) * cardIndex;
-            this.theta = targetTheta;
-            this.rotateCarousel();
-          }
-        }
-
-        handleCardKeydown(e) {
-          if (e.key === "Enter" || e.key === " ") {
-            e.preventDefault();
-            this.handleCardClick(e);
-          }
-        }
-
-        handleGlobalKeydown(e) {
-          // Only handle if carousel is in focus
-          if (!this.carousel.contains(document.activeElement)) return;
-
-          switch (e.key) {
-            case "ArrowLeft":
-              e.preventDefault();
-              this.previous();
-              break;
-            case "ArrowRight":
-              e.preventDefault();
-              this.next();
-              break;
-          }
-        }
-
-        handleTouchStart(e) {
-          this.touchStartX = e.touches[0].clientX;
-        }
-
-        handleTouchEnd(e) {
-          this.touchEndX = e.changedTouches[0].clientX;
-          const deltaX = this.touchStartX - this.touchEndX;
-
-          if (Math.abs(deltaX) > 50) {
-            if (deltaX > 0) {
-              this.next();
-            } else {
-              this.previous();
-            }
-          }
-        }
-
-        handleResize() {
-          this.radius = this.getRadius();
-          this.arrangeCards();
-        }
-
-        updateProgress() {
-          const progressPercent =
-            ((this.currentIndex + 1) / this.totalCards) * 100;
-          this.progressBar.style.width = `${progressPercent}%`;
-          this.progressBar.setAttribute("aria-valuenow", this.currentIndex + 1);
-        }
-
-        setupIntersectionObserver() {
-          const options = {
-            threshold: 0.1,
-            rootMargin: "0px 0px -100px 0px",
-          };
-
-          const observer = new IntersectionObserver((entries) => {
-            entries.forEach((entry) => {
-              if (entry.isIntersecting) {
-                entry.target.classList.add("visible");
-              }
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
             });
-          }, options);
-
-          document.querySelectorAll(".animate-on-scroll").forEach((el) => {
-            observer.observe(el);
-          });
-        }
-
-        preloadResources() {
-          // Preload font awesome icons
-          const iconClasses = [
-            "fa-network-wired",
-            "fa-graduation-cap",
-            "fa-road",
-            "fa-chart-line",
-            "fa-briefcase",
-            "fa-certificate",
-            "fa-rocket",
-          ];
-
-          iconClasses.forEach((iconClass) => {
-            const link = document.createElement("link");
-            link.rel = "preload";
-            link.as = "font";
-            link.href = `https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/webfonts/fa-solid-900.woff2`;
-            link.crossOrigin = "anonymous";
-            document.head.appendChild(link);
-          });
-        }
-
-        announceToScreenReader(message) {
-          const announcement = document.createElement("div");
-          announcement.setAttribute("aria-live", "polite");
-          announcement.setAttribute("aria-atomic", "true");
-          announcement.className = "sr-only";
-          announcement.textContent = message;
-          document.body.appendChild(announcement);
-
-          setTimeout(() => {
-            document.body.removeChild(announcement);
-          }, 1000);
-        }
-      }
-
-      // Enhanced Navbar Scroll Effect
-      class NavbarEnhancer {
-        constructor() {
-          this.navbar = document.querySelector(".navbar");
-          this.lastScrollTop = 0;
-          this.init();
-        }
-
-        init() {
-          window.addEventListener("scroll", () => this.handleScroll(), {
-            passive: true,
-          });
-        }
-
-        handleScroll() {
-          const scrollTop =
-            window.pageYOffset || document.documentElement.scrollTop;
-
-          // Add/remove scrolled class
-          if (scrollTop > 50) {
-            this.navbar.classList.add("scrolled");
-          } else {
-            this.navbar.classList.remove("scrolled");
-          }
-
-          this.lastScrollTop = scrollTop;
-        }
-      }
-
-      // Interactive Functions
-      function startJourney() {
-        // Add loading state
-        const btn = event.target;
-        const originalText = btn.innerHTML;
-        btn.innerHTML =
-          '<i class="fas fa-spinner fa-spin me-2"></i>Starting...';
-        btn.disabled = true;
-
-        setTimeout(() => {
-          alert(
-            "Welcome to Futuro! Your personalized career journey begins now. 🚀"
-          );
-          btn.innerHTML = originalText;
-          btn.disabled = false;
-        }, 2000);
-      }
-
-      function startFreeTrial() {
-        const btn = event.target;
-        const originalText = btn.innerHTML;
-        btn.innerHTML =
-          '<i class="fas fa-spinner fa-spin me-2"></i>Setting up...';
-        btn.disabled = true;
-
-        setTimeout(() => {
-          alert(
-            "Your free trial is ready! Check your email for login credentials."
-          );
-          btn.innerHTML = originalText;
-          btn.disabled = false;
-        }, 2000);
-      }
-
-      function bookDemo() {
-        alert("Demo booking feature coming soon! Contact us at demo@futuro.ai");
-      }
-
-      // Performance Monitoring
-      class PerformanceMonitor {
-        constructor() {
-          this.metrics = {};
-          this.init();
-        }
-
-        init() {
-          // Monitor page load time
-          window.addEventListener("load", () => {
-            const loadTime = performance.now();
-            console.log(`Page loaded in ${loadTime.toFixed(2)}ms`);
-          });
-
-          // Monitor interaction responsiveness
-          document.addEventListener("click", (e) => {
-            const start = performance.now();
-            setTimeout(() => {
-              const duration = performance.now() - start;
-              if (duration > 100) {
-                console.warn(
-                  `Slow interaction detected: ${duration.toFixed(2)}ms`
-                );
-              }
-            }, 0);
-          });
-        }
-      }
-
-      // Initialize everything when DOM is loaded
-      document.addEventListener("DOMContentLoaded", function () {
-        // Initialize main components
-        const carousel = new FuturoCarousel();
-        const navbarEnhancer = new NavbarEnhancer();
-        const perfMonitor = new PerformanceMonitor();
-
-        // Smooth scrolling for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-          anchor.addEventListener("click", function (e) {
-            e.preventDefault();
-            const target = document.querySelector(this.getAttribute("href"));
-            if (target) {
-              target.scrollIntoView({
-                behavior: "smooth",
-                block: "start",
-              });
-            }
-          });
         });
 
-        // Add focus styles for keyboard navigation
-        document.addEventListener("keydown", function (e) {
-          if (e.key === "Tab") {
-            document.body.classList.add("keyboard-navigation");
-          }
+        // Update active navigation link on scroll
+        window.addEventListener('scroll', () => {
+            let current = '';
+            const sections = document.querySelectorAll('section');
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (scrollY >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            document.querySelectorAll('.nav a').forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
         });
-
-        document.addEventListener("mousedown", function () {
-          document.body.classList.remove("keyboard-navigation");
-        });
-
-        // Initialize tooltips if Bootstrap is available
-        if (typeof bootstrap !== "undefined") {
-          const tooltipTriggerList = [].slice.call(
-            document.querySelectorAll('[data-bs-toggle="tooltip"]')
-          );
-          tooltipTriggerList.map(function (tooltipTriggerEl) {
-            return new bootstrap.Tooltip(tooltipTriggerEl);
-          });
-        }
-      });
-
-      // Error handling
-      window.addEventListener("error", function (e) {
-        console.error("Global error:", e.error);
-      });
-
-      // Unhandled promise rejections
-      window.addEventListener("unhandledrejection", function (e) {
-        console.error("Unhandled promise rejection:", e.reason);
-      });
     </script>
-  </body>
+</body>
 </html>

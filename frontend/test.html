@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Psychometric Test</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #282828, #424242);
+            color: #e0e0e0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .test-wrapper {
+            background-color: rgba(60, 60, 60, 0.5);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+            max-width: 800px;
+            width: 90%;
+            text-align: center;
+        }
+
+        header h1 {
+            color: #B0E0E6;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+
+        header p {
+            font-size: 1.1em;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .input-group {
+            margin-top: 20px;
+        }
+
+        .input-group label {
+            font-size: 1.1em;
+            margin-right: 10px;
+            color: #f0f0f0;
+        }
+
+        .input-group input {
+            padding: 8px;
+            font-size: 1em;
+            border-radius: 5px;
+            border: 1px solid #555;
+            background-color: #333;
+            color: #e0e0e0;
+        }
+
+        .error-message {
+            color: #ff6b6b;
+            margin-top: 5px;
+            font-size: 0.9em;
+            display: none;
+        }
+
+        #start-button {
+            background-color: #66BB6A;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            margin-top: 20px;
+        }
+
+        #start-button:hover {
+            background-color: #5cb85c;
+            transform: scale(1.05);
+        }
+
+        #start-button:disabled {
+            background-color: #888;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .question-container {
+            background: rgba(80, 80, 80, 0.6);
+            border-radius: 8px;
+            padding: 25px;
+            margin-top: 20px;
+            text-align: left;
+        }
+
+        .question-container p {
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #f0f0f0;
+        }
+
+        .options label {
+            display: block;
+            background: rgba(100, 100, 100, 0.6);
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            color: #e0e0e0;
+            border: 1px solid transparent;
+        }
+
+        .options label:hover {
+            background-color: rgba(120, 120, 120, 0.7);
+        }
+        
+        .options input[type="radio"]:checked + span {
+            font-weight: bold;
+        }
+        
+        .options label.selected {
+            background-color: #4A90E2;
+            border: 1px solid #fff;
+            color: #fff;
+        }
+
+        .options input[type="radio"] {
+            display: none;
+        }
+        
+        .navigation-buttons {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .navigation-buttons button {
+            background-color: #4A90E2;
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .navigation-buttons button:hover {
+            background-color: #357ABD;
+            transform: scale(1.05);
+        }
+
+        .navigation-buttons button:disabled {
+            background-color: #888;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        #results-container {
+            padding: 25px;
+            background: rgba(102, 187, 106, 0.2);
+            color: #d4edda;
+            border-radius: 8px;
+            margin-top: 20px;
+            text-align: left;
+            border: 1px solid #66BB6A;
+        }
+
+        #results-container h2 {
+            color: #66BB6A;
+            margin-bottom: 10px;
+        }
+        
+        #results-container p {
+            color: #d4edda;
+        }
+
+        .score-display {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #B0E0E6;
+            margin-bottom: 15px;
+        }
+
+        .category-score {
+            margin-top: 15px;
+            font-size: 1.1em;
+        }
+
+        .category-score span {
+            font-weight: bold;
+        }
+
+        .personality-summary {
+            margin-top: 20px;
+        }
+
+        .personality-summary h3 {
+            color: #66BB6A;
+        }
+
+        .personality-summary ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .personality-summary li {
+            background: rgba(100, 100, 100, 0.6);
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 5px;
+        }
+        
+        /* Progress bar styling */
+        .progress-container {
+            width: 100%;
+            background-color: #444;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+        .progress-bar {
+            height: 10px;
+            background-color: #4A90E2;
+            border-radius: 5px;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+        
+        .correct-answer {
+            color: #66BB6A;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="test-wrapper">
+        <header id="intro-screen">
+            <h1>Psychometric Test</h1>
+            <p>Welcome! This test assesses your cognitive abilities, problem-solving skills, and personality traits. Please answer all questions truthfully. Good luck!</p>
+            <div class="input-group">
+                <label for="age">Please enter your age (must be 8 or older):</label>
+                <input type="number" id="age" min="8" max="99" required>
+                <div class="error-message" id="age-error">You must be at least 8 years old to take this test.</div>
+            </div>
+            <button id="start-button" disabled>Start Test</button>
+        </header>
+
+        <div id="test-container" style="display: none;">
+            <div class="progress-container">
+                <div class="progress-bar" id="progress-bar"></div>
+            </div>
+        </div>
+
+        <div id="results-container" style="display: none;">
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            const startButton = document.getElementById('start-button');
+            const introScreen = document.getElementById('intro-screen');
+            const testContainer = document.getElementById('test-container');
+            const resultsContainer = document.getElementById('results-container');
+            const ageInput = document.getElementById('age');
+            const ageError = document.getElementById('age-error');
+            const progressBar = document.getElementById('progress-bar');
+
+            let userAge;
+            let questions = [];
+            let currentQuestionIndex = 0;
+            const userAnswers = {};
+
+            const allQuestions = {
+                personality: [
+                    { question: "I find it easy to strike up conversations with strangers.", options: ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"], type: "personality" },
+                    { question: "I prefer to have a wide circle of acquaintances rather than a few close friends.", options: ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"], type: "personality" },
+                    { question: "I get stressed out easily.", options: ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"], type: "personality" },
+                    { question: "I am a very detail-oriented person.", options: ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"], type: "personality" },
+                    { question: "I am confident in my ability to lead a group.", options: ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"], type: "personality" },
+                    { question: "I am more of a 'big picture' person than a 'details' person.", options: ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"], type: "personality" },
+                    { question: "I can easily adapt to new environments and situations.", options: ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"], type: "personality" },
+                    { question: "I feel a deep sense of responsibility towards others.", options: ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"], type: "personality" },
+                    { question: "I enjoy taking on new and challenging tasks.", options: ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"], type: "personality" },
+                    { question: "I like to stick to a routine and prefer predictability.", options: ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"], type: "personality" }
+                ],
+                math: {
+                    easy: [
+                        { question: "What is 7% of 500?", options: ["30", "35", "40", "45"], answer: 1, type: "math" },
+                        { question: "Solve for x: 2x + 5 = 15", options: ["x = 5", "x = 8", "x = 10", "x = 2"], answer: 0, type: "math" }
+                    ],
+                    medium: [
+                        { question: "A train travels at a speed of 60 km/h. How long will it take to travel 180 km?", options: ["2 hours", "3 hours", "4 hours", "5 hours"], answer: 1, type: "math" },
+                        { question: "If a shirt costs $25 after a 20% discount, what was its original price?", options: ["$30", "$31.25", "$35", "$28"], answer: 1, type: "math" }
+                    ],
+                    hard: [
+                        { question: "A sum of money doubles itself in 5 years at simple interest. What is the rate of interest?", options: ["10%", "15%", "20%", "25%"], answer: 2, type: "math" },
+                        { question: "If the area of a square is 64 cm², what is the length of its side?", options: ["6 cm", "8 cm", "16 cm", "32 cm"], answer: 1, type: "math" }
+                    ]
+                },
+                aptitude: {
+                    easy: [
+                        { question: "Which number comes next in the sequence: 2, 4, 8, 16, ...", options: ["24", "30", "32", "36"], answer: 2, type: "aptitude" }
+                    ],
+                    medium: [
+                        { question: "A B C D E F G H I J K L M N O P Q R S T U V W X Y Z. Which letter is fifth to the right of the ninth letter from the left?", options: ["N", "O", "P", "Q"], answer: 0, type: "aptitude" }
+                    ],
+                    hard: [
+                        { question: "If 'CAT' is coded as '3120', what is 'DOG' coded as?", options: ["4157", "4158", "4159", "4151"], answer: 3, type: "aptitude" }
+                    ]
+                },
+                logic: {
+                    easy: [
+                        { question: "Which of the following is the odd one out: Car, Train, Bus, Bicycle?", options: ["Car", "Train", "Bus", "Bicycle"], answer: 3, type: "logic" }
+                    ],
+                    medium: [
+                        { question: "All dogs are animals. Some animals are black. Therefore, some dogs are black. Is this statement:", options: ["True", "False", "Cannot be determined"], answer: 2, type: "logic" }
+                    ],
+                    hard: [
+                        { question: "Which of the following figures completes the sequence?", options: ["A", "B", "C", "D"], answer: 2, type: "logic" },
+                        { question: "If you rearrange the letters 'CIFAICP', you get the name of a(n):", options: ["City", "Animal", "Ocean", "Country"], answer: 2, type: "logic" }
+                    ]
+                }
+            };
+            
+            ageInput.addEventListener('input', () => {
+                const age = parseInt(ageInput.value, 10);
+                if (age >= 8 && age <= 99) {
+                    startButton.disabled = false;
+                    userAge = age;
+                    ageError.style.display = 'none';
+                } else {
+                    startButton.disabled = true;
+                    if (age < 8 && ageInput.value !== '') {
+                        ageError.style.display = 'block';
+                    } else {
+                        ageError.style.display = 'none';
+                    }
+                }
+            });
+
+            startButton.addEventListener('click', () => {
+                generateQuestions();
+                introScreen.style.display = 'none';
+                testContainer.style.display = 'block';
+                displayQuestion();
+            });
+
+            function generateQuestions() {
+                questions.push(...allQuestions.personality);
+                
+                let mathQuestions = [], aptitudeQuestions = [], logicQuestions = [];
+
+                if (userAge <= 25) {
+                    mathQuestions = [...allQuestions.math.easy, ...allQuestions.math.medium];
+                    aptitudeQuestions = [...allQuestions.aptitude.easy, ...allQuestions.aptitude.medium];
+                    logicQuestions = [...allQuestions.logic.easy, ...allQuestions.logic.medium];
+                } else {
+                    mathQuestions = [...allQuestions.math.easy, ...allQuestions.math.medium, ...allQuestions.math.hard];
+                    aptitudeQuestions = [...allQuestions.aptitude.easy, ...allQuestions.aptitude.medium, ...allQuestions.aptitude.hard];
+                    logicQuestions = [...allQuestions.logic.easy, ...allQuestions.logic.medium, ...allQuestions.logic.hard];
+                }
+                
+                // For ages <= 25, just use the easy/medium questions
+                // For ages > 25, pull a mix of easy, medium, and one hard
+                if (userAge > 25) {
+                    questions.push(
+                        ...shuffleArray(allQuestions.math.easy).slice(0, 1),
+                        ...shuffleArray(allQuestions.math.medium).slice(0, 1),
+                        ...shuffleArray(allQuestions.math.hard).slice(0, 1)
+                    );
+                    questions.push(
+                        ...shuffleArray(allQuestions.aptitude.easy).slice(0, 1),
+                        ...shuffleArray(allQuestions.aptitude.medium).slice(0, 1),
+                        ...shuffleArray(allQuestions.aptitude.hard).slice(0, 1)
+                    );
+                    questions.push(
+                        ...shuffleArray(allQuestions.logic.easy).slice(0, 1),
+                        ...shuffleArray(allQuestions.logic.medium).slice(0, 1),
+                        ...shuffleArray(allQuestions.logic.hard).slice(0, 1)
+                    );
+                } else {
+                    questions.push(...shuffleArray(mathQuestions).slice(0, 3));
+                    questions.push(...shuffleArray(aptitudeQuestions).slice(0, 3));
+                    questions.push(...shuffleArray(logicQuestions).slice(0, 3));
+                }
+                
+                questions = shuffleArray(questions);
+            }
+
+            function shuffleArray(array) {
+                for (let i = array.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [array[i], array[j]] = [array[j], array[i]];
+                }
+                return array;
+            }
+
+            function updateProgressBar() {
+                const progress = ((currentQuestionIndex + 1) / questions.length) * 100;
+                progressBar.style.width = progress + '%';
+            }
+
+            function displayQuestion() {
+                if (questions.length === 0) return;
+
+                const questionData = questions[currentQuestionIndex];
+                
+                const navigationButtons = `
+                    <div class="navigation-buttons">
+                        <button id="prev-button" ${currentQuestionIndex === 0 ? 'disabled' : ''}>Previous</button>
+                        <button id="skip-button">Skip</button>
+                        <button id="next-button" ${userAnswers[currentQuestionIndex] === undefined ? 'disabled' : ''}>${currentQuestionIndex === questions.length - 1 ? 'Submit' : 'Next'}</button>
+                    </div>
+                `;
+
+                let questionContent;
+                if (questionData.question.includes('figures completes')) {
+                    questionContent = `
+                        <div class="question-container">
+                            <p>${currentQuestionIndex + 1}. ${questionData.question}</p>
+                            <img src="https://via.placeholder.com/400x150.png?text=Logical+Reasoning+Sequence" alt="Logical Reasoning Sequence" style="display:block; margin: 15px auto;">
+                            <div class="options">
+                                ${questionData.options.map((option, index) => `
+                                    <label class="${userAnswers[currentQuestionIndex] === index ? 'selected' : ''}">
+                                        <input type="radio" name="question-${currentQuestionIndex}" value="${index}" ${userAnswers[currentQuestionIndex] === index ? 'checked' : ''}>
+                                        <span>${option}</span>
+                                    </label>
+                                `).join('')}
+                            </div>
+                        </div>
+                        ${navigationButtons}
+                    `;
+                } else {
+                    questionContent = `
+                        <div class="question-container">
+                            <p>${currentQuestionIndex + 1}. ${questionData.question}</p>
+                            <div class="options">
+                                ${questionData.options.map((option, index) => `
+                                    <label class="${userAnswers[currentQuestionIndex] === index ? 'selected' : ''}">
+                                        <input type="radio" name="question-${currentQuestionIndex}" value="${index}" ${userAnswers[currentQuestionIndex] === index ? 'checked' : ''}>
+                                        <span>${option}</span>
+                                    </label>
+                                `).join('')}
+                            </div>
+                        </div>
+                        ${navigationButtons}
+                    `;
+                }
+                
+                testContainer.innerHTML = questionContent;
+                updateProgressBar();
+                
+                const nextButton = document.getElementById('next-button');
+                const prevButton = document.getElementById('prev-button');
+                const skipButton = document.getElementById('skip-button');
+                const radioButtons = document.querySelectorAll(input[name="question-${currentQuestionIndex}"]);
+                const optionLabels = document.querySelectorAll(".options label");
+
+                radioButtons.forEach((radio, index) => {
+                    radio.addEventListener('change', () => {
+                        optionLabels.forEach(label => label.classList.remove('selected'));
+                        optionLabels[index].classList.add('selected');
+                        nextButton.disabled = false;
+                        saveAnswer();
+                    });
+                });
+                
+                if (userAnswers[currentQuestionIndex] !== undefined) {
+                    nextButton.disabled = false;
+                }
+
+                prevButton.addEventListener('click', () => {
+                    if (currentQuestionIndex > 0) {
+                        currentQuestionIndex--;
+                        displayQuestion();
+                    }
+                });
+                
+                skipButton.addEventListener('click', () => {
+                    // Save a 'skipped' value
+                    userAnswers[currentQuestionIndex] = "skipped";
+                    if (currentQuestionIndex < questions.length - 1) {
+                        currentQuestionIndex++;
+                        displayQuestion();
+                    } else {
+                        submitTest();
+                    }
+                });
+                
+                nextButton.addEventListener('click', () => {
+                    if (currentQuestionIndex < questions.length - 1) {
+                        currentQuestionIndex++;
+                        displayQuestion();
+                    } else {
+                        submitTest();
+                    }
+                });
+            }
+
+            function saveAnswer() {
+                const selectedOption = document.querySelector(`input[name="question-${currentQuestionIndex}"]:checked`);
+                if (selectedOption) {
+                    userAnswers[currentQuestionIndex] = parseInt(selectedOption.value);
+                }
+            }
+
+            function submitTest() {
+                testContainer.style.display = 'none';
+                resultsContainer.style.display = 'block';
+                showResults();
+            }
+
+            function showResults() {
+                let scores = {
+                    math: { correct: 0, total: 0, results: [] },
+                    aptitude: { correct: 0, total: 0, results: [] },
+                    logic: { correct: 0, total: 0, results: [] }
+                };
+                let personalityAnswers = [];
+                
+                questions.forEach((question, index) => {
+                    const userAnswer = userAnswers[index];
+                    if (question.type === "personality") {
+                        personalityAnswers.push({
+                            question: question.question,
+                            answer: userAnswer !== "skipped" ? question.options[userAnswer] : "Skipped"
+                        });
+                    } else {
+                        const isCorrect = userAnswer === question.answer;
+                        const result = {
+                            question: question.question,
+                            userAnswer: userAnswer !== "skipped" ? question.options[userAnswer] : "Skipped",
+                            correctAnswer: question.options[question.answer],
+                            isCorrect: isCorrect,
+                            isSkipped: userAnswer === "skipped"
+                        };
+
+                        if (userAnswer !== "skipped") {
+                            if (isCorrect) {
+                                scores[question.type].correct++;
+                            }
+                            scores[question.type].total++;
+                            scores[question.type].results.push(result);
+                        }
+                    }
+                });
+                
+                const totalCorrect = scores.math.correct + scores.aptitude.correct + scores.logic.correct;
+                const totalQuestions = scores.math.total + scores.aptitude.total + scores.logic.total;
+                const percentage = totalQuestions > 0 ? ((totalCorrect / totalQuestions) * 100).toFixed(0) : 0;
+                
+                let rating = "Below Average";
+                if (percentage >= 80) {
+                    rating = "Excellent";
+                } else if (percentage >= 60) {
+                    rating = "Good";
+                } else if (percentage >= 40) {
+                    rating = "Average";
+                }
+                
+                let resultsHTML = `
+                    <h2>Test Complete!</h2>
+                    <p>Thank you for taking the test. Here is a summary of your performance.</p>
+                    <div class="score-display">
+                        Overall Score: ${totalCorrect} / ${totalQuestions} (${percentage}%)
+                        <br>
+                        Rating: <strong>${rating}</strong>
+                    </div>
+                    
+                    <hr>
+                    
+                    <div class="category-scores">
+                        <h3>Score Breakdown by Category</h3>
+                        <p class="category-score">Math Score: <span>${scores.math.correct} / ${scores.math.total}</span></p>
+                        <p class="category-score">Aptitude Score: <span>${scores.aptitude.correct} / ${scores.aptitude.total}</span></p>
+                        <p class="category-score">Logic Score: <span>${scores.logic.correct} / ${scores.logic.total}</span></p>
+                    </div>
+                    
+                    <hr>
+
+                    <div class="detailed-results">
+                        <h3>Detailed Results</h3>
+                        ${Object.keys(scores).map(category => `
+                            <h4>${category.charAt(0).toUpperCase() + category.slice(1)} Questions</h4>
+                            <ul>
+                                ${scores[category].results.map(res => `
+                                    <li>
+                                        <p><strong>Question:</strong> ${res.question}</p>
+                                        <p><strong>Your Answer:</strong> ${res.userAnswer}</p>
+                                        <p><strong>Correct Answer:</strong> <span class="correct-answer">${res.correctAnswer}</span></p>
+                                    </li>
+                                `).join('')}
+                            </ul>
+                        `).join('')}
+                    </div>
+
+                    <div class="personality-summary">
+                        <h3>Personality Summary</h3>
+                        <p>Based on your responses, here are some of your personality traits:</p>
+                        <ul>
+                            ${personalityAnswers.map(ans => `
+                                <li><strong>${ans.question}</strong><br><em>Your answer: ${ans.answer}</em></li>
+                            `).join('')}
+                        </ul>
+                    </div>
+                `;
+                
+                resultsContainer.innerHTML = resultsHTML;
+            }
+        });
+    </script>
+</body>
+</html>

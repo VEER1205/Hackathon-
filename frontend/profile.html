@@ -1,332 +1,313 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Profile Dashboard</title>
-  <style>
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: #f0f3ff;
-      margin: 20px;
-      color: #222;
-    }
-    .container {
-      background: white;
-      border-radius: 15px;
-      padding: 30px;
-      max-width: 900px;
-      margin: auto;
-      box-shadow: 0 12px 25px rgba(0,0,0,0.1);
-      position: relative;
-      overflow: hidden;
-    }
-    .container::before, .container::after {
-      content: '';
-      position: absolute;
-      border-radius: 50%;
-      background: #1750d9;
-      opacity: 0.2;
-      z-index: 0;
-    }
-    .container::before {
-      width: 250px;
-      height: 250px;
-      top: -100px;
-      left: -100px;
-    }
-    .container::after {
-      width: 350px;
-      height: 350px;
-      bottom: -175px;
-      right: -175px;
-    }
-    header {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 25px;
-      position: relative;
-      z-index: 1;
-    }
-    header img {
-      height: 28px;
-      width: 28px;
-    }
-    header h1 {
-      font-weight: 700;
-      font-size: 22px;
-      margin: 0;
-      user-select: none;
-    }
-    h2 {
-      font-size: 20px;
-      font-weight: 600;
-      margin-bottom: 15px;
-      position: relative;
-      z-index: 1;
-    }
-    .career-progression {
-      position: relative;
-      margin-bottom: 50px;
-      z-index: 1;
-    }
-    .forward-vision {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background-color: white;
-      border-radius: 20px;
-      border: 1px solid #2c7bf2;
-      color: #2c7bf2;
-      font-size: 14px;
-      font-weight: 600;
-      padding: 4px 12px;
-      position: absolute;
-      top: 10px;
-      left: 50%;
-      transform: translateX(-50%);
-      user-select: none;
-    }
-    .forward-vision .dot {
-      height: 10px;
-      width: 10px;
-      border-radius: 50%;
-      background-color: #2c7bf2;
-    }
-    .line-chart {
-      width: 100%;
-      height: 220px;
-    }
-    .chart-label {
-      font-size: 11px;
-      fill: #999;
-      user-select: none;
-    }
-    .skills-section {
-      display: flex;
-      gap: 40px;
-      align-items: center;
-      margin-bottom: 40px;
-      position: relative;
-      z-index: 1;
-    }
-    .donut-chart-container {
-      width: 260px;
-      height: 260px;
-      position: relative;
-    }
-    .donut-center {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      background: white;
-      border-radius: 50%;
-      width: 100px;
-      height: 100px;
-      transform: translate(-50%, -50%);
-      box-shadow: 0 2px 6px #e1e8ff;
-      pointer-events: none;
-      z-index: 2;
-    }
-    .skills-legend {
-      display: flex;
-      flex-direction: column;
-      font-size: 14px;
-      gap: 10px;
-      flex: 1;
-    }
-    .skills-legend-item {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      user-select: none;
-    }
-    .skill-color {
-      width: 14px;
-      height: 14px;
-      border-radius: 3px;
-    }
-    .skill-stars {
-      margin-left: 6px;
-      color: #f5bc11;
-    }
-    .about-me {
-      display: flex;
-      gap: 25px;
-      align-items: center;
-      position: relative;
-      z-index: 1;
-    }
-    .profile-pic {
-      width: 100px;
-      height: 100px;
-      border-radius: 50%;
-      object-fit: cover;
-      box-shadow: 0 3px 8px rgba(0,0,0,0.15);
-    }
-    .about-text {
-      flex: 1;
-    }
-    .about-text h3 {
-      margin: 0 0 10px 0;
-      font-weight: 700;
-      font-size: 18px;
-    }
-    .about-text p {
-      font-size: 14px;
-      color: #555;
-      line-height: 1.4;
-      margin-bottom: 15px;
-    }
-    .btn-follow {
-      border: none;
-      background: #1750d9;
-      color: white;
-      padding: 8px 20px;
-      font-weight: 600;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-      user-select: none;
-    }
-    .btn-follow:hover {
-      background: #0f3dbb;
-    }
-    @media (max-width: 700px) {
-      .skills-section {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-      .about-me {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-      .profile-pic {
-        width: 80px;
-        height: 80px;
-      }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #282828, #424242); /* Grey gradient background */
+            color: #e0e0e0;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .dashboard-container {
+            width: 100%;
+            max-width: 1200px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .header-section {
+            background-color: rgba(60, 60, 60, 0.5); /* Semi-transparent darker grey */
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .user-info {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .user-info h1 {
+            font-size: 2.2em;
+            margin: 0;
+            color: #ADD8E6; /* A slightly desaturated light blue for the username */
+        }
+
+        .user-info p, .user-info a {
+            margin: 0;
+            font-size: 1em;
+            color: #bdbdbd;
+            text-decoration: none;
+        }
+        
+        .user-info a {
+            font-weight: bold;
+            color: #B0E0E6; /* Light cyan for links */
+        }
+
+        .user-info a:hover {
+            text-decoration: underline;
+        }
+
+        .profile-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .profile-pic {
+            width: 150px;
+            height: 150px;
+            background: url('https://via.placeholder.com/150/e0e0e0?text=User') no-repeat center center; /* Adjusted placeholder color */
+            background-size: cover;
+            border-radius: 50%;
+            border: 4px solid #66BB6A; /* Adjusted green border */
+            box-shadow: 0 0 10px rgba(102, 187, 106, 0.4);
+        }
+        
+        .profile-pic:hover {
+            border-color: #87CEEB; /* Lighter blue on hover */
+            box-shadow: 0 0 15px rgba(135, 206, 235, 0.6);
+            transition: all 0.3s ease;
+        }
+
+        /* New Button Style for LinkedIn Automation */
+        .linkedin-button {
+            background-color: #0077b5; /* LinkedIn's primary blue */
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 15px; /* Added spacing from the photo */
+        }
+
+        .linkedin-button:hover {
+            background-color: #005f91; /* Darker blue on hover */
+            transform: scale(1.05); /* Slight grow effect */
+        }
+        
+        /* New style for the link button to be part of the text flow */
+        .linkedin-link-button {
+            background-color: #0077b5;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+            display: inline-block;
+        }
+        
+        .linkedin-link-button:hover {
+            background-color: #005f91;
+            text-decoration: none;
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .graph-section {
+            background-color: rgba(60, 60, 60, 0.5);
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .graph-section h2 {
+            font-size: 1.5em;
+            margin-top: 0;
+            color: #f0f0f0;
+            text-align: center;
+        }
+        
+        .graph-container {
+            height: 350px;
+        }
+
+        .footer-links {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body>
-  <div class="container" role="main">
-    <!-- About Me Section -->
-    <section class="about-me" aria-labelledby="about-title">
-      <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="Profile picture of user" class="profile-pic" />
-      <div class="about-text">
-        <h3 id="about-title">About Me</h3>
-        <p>I’m a passionate developer focused on creating intuitive dashboards and data-driven applications. Skilled in software development, design, and project management, I aim to merge creativity with technical expertise.</p>
-        <button class="btn-follow" aria-label="Follow Me button">Follow Me</button>
-      </div>
-    </section>
 
-    <!-- Career Progression Section -->
-    <section class="career-progression" aria-labelledby="career-title">
-      <h2 id="career-title">Career Progression</h2>
-      <div role="img" aria-label="Career progression line chart showing growth from 2019 to 2023">
-        <div class="forward-vision">
-          <span class="dot"></span> Forward Vision
+    <div class="dashboard-container">
+        <header class="header-section">
+            <div class="user-info">
+                <h1>falgunpatel2007</h1>
+                <p>Email: falgunpatel2007@gmail.com</p>
+                <a href="https://www.linkedin.com/in/yourprofile" target="_blank">LinkedIn Profile</a>
+                <a href="https://www.udemy.com/user/yourprofile" target="_blank">Udemy Profile</a>
+                <a href="#" class="linkedin-link-button">LinkedIn Automation</a>
+            </div>
+            <div class="profile-section">
+                <div class="profile-pic"></div>
+                <a href="#" style="color:#B0E0E6;">Change Photo</a>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <div class="graph-section">
+                <h2>Market Tracking Graph (Job Fit)</h2>
+                <div class="graph-container">
+                    <canvas id="marketChart"></canvas>
+                </div>
+            </div>
+
+            <div class="graph-section">
+                <h2>Psychometric Test Score</h2>
+                <div class="graph-container">
+                    <canvas id="psychometricChart"></canvas>
+                </div>
+            </div>
+        </main>
+        
+        <div class="footer-links">
+            <a href="#" style="color:#B0E0E6;">My Profile</a> | 
+            <a href="#" style="color:#B0E0E6;">Settings</a>
         </div>
-        <svg class="line-chart" viewBox="0 0 900 220" aria-hidden="true" focusable="false">
-          <!-- grid lines -->
-          <line x1="50" y1="30" x2="50" y2="180" stroke="#eee" stroke-width="1"></line>
-          <line x1="150" y1="30" x2="150" y2="180" stroke="#eee" stroke-width="1"></line>
-          <line x1="250" y1="30" x2="250" y2="180" stroke="#eee" stroke-width="1"></line>
-          <line x1="350" y1="30" x2="350" y2="180" stroke="#eee" stroke-width="1"></line>
-          <line x1="450" y1="30" x2="450" y2="180" stroke="#eee" stroke-width="1"></line>
-          <line x1="550" y1="30" x2="550" y2="180" stroke="#eee" stroke-width="1"></line>
-          <line x1="650" y1="30" x2="650" y2="180" stroke="#eee" stroke-width="1"></line>
-          <line x1="750" y1="30" x2="750" y2="180" stroke="#eee" stroke-width="1"></line>
-          <line x1="850" y1="30" x2="850" y2="180" stroke="#eee" stroke-width="1"></line>
-          <!-- Horizontal year lines -->
-          <text x="10" y="75" class="chart-label">2019</text>
-          <text x="10" y="130" class="chart-label">2020</text>
-          <text x="10" y="183" class="chart-label">2021</text>
-          <!-- Progression Line -->
-          <polyline fill="none" stroke="#2c7bf2" stroke-width="3" points="60,160 140,110 230,110 310,110 400,106 480,100 560,95 635,90 720,60 810,40" />
-          <!-- Data points -->
-          <circle cx="60" cy="160" r="7" fill="#2c7bf2" />
-          <circle cx="140" cy="110" r="7" fill="#2c7bf2" />
-          <circle cx="230" cy="110" r="7" fill="#2c7bf2" />
-          <circle cx="310" cy="110" r="7" fill="#2c7bf2" />
-          <circle cx="400" cy="106" r="7" fill="#2c7bf2" />
-          <circle cx="480" cy="100" r="7" fill="#2c7bf2" />
-          <circle cx="560" cy="95" r="7" fill="#2c7bf2" />
-          <circle cx="635" cy="90" r="7" fill="#2c7bf2" />
-          <circle cx="720" cy="60" r="7" fill="#2c7bf2" />
-          <circle cx="810" cy="40" r="9" fill="#2c7bf2" filter="url(#glow)" />
-          <defs>
-            <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
-              <feDropShadow dx="0" dy="0" stdDeviation="4" flood-color="#2c7bf2" flood-opacity="0.7"/>
-            </filter>
-          </defs>
-        </svg>
-      </div>
-    </section>
+    </div>
 
-    <!-- Segmented Skills Section -->
-    <section aria-labelledby="skills-title" class="skills-section">
-      <div class="donut-chart-container" aria-label="Segmented skills donut chart" role="img">
-        <svg width="260" height="260" viewBox="0 0 260 260" aria-hidden="true" focusable="false">
-          <!-- Base Circle -->
-          <circle r="100" cx="130" cy="130" fill="#f0f3ff" />
-          
-          <!-- Circumference ≈ 628 -->
-          <!-- Software (15%) -->
-          <circle r="100" cx="130" cy="130" fill="transparent"
-                  stroke="#e03e5a" stroke-width="30"
-                  stroke-dasharray="94 534"
-                  transform="rotate(-90 130 130)" />
-          
-          <!-- Software Development (20%) -->
-          <circle r="100" cx="130" cy="130" fill="transparent"
-                  stroke="#e41d7c" stroke-width="30"
-                  stroke-dasharray="126 502"
-                  transform="rotate(-36 130 130)" />
-          
-          <!-- Project Management (15%) -->
-          <circle r="100" cx="130" cy="130" fill="transparent"
-                  stroke="#fbc906" stroke-width="30"
-                  stroke-dasharray="94 534"
-                  transform="rotate(36 130 130)" />
-          
-          <!-- Data Analysis (10%) -->
-          <circle r="100" cx="130" cy="130" fill="transparent"
-                  stroke="#95c33d" stroke-width="30"
-                  stroke-dasharray="63 565"
-                  transform="rotate(90 130 130)" />
-          
-          <!-- Communication (10%) -->
-          <circle r="100" cx="130" cy="130" fill="transparent"
-                  stroke="#e29540" stroke-width="30"
-                  stroke-dasharray="63 565"
-                  transform="rotate(126 130 130)" />
-          
-          <!-- UI/UX Design (20%) -->
-          <circle r="100" cx="130" cy="130" fill="transparent"
-                  stroke="#67c4db" stroke-width="30"
-                  stroke-dasharray="126 502"
-                  transform="rotate(162 130 130)" />
-          
-          <!-- Graphic Design (10%) -->
-          <circle r="100" cx="130" cy="130" fill="transparent"
-                  stroke="#1a56db" stroke-width="30"
-                  stroke-dasharray="63 565"
-                  transform="rotate(234 130 130)" />
-        </svg>
-        <div class="donut-center" aria-hidden="true"></div>
-      </div>
-      <div class="skills-legend">
-        <div class="skills-legend-item"><div class="skill-color" style="background:#e03e5a;"></div> Software <span class="skill-stars">★★★★★</span></div>
-        <div class="skills-legend-item"><div class="skill-color" style="background:#e41d7c;"></div> Software Development <span class="skill-stars">★★★★☆</span></div>
-        <div class="skills-legend-item"><div class="skill-color" style="background:#fbc906;"></div> Project Management <span class="skill-stars">★★★☆☆</span></div>
-        <div class="skills-legend-item"><div class="skill-color" style="background:#95c33d;"></div> Data Analysis <span class="skill-stars">★★☆☆☆</span></div>
-        <div class="skills-legend-item"><div class="skill-color" style="background:#e29540;"></div> Communication <span class="skill-stars">★★☆☆☆</span></div>
-        <div class="skills-legend-item"><div class="skill-color" style="background:#67c4db;"></div> UI/UX Design <span class="skill-stars">★★★★★</span></div>
-        <div class="skills-legend-item"><div class="skill-color" style="background:#1a56db;"></div> Graphic Design <span class="skill-stars">★★☆☆☆</span></div>
-      </div>
-    </section>
-  </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // === Data for Graphs ===
+            const marketData = {
+                labels: ['Skills Match', 'Interest Alignment', 'Market Demand', 'Personality Fit'],
+                datasets: [
+                    {
+                        label: 'Software Engineer',
+                        data: [90, 85, 75, 80],
+                        backgroundColor: 'rgba(54, 162, 235, 0.3)',
+                        borderColor: 'rgb(54, 162, 235)',
+                        pointBackgroundColor: 'rgb(54, 162, 235)',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: 'rgb(54, 162, 235)',
+                        fill: true,
+                    },
+                    {
+                        label: 'Product Manager',
+                        data: [75, 90, 88, 92],
+                        backgroundColor: 'rgba(255, 99, 132, 0.3)',
+                        borderColor: 'rgb(255, 99, 132)',
+                        pointBackgroundColor: 'rgb(255, 99, 132)',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: 'rgb(255, 99, 132)',
+                        fill: true,
+                    }
+                ]
+            };
+
+            const psychometricData = {
+                labels: ['Emotional', 'Cognitive', 'Personality', 'Verbal', 'Numerical'],
+                datasets: [{
+                    label: 'My Score',
+                    data: [85, 90, 75, 88, 92],
+                    backgroundColor: '#B19CD9',
+                    borderColor: '#9370DB',
+                    borderWidth: 1,
+                    hoverBackgroundColor: '#CFC3E5'
+                }]
+            };
+            
+            // === Chart Options ===
+            const chartOptions = {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    r: {
+                        angleLines: { color: 'rgba(255, 255, 255, 0.1)' },
+                        grid: { color: 'rgba(255, 255, 255, 0.1)' },
+                        pointLabels: { color: '#e0e0e0', font: { size: 12 } },
+                        ticks: {
+                            color: '#e0e0e0',
+                            backdropColor: 'transparent',
+                            showLabelBackdrop: false,
+                            display: true
+                        },
+                        min: 70,
+                        max: 95
+                    },
+                    y: {
+                        beginAtZero: true,
+                        grid: { color: 'rgba(255, 255, 255, 0.1)' },
+                        ticks: { color: '#e0e0e0' }
+                    },
+                    x: {
+                        grid: { color: 'rgba(255, 255, 255, 0.1)' },
+                        ticks: { color: '#e0e0e0' }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        labels: {
+                            color: '#e0e0e0',
+                            font: { size: 14 }
+                        }
+                    }
+                }
+            };
+
+            // === Render Graphs ===
+            const marketCtx = document.getElementById('marketChart').getContext('2d');
+            new Chart(marketCtx, {
+                type: 'radar',
+                data: marketData,
+                options: {
+                    ...chartOptions,
+                    scales: {
+                        r: {
+                            angleLines: { color: 'rgba(255, 255, 255, 0.1)' },
+                            grid: { color: 'rgba(255, 255, 255, 0.1)' },
+                            pointLabels: { color: '#e0e0e0', font: { size: 12 } },
+                            ticks: {
+                                color: '#e0e0e0',
+                                backdropColor: 'transparent',
+                                showLabelBackdrop: false,
+                                display: true
+                            },
+                            min: 70,
+                            max: 95
+                        }
+                    }
+                }
+            });
+
+            const psychometricCtx = document.getElementById('psychometricChart').getContext('2d');
+            new Chart(psychometricCtx, {
+                type: 'bar',
+                data: psychometricData,
+                options: chartOptions
+            });
+        });
+    </script>
 </body>
 </html>
