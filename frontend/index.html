@@ -1189,8 +1189,9 @@
         });
       });
       async function Hello() {
-        fetch("https://hackathon-pflh.onrender.com");
+        fetch("https://hackathon-pflh.onrender.com/");
       }
+      Hello();
       // Update active navigation link on scroll
       window.addEventListener("scroll", () => {
         let current = "";
@@ -1213,7 +1214,7 @@
       });
       const checkLoginStatus = async () => {
         try {
-          const res = await fetch("https://your-api.com/auth/me", {
+          const res = await fetch("https://hackathon-pflh.onrender.com/auth/me", {
             method: "GET",
             credentials: "include", // ⬅️ Send cookie with request
           });
@@ -1221,6 +1222,7 @@
           if (!res.ok) {
             // User is not logged in
             console.log("Not logged in");
+            alert("Not logged in");
             return null;
           }
 
