@@ -36,20 +36,38 @@ async def google_login(request: Request):
 @router.get("/google/callback", name="google_callback")
 async def google_callback(request: Request):
     try:
-        # This will fail with mismatching_state if session isn't preserved
+        # Exchange code for token
         token = await oauth.google.authorize_access_token(request)
     except Exception as e:
         raise HTTPException(status_code=400, detail=f"Google auth error: {str(e)}")
 
-    # Extract user info
+    # Get user info from token
     user_info = token.get("userinfo")
     if not user_info:
         raise HTTPException(status_code=400, detail="Google login failed")
 
-    # ✅ Create JWT for this user
-    access_token = create_access_token(data={"sub": user_info["email"]})
+    email = user_info.get("email")
+    name = user_info.get("name")
+    picture = user_info.get("picture")
 
-    # ✅ Redirect back to frontend with token
-    redirect_url = f"https://futuroai.vercel.app/"
+    if not email:
+        raise HTTPException(status_code=400, detail="Email not found in user info")
+
+    # ✅ Store user in MongoDB
+    try:
+        await user_crud.get_or_create_user({
+            "email": email,
+            "name": name,
+            "picture": picture,
+        })
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"DB Error: {str(e)}")
+
+    # ✅ Generate JWT token
+    access_token = create_access_token(data={"sub": email})
+
+    # ✅ Redirect to frontend with token
+    redirect_url = f"https://futuroai.vercel.app/?token={access_token}"
     return RedirectResponse(url=redirect_url)
+
 

@@ -34,3 +34,16 @@ async def delete_user(user_id: str) -> bool:
     """Delete user by ID."""
     res = await collection.delete_one({"_id": to_object_id(user_id)})
     return res.deleted_count > 0
+
+
+ # whatever your MongoDB connection is
+async def get_or_create_user(user_data: dict):
+    collection = db["users"]
+    existing_user = await collection.find_one({"email": user_data["email"]})
+    
+    if existing_user:
+        return existing_user
+    
+    result = await collection.insert_one(user_data)
+    return await collection.find_one({"_id": result.inserted_id})
+
