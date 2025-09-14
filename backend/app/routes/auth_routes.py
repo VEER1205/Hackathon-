@@ -1,47 +1,60 @@
-from fastapi import APIRouter, Request, HTTPException
+from fastapi import APIRouter, Request, HTTPException, Depends, Cookie
 from fastapi.responses import RedirectResponse
 from authlib.integrations.starlette_client import OAuth
 from starlette.config import Config
-import os
+from jose import jwt, JWTError
 from app.crud import user_crud
-from app.auth import create_access_token
 from app.config import settings
+from datetime import datetime, timedelta
 
 router = APIRouter(prefix="/auth", tags=["Auth"])
 
-GOOGLE_CLIENT_ID = settings.GOOGLE_CLIENT_ID
-GOOGLE_CLIENT_SECRET = settings.GOOGLE_CLIENT_SECRET
-
+# --- OAuth Setup ---
 config = Config(environ={
-    "GOOGLE_CLIENT_ID": GOOGLE_CLIENT_ID,
-    "GOOGLE_CLIENT_SECRET": GOOGLE_CLIENT_SECRET,
+    "GOOGLE_CLIENT_ID": settings.GOOGLE_CLIENT_ID,
+    "GOOGLE_CLIENT_SECRET": settings.GOOGLE_CLIENT_SECRET,
 })
 oauth = OAuth(config)
 
 oauth.register(
     name="google",
-    client_id=GOOGLE_CLIENT_ID,
-    client_secret=GOOGLE_CLIENT_SECRET,
+    client_id=settings.GOOGLE_CLIENT_ID,
+    client_secret=settings.GOOGLE_CLIENT_SECRET,
     server_metadata_url="https://accounts.google.com/.well-known/openid-configuration",
     client_kwargs={"scope": "openid email profile"},
 )
 
-# --- Login ---
+# --- JWT Token Helper ---
+def create_access_token(data: dict, expires_delta: timedelta = timedelta(hours=1)):
+    to_encode = data.copy()
+    expire = datetime.utcnow() + expires_delta
+    to_encode.update({"exp": expire})
+    encoded_jwt = jwt.encode(to_encode, settings.JWT_SECRET_KEY, algorithm=settings.JWT_ALGORITHM)
+    return encoded_jwt
+
+def verify_token(token: str):
+    try:
+        payload = jwt.decode(token, settings.JWT_SECRET_KEY, algorithms=[settings.JWT_ALGORITHM])
+        email = payload.get("sub")
+        if email is None:
+            raise HTTPException(status_code=401, detail="Invalid token payload")
+        return {"email": email}
+    except JWTError:
+        raise HTTPException(status_code=401, detail="Invalid token")
+
+# --- Auth Routes ---
 @router.get("/google/login")
 async def google_login(request: Request):
     redirect_uri = request.url_for("google_callback")
     return await oauth.google.authorize_redirect(request, redirect_uri)
 
-# --- Callback ---
 @router.get("/google/callback", name="google_callback")
 async def google_callback(request: Request):
     try:
-        # Exchange code for token
         token = await oauth.google.authorize_access_token(request)
     except Exception as e:
         raise HTTPException(status_code=400, detail=f"Google auth error: {str(e)}")
 
-    # Get user info from token
     user_info = token.get("userinfo")
     if not user_info:
         raise HTTPException(status_code=400, detail="Google login failed")
@@ -53,7 +66,7 @@ async def google_callback(request: Request):
     if not email:
         raise HTTPException(status_code=400, detail="Email not found in user info")
 
-    # ✅ Store user in MongoDB
+    # Store or retrieve user
     try:
         await user_crud.get_or_create_user({
             "email": email,
@@ -63,11 +76,43 @@ async def google_callback(request: Request):
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"DB Error: {str(e)}")
 
-    # ✅ Generate JWT token
+    # Create JWT
     access_token = create_access_token(data={"sub": email})
 
-    # ✅ Redirect to frontend with token
-    redirect_url = f"https://futuroai.vercel.app/?token={access_token}"
-    return RedirectResponse(url=redirect_url)
+    # Set HttpOnly cookie and redirect to frontend
+    response = RedirectResponse(url="https://futuroai.vercel.app")
+    response.set_cookie(
+        key="access_token",
+        value=access_token,
+        httponly=True,
+        secure=True,
+        samesite="Lax",
+        max_age=3600,
+    )
+    return response
 
+# --- Get Current User from Cookie ---
+def get_current_user_from_cookie(token: str = Cookie(None)):
+    if not token:
+        raise HTTPException(status_code=401, detail="Not authenticated")
+    return verify_token(token)
 
+@router.get("/me")
+async def get_me(user=Depends(get_current_user_from_cookie)):
+    email = user["email"]
+    db_user = await user_crud.get_user_by_email(email)
+    if not db_user:
+        raise HTTPException(status_code=404, detail="User not found")
+
+    return {
+        "email": db_user["email"],
+        "name": db_user["name"],
+        "picture": db_user["picture"],
+    }
+
+# --- Logout (optional) ---
+@router.post("/logout")
+async def logout():
+    response = RedirectResponse(url="https://futuroai.vercel.app")
+    response.delete_cookie("access_token")
+    return response
