@@ -1,936 +1,1237 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Futuro - AI-Powered Career Growth Platform</title>
-    <meta name="description" content="Unlock your career potential with Futuro's AI-powered platform. Get personalized course recommendations, practice interviews, and track market trends.">
-    <meta name="author" content="Futuro">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    
-    <meta property="og:title" content="Futuro - AI-Powered Career Growth Platform">
-    <meta property="og:description" content="Unlock your career potential with Futuro's AI-powered platform. Get personalized course recommendations, practice interviews, and track market trends.">
-    <meta property="og:type" content="website">
-    
+    <meta
+      name="description"
+      content="Unlock your career potential with Futuro's AI-powered platform. Get personalized course recommendations, practice interviews, and track market trends."
+    />
+    <meta name="author" content="Futuro" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <meta
+      property="og:title"
+      content="Futuro - AI-Powered Career Growth Platform"
+    />
+    <meta
+      property="og:description"
+      content="Unlock your career potential with Futuro's AI-powered platform. Get personalized course recommendations, practice interviews, and track market trends."
+    />
+    <meta property="og:type" content="website" />
+
     <style>
-        /* Futuro Design System - Professional AI/Career Platform Theme */
-        :root {
-            --background: 240 10% 3.9%;
-            --foreground: 0 0% 98%;
-            --card: 240 10% 5.9%;
-            --card-foreground: 0 0% 98%;
-            --popover: 240 10% 5.9%;
-            --popover-foreground: 0 0% 98%;
-            
-            /* Primary - Deep Professional Blue */
-            --primary: 217 91% 60%;
-            --primary-foreground: 0 0% 98%;
-            --primary-glow: 217 91% 70%;
-            
-            /* Secondary - Elegant Purple */
-            --secondary: 262 83% 58%;
-            --secondary-foreground: 0 0% 98%;
-            
-            /* Accent - Vibrant Cyan */
-            --accent: 188 94% 63%;
-            --accent-foreground: 240 10% 3.9%;
-            
-            --muted: 240 5% 15%;
-            --muted-foreground: 240 5% 64.9%;
-            --destructive: 0 62.8% 30.6%;
-            --destructive-foreground: 0 0% 98%;
-            --border: 240 5% 26%;
-            --input: 240 5% 26%;
-            --ring: 217 91% 60%;
-            --radius: 0.75rem;
-            
-            /* Custom Design Tokens */
-            --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-glow)));
-            --gradient-secondary: linear-gradient(135deg, hsl(var(--secondary)), hsl(var(--accent)));
-            --gradient-hero: linear-gradient(135deg, hsl(var(--background)) 0%, hsl(240 15% 9%) 100%);
-            --gradient-card: linear-gradient(145deg, hsl(var(--card)) 0%, hsl(240 8% 8%) 100%);
-            
-            /* Shadows with brand colors */
-            --shadow-primary: 0 10px 40px -10px hsl(var(--primary) / 0.3);
-            --shadow-secondary: 0 10px 40px -10px hsl(var(--secondary) / 0.3);
-            --shadow-glow: 0 0 60px hsl(var(--primary-glow) / 0.4);
-            --shadow-elegant: 0 20px 60px -10px hsl(240 10% 3.9% / 0.8);
-            
-            /* Animation variables */
-            --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            --transition-bounce: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-        }
+      /* Futuro Design System - Professional AI/Career Platform Theme */
+      :root {
+        --background: 240 10% 3.9%;
+        --foreground: 0 0% 98%;
+        --card: 240 10% 5.9%;
+        --card-foreground: 0 0% 98%;
+        --popover: 240 10% 5.9%;
+        --popover-foreground: 0 0% 98%;
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        /* Primary - Deep Professional Blue */
+        --primary: 217 91% 60%;
+        --primary-foreground: 0 0% 98%;
+        --primary-glow: 217 91% 70%;
 
-        body {
-            font-family: 'Inter', system-ui, -apple-system, sans-serif;
-            background: var(--gradient-hero);
-            color: hsl(var(--foreground));
-            min-height: 100vh;
-            line-height: 1.6;
-        }
+        /* Secondary - Elegant Purple */
+        --secondary: 262 83% 58%;
+        --secondary-foreground: 0 0% 98%;
 
-        h1, h2, h3, h4, h5, h6 {
-            font-family: 'Inter', system-ui, -apple-system, sans-serif;
-            font-weight: 700;
-            letter-spacing: -0.025em;
-        }
+        /* Accent - Vibrant Cyan */
+        --accent: 188 94% 63%;
+        --accent-foreground: 240 10% 3.9%;
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 1rem;
-        }
+        --muted: 240 5% 15%;
+        --muted-foreground: 240 5% 64.9%;
+        --destructive: 0 62.8% 30.6%;
+        --destructive-foreground: 0 0% 98%;
+        --border: 240 5% 26%;
+        --input: 240 5% 26%;
+        --ring: 217 91% 60%;
+        --radius: 0.75rem;
 
-        /* Header Styles */
-        .header {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            z-index: 50;
-            background: hsl(var(--background) / 0.8);
-            backdrop-filter: blur(16px);
-            border-bottom: 1px solid hsl(var(--border) / 0.5);
-        }
+        /* Custom Design Tokens */
+        --gradient-primary: linear-gradient(
+          135deg,
+          hsl(var(--primary)),
+          hsl(var(--primary-glow))
+        );
+        --gradient-secondary: linear-gradient(
+          135deg,
+          hsl(var(--secondary)),
+          hsl(var(--accent))
+        );
+        --gradient-hero: linear-gradient(
+          135deg,
+          hsl(var(--background)) 0%,
+          hsl(240 15% 9%) 100%
+        );
+        --gradient-card: linear-gradient(
+          145deg,
+          hsl(var(--card)) 0%,
+          hsl(240 8% 8%) 100%
+        );
 
-        .header-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            height: 4rem;
-        }
+        /* Shadows with brand colors */
+        --shadow-primary: 0 10px 40px -10px hsl(var(--primary) / 0.3);
+        --shadow-secondary: 0 10px 40px -10px hsl(var(--secondary) / 0.3);
+        --shadow-glow: 0 0 60px hsl(var(--primary-glow) / 0.4);
+        --shadow-elegant: 0 20px 60px -10px hsl(240 10% 3.9% / 0.8);
 
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-        }
+        /* Animation variables */
+        --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        --transition-bounce: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+      }
 
-        .logo-icon {
-            width: 2.5rem;
-            height: 2.5rem;
-            scale: 0.05;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
 
-        .logo-text {
-            font-size: 1.5rem;
-            font-weight: 700;
-            background: var(--gradient-primary);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
+      body {
+        font-family: "Inter", system-ui, -apple-system, sans-serif;
+        background: var(--gradient-hero);
+        color: hsl(var(--foreground));
+        min-height: 100vh;
+        line-height: 1.6;
+      }
 
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        font-family: "Inter", system-ui, -apple-system, sans-serif;
+        font-weight: 700;
+        letter-spacing: -0.025em;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 1rem;
+      }
+
+      /* Header Styles */
+      .header {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 50;
+        background: hsl(var(--background) / 0.8);
+        backdrop-filter: blur(16px);
+        border-bottom: 1px solid hsl(var(--border) / 0.5);
+      }
+
+      .header-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 4rem;
+      }
+
+      .logo {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+      }
+
+      .logo-icon {
+        width: 2.5rem;
+        height: 2.5rem;
+        scale: 0.05;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .logo-text {
+        font-size: 1.5rem;
+        font-weight: 700;
+        background: var(--gradient-primary);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .nav {
+        display: none;
+        align-items: center;
+        gap: 2rem;
+      }
+
+      .nav a {
+        color: hsl(var(--muted-foreground));
+        text-decoration: none;
+        font-weight: 500;
+        transition: color 0.3s;
+      }
+
+      .nav a:hover {
+        color: hsl(var(--primary));
+      }
+
+      .nav a.active {
+        color: hsl(var(--foreground));
+      }
+
+      .auth-buttons {
+        display: none;
+        align-items: center;
+        gap: 1rem;
+      }
+
+      .btn {
+        padding: 0.5rem 1rem;
+        border-radius: 0.5rem;
+        text-decoration: none;
+        font-weight: 500;
+        transition: var(--transition-smooth);
+        cursor: pointer;
+        border: none;
+        font-family: inherit;
+      }
+
+      .btn-ghost {
+        background: transparent;
+        color: hsl(var(--muted-foreground));
+      }
+
+      .btn-ghost:hover {
+        color: hsl(var(--primary));
+      }
+
+      .btn-hero {
+        position: relative;
+        overflow: hidden;
+        border-radius: 0.5rem;
+        padding: 0.75rem 2rem;
+        font-weight: 600;
+        transition: all 0.3s;
+        background: var(--gradient-primary);
+        color: white;
+        box-shadow: var(--shadow-primary);
+      }
+
+      .btn-hero:hover {
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-glow);
+      }
+
+      .btn-hero-outline {
+        position: relative;
+        overflow: hidden;
+        border-radius: 0.5rem;
+        padding: 0.75rem 2rem;
+        font-weight: 600;
+        border: 2px solid hsl(var(--primary) / 0.5);
+        background: transparent;
+        color: hsl(var(--primary));
+        transition: all 0.3s;
+      }
+
+      .btn-hero-outline:hover {
+        background: hsl(var(--primary));
+        color: hsl(var(--primary-foreground));
+        border-color: hsl(var(--primary));
+        transform: translateY(-2px);
+      }
+
+      /* Hero Section */
+      .hero {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        overflow: hidden;
+        padding-top: 4rem;
+      }
+
+      .hero-bg {
+        position: absolute;
+        inset: 0;
+        overflow: hidden;
+      }
+
+      .hero-bg-element {
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(96px);
+        animation: float 6s ease-in-out infinite;
+      }
+
+      .hero-bg-element:nth-child(1) {
+        top: 25%;
+        left: 25%;
+        width: 16rem;
+        height: 16rem;
+        background: hsl(var(--primary) / 0.1);
+      }
+
+      .hero-bg-element:nth-child(2) {
+        bottom: 25%;
+        right: 25%;
+        width: 20rem;
+        height: 20rem;
+        background: hsl(var(--secondary) / 0.1);
+        animation-delay: 2s;
+      }
+
+      .hero-bg-element:nth-child(3) {
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 24rem;
+        height: 24rem;
+        background: hsl(var(--accent) / 0.05);
+        animation-delay: 4s;
+      }
+
+      .hero-content {
+        text-align: center;
+        max-width: 64rem;
+        position: relative;
+        z-index: 10;
+      }
+
+      .hero-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        background: hsl(var(--primary) / 0.1);
+        border: 1px solid hsl(var(--primary) / 0.2);
+        border-radius: 9999px;
+        padding: 0.5rem 1rem;
+        margin-bottom: 2rem;
+        animation: slideUp 0.8s ease-out forwards;
+      }
+
+      .hero-badge svg {
+        width: 1rem;
+        height: 1rem;
+        color: hsl(var(--primary));
+      }
+
+      .hero-badge span {
+        font-size: 0.875rem;
+        font-weight: 500;
+        color: hsl(var(--primary));
+      }
+
+      .hero-title {
+        font-size: 3rem;
+        margin-bottom: 1.5rem;
+        animation: slideUp 0.8s ease-out forwards;
+        animation-delay: 0.2s;
+      }
+
+      .text-gradient-primary {
+        background: var(--gradient-primary);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .text-gradient-secondary {
+        background: var(--gradient-secondary);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .hero-subtitle {
+        font-size: 1.25rem;
+        color: hsl(var(--muted-foreground));
+        margin-bottom: 2rem;
+        max-width: 48rem;
+        margin-left: auto;
+        margin-right: auto;
+        line-height: 1.6;
+        animation: fadeInDelay 1s ease-out forwards;
+        animation-delay: 0.4s;
+      }
+
+      .hero-buttons {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+        margin-bottom: 4rem;
+        animation: fadeInDelay 1s ease-out forwards;
+        animation-delay: 0.6s;
+      }
+
+      .hero-stats {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2rem;
+        animation: fadeInDelay 1s ease-out forwards;
+        animation-delay: 0.8s;
+      }
+
+      .hero-stat {
+        text-align: center;
+      }
+
+      .hero-stat-number {
+        font-size: 1.875rem;
+        font-weight: bold;
+        margin-bottom: 0.5rem;
+      }
+
+      .hero-stat-label {
+        font-size: 0.875rem;
+        color: hsl(var(--muted-foreground));
+      }
+
+      /* Section Styles */
+      .section {
+        padding: 5rem 0;
+        position: relative;
+      }
+
+      .section-header {
+        text-align: center;
+        margin-bottom: 4rem;
+      }
+
+      .section-title {
+        font-size: 2.5rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .section-subtitle {
+        font-size: 1.25rem;
+        color: hsl(var(--muted-foreground));
+        max-width: 48rem;
+        margin: 0 auto;
+        line-height: 1.6;
+      }
+
+      /* About Section */
+      .about-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 3rem;
+        align-items: center;
+        margin-bottom: 4rem;
+      }
+
+      .about-content {
+        text-align: left;
+      }
+
+      .about-content h3 {
+        font-size: 1.5rem;
+        margin-bottom: 1.5rem;
+        color: hsl(var(--foreground));
+      }
+
+      .about-content p {
+        font-size: 1.125rem;
+        color: hsl(var(--muted-foreground));
+        margin-bottom: 1.5rem;
+        line-height: 1.6;
+      }
+
+      .about-visual {
+        position: relative;
+      }
+
+      .about-card {
+        width: 100%;
+        height: 16rem;
+        border-radius: 1rem;
+        background: linear-gradient(
+          135deg,
+          hsl(var(--primary) / 0.2),
+          hsl(var(--secondary) / 0.2)
+        );
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        backdrop-filter: blur(8px);
+        border: 1px solid hsl(var(--primary) / 0.1);
+      }
+
+      .about-card-content {
+        text-align: center;
+      }
+
+      .about-card svg {
+        width: 4rem;
+        height: 4rem;
+        color: hsl(var(--primary));
+        margin: 0 auto 1rem;
+        animation: glow 2s ease-in-out infinite alternate;
+      }
+
+      .values-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+      }
+
+      /* Feature Cards */
+      .features-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 2rem;
+      }
+
+      .feature-card {
+        position: relative;
+        overflow: hidden;
+        border-radius: 0.75rem;
+        border: 1px solid hsl(var(--border) / 0.5);
+        background: var(--gradient-card);
+        backdrop-filter: blur(10px);
+        transition: var(--transition-smooth);
+        padding: 2rem;
+      }
+
+      .feature-card:hover {
+        border-color: hsl(var(--primary) / 0.5);
+        box-shadow: var(--shadow-primary);
+        transform: translateY(-4px);
+      }
+
+      .feature-icon {
+        width: 3.5rem;
+        height: 3.5rem;
+        border-radius: 0.75rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 1.5rem;
+        transition: transform 0.3s;
+      }
+
+      .feature-card:hover .feature-icon {
+        transform: scale(1.1);
+      }
+
+      .feature-icon svg {
+        width: 1.75rem;
+        height: 1.75rem;
+        color: white;
+      }
+
+      .feature-title {
+        font-size: 1.25rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+        color: hsl(var(--foreground));
+        transition: color 0.3s;
+      }
+
+      .feature-card:hover .feature-title {
+        color: hsl(var(--primary));
+      }
+
+      .feature-description {
+        color: hsl(var(--muted-foreground));
+        line-height: 1.6;
+      }
+
+      .feature-card::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          135deg,
+          hsl(var(--primary) / 0.05),
+          hsl(var(--secondary) / 0.05)
+        );
+        border-radius: 0.75rem;
+        opacity: 0;
+        transition: opacity 0.3s;
+        pointer-events: none;
+      }
+
+      .feature-card:hover::before {
+        opacity: 1;
+      }
+
+      /* CTA Section */
+      .cta-section {
+        text-align: center;
+        margin-top: 4rem;
+      }
+
+      .cta-section p {
+        font-size: 1.125rem;
+        color: hsl(var(--muted-foreground));
+        margin-bottom: 1.5rem;
+      }
+
+      /* Animations */
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0px) rotate(0deg);
+        }
+        33% {
+          transform: translateY(-10px) rotate(1deg);
+        }
+        66% {
+          transform: translateY(-5px) rotate(-1deg);
+        }
+      }
+
+      @keyframes glow {
+        from {
+          box-shadow: 0 0 20px hsl(var(--primary) / 0.3);
+        }
+        to {
+          box-shadow: 0 0 40px hsl(var(--primary) / 0.6);
+        }
+      }
+
+      @keyframes slideUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes fadeInDelay {
+        0% {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* Responsive Design */
+      @media (min-width: 768px) {
         .nav {
-            display: none;
-            align-items: center;
-            gap: 2rem;
+          display: flex;
         }
-
-        .nav a {
-            color: hsl(var(--muted-foreground));
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.3s;
-        }
-
-        .nav a:hover {
-            color: hsl(var(--primary));
-        }
-
-        .nav a.active {
-            color: hsl(var(--foreground));
-        }
-
         .auth-buttons {
-            display: none;
-            align-items: center;
-            gap: 1rem;
+          display: flex;
         }
-
-        .btn {
-            padding: 0.5rem 1rem;
-            border-radius: 0.5rem;
-            text-decoration: none;
-            font-weight: 500;
-            transition: var(--transition-smooth);
-            cursor: pointer;
-            border: none;
-            font-family: inherit;
-        }
-
-        .btn-ghost {
-            background: transparent;
-            color: hsl(var(--muted-foreground));
-        }
-
-        .btn-ghost:hover {
-            color: hsl(var(--primary));
-        }
-
-        .btn-hero {
-            position: relative;
-            overflow: hidden;
-            border-radius: 0.5rem;
-            padding: 0.75rem 2rem;
-            font-weight: 600;
-            transition: all 0.3s;
-            background: var(--gradient-primary);
-            color: white;
-            box-shadow: var(--shadow-primary);
-        }
-
-        .btn-hero:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-glow);
-        }
-
-        .btn-hero-outline {
-            position: relative;
-            overflow: hidden;
-            border-radius: 0.5rem;
-            padding: 0.75rem 2rem;
-            font-weight: 600;
-            border: 2px solid hsl(var(--primary) / 0.5);
-            background: transparent;
-            color: hsl(var(--primary));
-            transition: all 0.3s;
-        }
-
-        .btn-hero-outline:hover {
-            background: hsl(var(--primary));
-            color: hsl(var(--primary-foreground));
-            border-color: hsl(var(--primary));
-            transform: translateY(-2px);
-        }
-
-        /* Hero Section */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            overflow: hidden;
-            padding-top: 4rem;
-        }
-
-        .hero-bg {
-            position: absolute;
-            inset: 0;
-            overflow: hidden;
-        }
-
-        .hero-bg-element {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(96px);
-            animation: float 6s ease-in-out infinite;
-        }
-
-        .hero-bg-element:nth-child(1) {
-            top: 25%;
-            left: 25%;
-            width: 16rem;
-            height: 16rem;
-            background: hsl(var(--primary) / 0.1);
-        }
-
-        .hero-bg-element:nth-child(2) {
-            bottom: 25%;
-            right: 25%;
-            width: 20rem;
-            height: 20rem;
-            background: hsl(var(--secondary) / 0.1);
-            animation-delay: 2s;
-        }
-
-        .hero-bg-element:nth-child(3) {
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 24rem;
-            height: 24rem;
-            background: hsl(var(--accent) / 0.05);
-            animation-delay: 4s;
-        }
-
-        .hero-content {
-            text-align: center;
-            max-width: 64rem;
-            position: relative;
-            z-index: 10;
-        }
-
-        .hero-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            background: hsl(var(--primary) / 0.1);
-            border: 1px solid hsl(var(--primary) / 0.2);
-            border-radius: 9999px;
-            padding: 0.5rem 1rem;
-            margin-bottom: 2rem;
-            animation: slideUp 0.8s ease-out forwards;
-        }
-
-        .hero-badge svg {
-            width: 1rem;
-            height: 1rem;
-            color: hsl(var(--primary));
-        }
-
-        .hero-badge span {
-            font-size: 0.875rem;
-            font-weight: 500;
-            color: hsl(var(--primary));
-        }
-
         .hero-title {
-            font-size: 3rem;
-            margin-bottom: 1.5rem;
-            animation: slideUp 0.8s ease-out forwards;
-            animation-delay: 0.2s;
+          font-size: 4rem;
         }
-
-        .text-gradient-primary {
-            background: var(--gradient-primary);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .text-gradient-secondary {
-            background: var(--gradient-secondary);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .hero-subtitle {
-            font-size: 1.25rem;
-            color: hsl(var(--muted-foreground));
-            margin-bottom: 2rem;
-            max-width: 48rem;
-            margin-left: auto;
-            margin-right: auto;
-            line-height: 1.6;
-            animation: fadeInDelay 1s ease-out forwards;
-            animation-delay: 0.4s;
-        }
-
         .hero-buttons {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 1rem;
-            margin-bottom: 4rem;
-            animation: fadeInDelay 1s ease-out forwards;
-            animation-delay: 0.6s;
+          flex-direction: row;
+          gap: 1.5rem;
         }
-
-        .hero-stats {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 2rem;
-            animation: fadeInDelay 1s ease-out forwards;
-            animation-delay: 0.8s;
-        }
-
-        .hero-stat {
-            text-align: center;
-        }
-
-        .hero-stat-number {
-            font-size: 1.875rem;
-            font-weight: bold;
-            margin-bottom: 0.5rem;
-        }
-
-        .hero-stat-label {
-            font-size: 0.875rem;
-            color: hsl(var(--muted-foreground));
-        }
-
-        /* Section Styles */
-        .section {
-            padding: 5rem 0;
-            position: relative;
-        }
-
-        .section-header {
-            text-align: center;
-            margin-bottom: 4rem;
-        }
-
-        .section-title {
-            font-size: 2.5rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .section-subtitle {
-            font-size: 1.25rem;
-            color: hsl(var(--muted-foreground));
-            max-width: 48rem;
-            margin: 0 auto;
-            line-height: 1.6;
-        }
-
-        /* About Section */
         .about-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 3rem;
-            align-items: center;
-            margin-bottom: 4rem;
+          grid-template-columns: 1fr 1fr;
         }
-
-        .about-content {
-            text-align: left;
-        }
-
-        .about-content h3 {
-            font-size: 1.5rem;
-            margin-bottom: 1.5rem;
-            color: hsl(var(--foreground));
-        }
-
-        .about-content p {
-            font-size: 1.125rem;
-            color: hsl(var(--muted-foreground));
-            margin-bottom: 1.5rem;
-            line-height: 1.6;
-        }
-
-        .about-visual {
-            position: relative;
-        }
-
-        .about-card {
-            width: 100%;
-            height: 16rem;
-            border-radius: 1rem;
-            background: linear-gradient(135deg, hsl(var(--primary) / 0.2), hsl(var(--secondary) / 0.2));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            backdrop-filter: blur(8px);
-            border: 1px solid hsl(var(--primary) / 0.1);
-        }
-
-        .about-card-content {
-            text-align: center;
-        }
-
-        .about-card svg {
-            width: 4rem;
-            height: 4rem;
-            color: hsl(var(--primary));
-            margin: 0 auto 1rem;
-            animation: glow 2s ease-in-out infinite alternate;
-        }
-
         .values-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
+          grid-template-columns: repeat(3, 1fr);
         }
+      }
 
-        /* Feature Cards */
+      @media (min-width: 1024px) {
+        .hero-title {
+          font-size: 4.5rem;
+        }
         .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2rem;
+          grid-template-columns: repeat(3, 1fr);
         }
+      }
 
-        .feature-card {
-            position: relative;
-            overflow: hidden;
-            border-radius: 0.75rem;
-            border: 1px solid hsl(var(--border) / 0.5);
-            background: var(--gradient-card);
-            backdrop-filter: blur(10px);
-            transition: var(--transition-smooth);
-            padding: 2rem;
-        }
-
-        .feature-card:hover {
-            border-color: hsl(var(--primary) / 0.5);
-            box-shadow: var(--shadow-primary);
-            transform: translateY(-4px);
-        }
-
-        .feature-icon {
-            width: 3.5rem;
-            height: 3.5rem;
-            border-radius: 0.75rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 1.5rem;
-            transition: transform 0.3s;
-        }
-
-        .feature-card:hover .feature-icon {
-            transform: scale(1.1);
-        }
-
-        .feature-icon svg {
-            width: 1.75rem;
-            height: 1.75rem;
-            color: white;
-        }
-
-        .feature-title {
-            font-size: 1.25rem;
-            font-weight: 600;
-            margin-bottom: 1rem;
-            color: hsl(var(--foreground));
-            transition: color 0.3s;
-        }
-
-        .feature-card:hover .feature-title {
-            color: hsl(var(--primary));
-        }
-
-        .feature-description {
-            color: hsl(var(--muted-foreground));
-            line-height: 1.6;
-        }
-
-        .feature-card::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(135deg, hsl(var(--primary) / 0.05), hsl(var(--secondary) / 0.05));
-            border-radius: 0.75rem;
-            opacity: 0;
-            transition: opacity 0.3s;
-            pointer-events: none;
-        }
-
-        .feature-card:hover::before {
-            opacity: 1;
-        }
-
-        /* CTA Section */
-        .cta-section {
-            text-align: center;
-            margin-top: 4rem;
-        }
-
-        .cta-section p {
-            font-size: 1.125rem;
-            color: hsl(var(--muted-foreground));
-            margin-bottom: 1.5rem;
-        }
-
-        /* Animations */
-        @keyframes float {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            33% { transform: translateY(-10px) rotate(1deg); }
-            66% { transform: translateY(-5px) rotate(-1deg); }
-        }
-
-        @keyframes glow {
-            from { box-shadow: 0 0 20px hsl(var(--primary) / 0.3); }
-            to { box-shadow: 0 0 40px hsl(var(--primary) / 0.6); }
-        }
-
-        @keyframes slideUp {
-            from { 
-                opacity: 0; 
-                transform: translateY(30px); 
-            }
-            to { 
-                opacity: 1; 
-                transform: translateY(0); 
-            }
-        }
-
-        @keyframes fadeInDelay {
-            0% { opacity: 0; transform: translateY(20px); }
-            100% { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Responsive Design */
-        @media (min-width: 768px) {
-            .nav { display: flex; }
-            .auth-buttons { display: flex; }
-            .hero-title { font-size: 4rem; }
-            .hero-buttons { 
-                flex-direction: row; 
-                gap: 1.5rem;
-            }
-            .about-grid { 
-                grid-template-columns: 1fr 1fr; 
-            }
-            .values-grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
-        }
-
-        @media (min-width: 1024px) {
-            .hero-title { font-size: 4.5rem; }
-            .features-grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
+      html {
+        scroll-behavior: smooth;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <!-- Header -->
     <header class="header">
-        <div class="container">
-            <div class="header-content">
-                <!-- Logo -->
-                <div class="logo">
-                    <div class="logo-icon"><img src="logo1.png" alt="Futuro Logo"></div>
-                    <span class="logo-text">Futuro</span>
-                </div>
-
-                <!-- Desktop Navigation -->
-                <nav class="nav">
-                    <a href="#home" class="active">Home</a>
-                    <a href="#about">About</a>
-                    <a href="#features">Features</a>
-                    <a href="chatbot.html">Chat Bot</a>
-                    <a href="test.html">Psychometric Test</a>
-                </nav>
-
-                <!-- Desktop Auth Buttons -->
-                <div class="auth-buttons">
-                    <button class="btn btn-ghost" onclick="window.location.href='login.html'">Login</button>
-                    <button class="btn btn-hero">Sign Up</button>
-                </div>
+      <div class="container">
+        <div class="header-content">
+          <!-- Logo -->
+          <div class="logo">
+            <div class="logo-icon">
+              <img src="logo1.png" alt="Futuro Logo" />
             </div>
+            <span class="logo-text">Futuro</span>
+          </div>
+
+          <!-- Desktop Navigation -->
+          <nav class="nav">
+            <a href="#home" class="active">Home</a>
+            <a href="#about">About</a>
+            <a href="#features">Features</a>
+            <a href="chatbot.html">Chat Bot</a>
+            <a href="test.html">Psychometric Test</a>
+          </nav>
+
+          <!-- Desktop Auth Buttons -->
+          <div class="auth-buttons">
+            <button
+              class="btn btn-ghost"
+              onclick="window.location.href='login.html'"
+            >
+              Login
+            </button>
+            <button class="btn btn-hero">Sign Up</button>
+          </div>
         </div>
+      </div>
     </header>
 
     <!-- Hero Section -->
     <section id="home" class="hero">
-        <!-- Animated Background Elements -->
-        <div class="hero-bg">
-            <div class="hero-bg-element"></div>
-            <div class="hero-bg-element"></div>
-            <div class="hero-bg-element"></div>
-        </div>
+      <!-- Animated Background Elements -->
+      <div class="hero-bg">
+        <div class="hero-bg-element"></div>
+        <div class="hero-bg-element"></div>
+        <div class="hero-bg-element"></div>
+      </div>
 
-        <div class="container">
-            <div class="hero-content">
-                <!-- Badge -->
-                <div class="hero-badge">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.582a.5.5 0 0 1 0 .962L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"/>
-                    </svg>
-                    <span>AI-Powered Career Growth</span>
-                </div>
+      <div class="container">
+        <div class="hero-content">
+          <!-- Badge -->
+          <div class="hero-badge">
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path
+                d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.582a.5.5 0 0 1 0 .962L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"
+              />
+            </svg>
+            <span>AI-Powered Career Growth</span>
+          </div>
 
-                <!-- Main Heading -->
-                <h1 class="hero-title">
-                    Your Future Starts with 
-                    <span class="text-gradient-primary">Futuro</span>
-                </h1>
+          <!-- Main Heading -->
+          <h1 class="hero-title">
+            Your Future Starts with
+            <span class="text-gradient-primary">Futuro</span>
+          </h1>
 
-                <!-- Subheading -->
-                <p class="hero-subtitle">
-                    Unlock your career potential with our AI-powered platform. Get personalized course recommendations, 
-                    practice interviews, and track market trends - all in one intelligent ecosystem.
-                </p>
+          <!-- Subheading -->
+          <p class="hero-subtitle">
+            Unlock your career potential with our AI-powered platform. Get
+            personalized course recommendations, practice interviews, and track
+            market trends - all in one intelligent ecosystem.
+          </p>
 
-                <!-- CTA Buttons -->
-                <div class="hero-buttons">
-                    <button class="btn btn-hero">
-                        Get Started Today
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-left: 0.5rem;">
-                            <path d="M5 12h14"/>
-                            <path d="m12 5 7 7-7 7"/>
-                        </svg>
-                    </button>
-                    <button class="btn btn-hero-outline">
-                        Watch Demo
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-left: 0.5rem;">
-                            <path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.582a.5.5 0 0 1 0 .962L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"/>
-                        </svg>
-                    </button>
-                </div>
+          <!-- CTA Buttons -->
+          <div class="hero-buttons">
+            <button class="btn btn-hero">
+              Get Started Today
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                style="margin-left: 0.5rem"
+              >
+                <path d="M5 12h14" />
+                <path d="m12 5 7 7-7 7" />
+              </svg>
+            </button>
+            <button class="btn btn-hero-outline">
+              Watch Demo
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                style="margin-left: 0.5rem"
+              >
+                <path
+                  d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.582a.5.5 0 0 1 0 .962L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"
+                />
+              </svg>
+            </button>
+          </div>
 
-                <!-- Stats -->
-                <div class="hero-stats">
-                    <div class="hero-stat">
-                        <div class="hero-stat-number text-gradient-primary">--</div>
-                        <div class="hero-stat-label">Active Users</div>
-                    </div>
-                    <div class="hero-stat">
-                        <div class="hero-stat-number text-gradient-secondary">--</div>
-                        <div class="hero-stat-label">Success Rate</div>
-                    </div>
-                    <div class="hero-stat">
-                        <div class="hero-stat-number text-gradient-primary">--</div>
-                        <div class="hero-stat-label">Courses</div>
-                    </div>
-                </div>
+          <!-- Stats -->
+          <div class="hero-stats">
+            <div class="hero-stat">
+              <div class="hero-stat-number text-gradient-primary">--</div>
+              <div class="hero-stat-label">Active Users</div>
             </div>
+            <div class="hero-stat">
+              <div class="hero-stat-number text-gradient-secondary">--</div>
+              <div class="hero-stat-label">Success Rate</div>
+            </div>
+            <div class="hero-stat">
+              <div class="hero-stat-number text-gradient-primary">--</div>
+              <div class="hero-stat-label">Courses</div>
+            </div>
+          </div>
         </div>
+      </div>
     </section>
 
     <!-- About Section -->
     <section id="about" class="section">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title text-gradient-primary">About Futuro</h2>
-                <p class="section-subtitle">
-                    We're revolutionizing career development through artificial intelligence, 
-                    making professional growth accessible, personalized, and effective for everyone.
-                </p>
-            </div>
-
-            <!-- Main Content -->
-            <div class="about-grid">
-                <div class="about-content">
-                    <h3>Empowering Your Professional Journey</h3>
-                    <p>
-                        At Futuro, we believe that everyone deserves access to intelligent career guidance. 
-                        Our platform combines cutting-edge AI technology with deep industry insights to 
-                        provide personalized recommendations that align with your unique goals and aspirations.
-                    </p>
-                    <p>
-                        Whether you're just starting your career, looking to make a transition, or aiming 
-                        to reach the next level, Futuro adapts to your needs and provides actionable insights 
-                        that drive real results.
-                    </p>
-                </div>
-
-                <div class="about-visual">
-                    <div class="about-card">
-                        <div class="about-card-content">
-                            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/>
-                                <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/>
-                                <path d="M4 22h16"/>
-                                <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/>
-                                <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/>
-                                <path d="M18 2H6v7a6 6 0 0 0 12 0Z"/>
-                            </svg>
-                            <p style="font-size: 1.125rem; font-weight: 600; color: hsl(var(--foreground)); margin-bottom: 0.5rem;">AI-Powered Intelligence</p>
-                            <p style="color: hsl(var(--muted-foreground));">Personalized for You</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Values Grid -->
-            <div class="values-grid">
-                <div class="feature-card">
-                    <div class="feature-icon" style="background: var(--gradient-primary);">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <circle cx="12" cy="12" r="10"/>
-                            <circle cx="12" cy="12" r="6"/>
-                            <circle cx="12" cy="12" r="2"/>
-                        </svg>
-                    </div>
-                    <h4 class="feature-title">Mission-Driven</h4>
-                    <p class="feature-description">
-                        We're committed to democratizing access to high-quality career development 
-                        resources through innovative AI technology.
-                    </p>
-                </div>
-
-                <div class="feature-card">
-                    <div class="feature-icon" style="background: var(--gradient-secondary);">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
-                            <circle cx="9" cy="7" r="4"/>
-                            <path d="m22 21-2-2"/>
-                            <path d="m16 16-2-2"/>
-                        </svg>
-                    </div>
-                    <h4 class="feature-title">User-Centric</h4>
-                    <p class="feature-description">
-                        Every feature is designed with our users in mind, ensuring intuitive 
-                        experiences that deliver meaningful value.
-                    </p>
-                </div>
-
-                <div class="feature-card">
-                    <div class="feature-icon" style="background: linear-gradient(135deg, hsl(var(--accent)), hsl(var(--primary)));">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/>
-                            <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/>
-                            <path d="M4 22h16"/>
-                            <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/>
-                            <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/>
-                            <path d="M18 2H6v7a6 6 0 0 0 12 0Z"/>
-                        </svg>
-                    </div>
-                    <h4 class="feature-title">Innovation First</h4>
-                    <p class="feature-description">
-                        We continuously push the boundaries of what's possible in AI-powered 
-                        career development and professional growth.
-                    </p>
-                </div>
-            </div>
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title text-gradient-primary">About Futuro</h2>
+          <p class="section-subtitle">
+            We're revolutionizing career development through artificial
+            intelligence, making professional growth accessible, personalized,
+            and effective for everyone.
+          </p>
         </div>
+
+        <!-- Main Content -->
+        <div class="about-grid">
+          <div class="about-content">
+            <h3>Empowering Your Professional Journey</h3>
+            <p>
+              At Futuro, we believe that everyone deserves access to intelligent
+              career guidance. Our platform combines cutting-edge AI technology
+              with deep industry insights to provide personalized
+              recommendations that align with your unique goals and aspirations.
+            </p>
+            <p>
+              Whether you're just starting your career, looking to make a
+              transition, or aiming to reach the next level, Futuro adapts to
+              your needs and provides actionable insights that drive real
+              results.
+            </p>
+          </div>
+
+          <div class="about-visual">
+            <div class="about-card">
+              <div class="about-card-content">
+                <svg
+                  width="64"
+                  height="64"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6" />
+                  <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18" />
+                  <path d="M4 22h16" />
+                  <path
+                    d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"
+                  />
+                  <path
+                    d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"
+                  />
+                  <path d="M18 2H6v7a6 6 0 0 0 12 0Z" />
+                </svg>
+                <p
+                  style="
+                    font-size: 1.125rem;
+                    font-weight: 600;
+                    color: hsl(var(--foreground));
+                    margin-bottom: 0.5rem;
+                  "
+                >
+                  AI-Powered Intelligence
+                </p>
+                <p style="color: hsl(var(--muted-foreground))">
+                  Personalized for You
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Values Grid -->
+        <div class="values-grid">
+          <div class="feature-card">
+            <div
+              class="feature-icon"
+              style="background: var(--gradient-primary)"
+            >
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <circle cx="12" cy="12" r="10" />
+                <circle cx="12" cy="12" r="6" />
+                <circle cx="12" cy="12" r="2" />
+              </svg>
+            </div>
+            <h4 class="feature-title">Mission-Driven</h4>
+            <p class="feature-description">
+              We're committed to democratizing access to high-quality career
+              development resources through innovative AI technology.
+            </p>
+          </div>
+
+          <div class="feature-card">
+            <div
+              class="feature-icon"
+              style="background: var(--gradient-secondary)"
+            >
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                <circle cx="9" cy="7" r="4" />
+                <path d="m22 21-2-2" />
+                <path d="m16 16-2-2" />
+              </svg>
+            </div>
+            <h4 class="feature-title">User-Centric</h4>
+            <p class="feature-description">
+              Every feature is designed with our users in mind, ensuring
+              intuitive experiences that deliver meaningful value.
+            </p>
+          </div>
+
+          <div class="feature-card">
+            <div
+              class="feature-icon"
+              style="
+                background: linear-gradient(
+                  135deg,
+                  hsl(var(--accent)),
+                  hsl(var(--primary))
+                );
+              "
+            >
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6" />
+                <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18" />
+                <path d="M4 22h16" />
+                <path
+                  d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"
+                />
+                <path
+                  d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"
+                />
+                <path d="M18 2H6v7a6 6 0 0 0 12 0Z" />
+              </svg>
+            </div>
+            <h4 class="feature-title">Innovation First</h4>
+            <p class="feature-description">
+              We continuously push the boundaries of what's possible in
+              AI-powered career development and professional growth.
+            </p>
+          </div>
+        </div>
+      </div>
     </section>
 
     <!-- Features Section -->
     <section id="features" class="section">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title text-gradient-primary">Powerful Features</h2>
-                <p class="section-subtitle">
-                    Explore our comprehensive suite of AI-powered tools designed to accelerate 
-                    your career growth and unlock your professional potential.
-                </p>
-            </div>
-
-            <div class="features-grid">
-                <!-- LinkedIn Authentication -->
-                <div class="feature-card">
-                    <div class="feature-icon" style="background: linear-gradient(135deg, #0077B5, #00A0DC);">
-                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
-                            <rect width="4" height="12" x="2" y="9"/>
-                            <circle cx="4" cy="4" r="2"/>
-                        </svg>
-                    </div>
-                    <h3 class="feature-title">LinkedIn Authentication</h3>
-                    <p class="feature-description">
-                        Seamlessly connect your LinkedIn profile to unlock personalized career insights and networking opportunities tailored to your professional background.
-                    </p>
-                </div>
-
-                <!-- Udemy Course Recommendations -->
-                <div class="feature-card">
-                    <div class="feature-icon" style="background: linear-gradient(135deg, #A435F0, #EC5252);">
-                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
-                            <path d="M6 12v5c3 3 9 3 12 0v-5"/>
-                        </svg>
-                    </div>
-                    <h3 class="feature-title">Udemy Course Recommendations</h3>
-                    <p class="feature-description">
-                        Get AI-powered course suggestions from Udemy's extensive library, perfectly matched to your career goals and skill development needs.
-                    </p>
-                </div>
-
-                <!-- AI Chatbot -->
-                <div class="feature-card">
-                    <div class="feature-icon" style="background: var(--gradient-primary);">
-                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M3 6V5c0-1.1.9-2 2-2h2"/>
-                            <path d="M11 3h3"/>
-                            <path d="M18 3h1c1.1 0 2 .9 2 2"/>
-                            <path d="M21 9v2"/>
-                            <path d="M21 15c0 1.1-.9 2-2 2h-1"/>
-                            <path d="M14 17h-3"/>
-                            <path d="m7 17-4 4v-5"/>
-                            <path d="M9 12a1 1 0 0 0-1-1H6a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1z"/>
-                            <path d="M9 7a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1z"/>
-                        </svg>
-                    </div>
-                    <h3 class="feature-title">AI Chatbot</h3>
-                    <p class="feature-description">
-                        Chat with our intelligent assistant 24/7 for instant career advice, skill assessments, and personalized guidance on your professional journey.
-                    </p>
-                </div>
-
-                <!-- Psychometric Test -->
-                <div class="feature-card">
-                    <div class="feature-icon" style="background: var(--gradient-secondary);">
-                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 1.98-3A2.5 2.5 0 0 1 9.5 2Z"/>
-                            <path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-1.98-3A2.5 2.5 0 0 0 14.5 2Z"/>
-                        </svg>
-                    </div>
-                    <h3 class="feature-title">Psychometric Test</h3>
-                    <p class="feature-description">
-                        Discover your personality traits, work preferences, and cognitive abilities through comprehensive assessments that guide your career decisions.
-                    </p>
-                </div>
-
-                <!-- Market Tracking -->
-                <div class="feature-card">
-                    <div class="feature-icon" style="background: linear-gradient(135deg, hsl(var(--accent)), hsl(var(--primary)));">
-                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <polyline points="22,7 13.5,15.5 8.5,10.5 2,17"/>
-                            <polyline points="16,7 22,7 22,13"/>
-                        </svg>
-                    </div>
-                    <h3 class="feature-title">Market Tracking</h3>
-                    <p class="feature-description">
-                        Stay ahead with real-time job market trends, salary insights, and industry demand analysis to make informed career moves.
-                    </p>
-                </div>
-
-                <!-- Interview Questions -->
-                <div class="feature-card">
-                    <div class="feature-icon" style="background: linear-gradient(135deg, #FF6B6B, #4ECDC4);">
-                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/>
-                        </svg>
-                    </div>
-                    <h3 class="feature-title">Interview Questions</h3>
-                    <p class="feature-description">
-                        Practice with our extensive database of interview questions, get feedback on your responses, and boost your confidence for any interview.
-                    </p>
-                </div>
-            </div>
-
-            <!-- Bottom CTA -->
-            <div class="cta-section">
-                <p>Ready to transform your career with AI?</p>
-                <button class="btn btn-hero">Start Your Journey Today</button>
-            </div>
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title text-gradient-primary">Powerful Features</h2>
+          <p class="section-subtitle">
+            Explore our comprehensive suite of AI-powered tools designed to
+            accelerate your career growth and unlock your professional
+            potential.
+          </p>
         </div>
+
+        <div class="features-grid">
+          <!-- LinkedIn Authentication -->
+          <div class="feature-card">
+            <div
+              class="feature-icon"
+              style="background: linear-gradient(135deg, #0077b5, #00a0dc)"
+            >
+              <svg
+                width="28"
+                height="28"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path
+                  d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"
+                />
+                <rect width="4" height="12" x="2" y="9" />
+                <circle cx="4" cy="4" r="2" />
+              </svg>
+            </div>
+            <h3 class="feature-title">LinkedIn Authentication</h3>
+            <p class="feature-description">
+              Seamlessly connect your LinkedIn profile to unlock personalized
+              career insights and networking opportunities tailored to your
+              professional background.
+            </p>
+          </div>
+
+          <!-- Udemy Course Recommendations -->
+          <div class="feature-card">
+            <div
+              class="feature-icon"
+              style="background: linear-gradient(135deg, #a435f0, #ec5252)"
+            >
+              <svg
+                width="28"
+                height="28"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
+                <path d="M6 12v5c3 3 9 3 12 0v-5" />
+              </svg>
+            </div>
+            <h3 class="feature-title">Udemy Course Recommendations</h3>
+            <p class="feature-description">
+              Get AI-powered course suggestions from Udemy's extensive library,
+              perfectly matched to your career goals and skill development
+              needs.
+            </p>
+          </div>
+
+          <!-- AI Chatbot -->
+          <div class="feature-card">
+            <div
+              class="feature-icon"
+              style="background: var(--gradient-primary)"
+            >
+              <svg
+                width="28"
+                height="28"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M3 6V5c0-1.1.9-2 2-2h2" />
+                <path d="M11 3h3" />
+                <path d="M18 3h1c1.1 0 2 .9 2 2" />
+                <path d="M21 9v2" />
+                <path d="M21 15c0 1.1-.9 2-2 2h-1" />
+                <path d="M14 17h-3" />
+                <path d="m7 17-4 4v-5" />
+                <path
+                  d="M9 12a1 1 0 0 0-1-1H6a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1z"
+                />
+                <path
+                  d="M9 7a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1z"
+                />
+              </svg>
+            </div>
+            <h3 class="feature-title">AI Chatbot</h3>
+            <p class="feature-description">
+              Chat with our intelligent assistant 24/7 for instant career
+              advice, skill assessments, and personalized guidance on your
+              professional journey.
+            </p>
+          </div>
+
+          <!-- Psychometric Test -->
+          <div class="feature-card">
+            <div
+              class="feature-icon"
+              style="background: var(--gradient-secondary)"
+            >
+              <svg
+                width="28"
+                height="28"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path
+                  d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 1.98-3A2.5 2.5 0 0 1 9.5 2Z"
+                />
+                <path
+                  d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-1.98-3A2.5 2.5 0 0 0 14.5 2Z"
+                />
+              </svg>
+            </div>
+            <h3 class="feature-title">Psychometric Test</h3>
+            <p class="feature-description">
+              Discover your personality traits, work preferences, and cognitive
+              abilities through comprehensive assessments that guide your career
+              decisions.
+            </p>
+          </div>
+
+          <!-- Market Tracking -->
+          <div class="feature-card">
+            <div
+              class="feature-icon"
+              style="
+                background: linear-gradient(
+                  135deg,
+                  hsl(var(--accent)),
+                  hsl(var(--primary))
+                );
+              "
+            >
+              <svg
+                width="28"
+                height="28"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <polyline points="22,7 13.5,15.5 8.5,10.5 2,17" />
+                <polyline points="16,7 22,7 22,13" />
+              </svg>
+            </div>
+            <h3 class="feature-title">Market Tracking</h3>
+            <p class="feature-description">
+              Stay ahead with real-time job market trends, salary insights, and
+              industry demand analysis to make informed career moves.
+            </p>
+          </div>
+
+          <!-- Interview Questions -->
+          <div class="feature-card">
+            <div
+              class="feature-icon"
+              style="background: linear-gradient(135deg, #ff6b6b, #4ecdc4)"
+            >
+              <svg
+                width="28"
+                height="28"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z" />
+              </svg>
+            </div>
+            <h3 class="feature-title">Interview Questions</h3>
+            <p class="feature-description">
+              Practice with our extensive database of interview questions, get
+              feedback on your responses, and boost your confidence for any
+              interview.
+            </p>
+          </div>
+        </div>
+
+        <!-- Bottom CTA -->
+        <div class="cta-section">
+          <p>Ready to transform your career with AI?</p>
+          <button class="btn btn-hero">Start Your Journey Today</button>
+        </div>
+      </div>
     </section>
 
     <script>
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
+      // Smooth scrolling for navigation links
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+          document.querySelector(this.getAttribute("href")).scrollIntoView({
+            behavior: "smooth",
+          });
         });
-        async function Hello() {
-          fetch('https://hackathon-pflh.onrender.com');
-        }
-        // Update active navigation link on scroll
-        window.addEventListener('scroll', () => {
-            let current = '';
-            const sections = document.querySelectorAll('section');
-            
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop;
-                const sectionHeight = section.clientHeight;
-                if (scrollY >= sectionTop - 200) {
-                    current = section.getAttribute('id');
-                }
-            });
+      });
+      async function Hello() {
+        fetch("https://hackathon-pflh.onrender.com");
+      }
+      // Update active navigation link on scroll
+      window.addEventListener("scroll", () => {
+        let current = "";
+        const sections = document.querySelectorAll("section");
 
-            document.querySelectorAll('.nav a').forEach(link => {
-                link.classList.remove('active');
-                if (link.getAttribute('href') === `#${current}`) {
-                    link.classList.add('active');
-                }
-            });
+        sections.forEach((section) => {
+          const sectionTop = section.offsetTop;
+          const sectionHeight = section.clientHeight;
+          if (scrollY >= sectionTop - 200) {
+            current = section.getAttribute("id");
+          }
         });
+
+        document.querySelectorAll(".nav a").forEach((link) => {
+          link.classList.remove("active");
+          if (link.getAttribute("href") === `#${current}`) {
+            link.classList.add("active");
+          }
+        });
+      });
+      const checkLoginStatus = async () => {
+        try {
+          const res = await fetch("https://your-api.com/auth/me", {
+            method: "GET",
+            credentials: "include", // ⬅️ Send cookie with request
+          });
+
+          if (!res.ok) {
+            // User is not logged in
+            console.log("Not logged in");
+            return null;
+          }
+
+          const user = await res.json();
+          console.log("Logged in user:", user);
+          return user;
+        } catch (err) {
+          console.error("Login check failed:", err);
+          return null;
+        }
+      };
     </script>
-</body>
+  </body>
 </html>

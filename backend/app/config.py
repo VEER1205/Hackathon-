@@ -13,6 +13,8 @@ class Settings(BaseSettings):
     GOOGLE_CLIENT_SECRET: str
     GOOGLE_REDIRECT_URI: str
     SESSION_SECRET: str
+    JWT_SECRET_KEY: str
+    JWT_ALGORITHM: str
 
     class Config:
         env_file = ".env"
