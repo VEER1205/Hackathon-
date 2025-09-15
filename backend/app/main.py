@@ -14,7 +14,8 @@ origins = [
     "http://localhost:3000",
     "http://127.0.0.1:3000",
     "*",
-    "https://futuroai.vercel.app", # dev only; tighten for prod
+    "https://futuroai.vercel.app",
+    'https://futuro-ai.web.app', # dev only; tighten for prod
 ]
 
 app.add_middleware(

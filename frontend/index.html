@@ -1214,10 +1214,13 @@
       });
       const checkLoginStatus = async () => {
         try {
-          const res = await fetch("https://hackathon-pflh.onrender.com/auth/me", {
-            method: "GET",
-            credentials: "include", // ⬅️ Send cookie with request
-          });
+          const res = await fetch(
+            "https://hackathon-pflh.onrender.com/auth/me",
+            {
+              method: "GET",
+              credentials: "include", // ⬅️ Send cookie with request
+            }
+          );
 
           if (!res.ok) {
             // User is not logged in
@@ -1235,7 +1238,30 @@
           return null;
         }
       };
-      user =  checkLoginStatus();
+      user = checkLoginStatus();
+    </script>
+    <script type="module">
+      // Import the functions you need from the SDKs you need
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
+      import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-analytics.js";
+      // TODO: Add SDKs for Firebase products that you want to use
+      // https://firebase.google.com/docs/web/setup#available-libraries
+
+      // Your web app's Firebase configuration
+      // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+      const firebaseConfig = {
+        apiKey: "AIzaSyCFWb5iPpW4kE8ypKdyrehC0j3XapZ12uw",
+        authDomain: "hackathon-f54bc.firebaseapp.com",
+        projectId: "hackathon-f54bc",
+        storageBucket: "hackathon-f54bc.firebasestorage.app",
+        messagingSenderId: "62125557342",
+        appId: "1:62125557342:web:688fdddf4d9d51438f96cf",
+        measurementId: "G-LVMW814BRQ",
+      };
+
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      const analytics = getAnalytics(app);
     </script>
   </body>
 </html>

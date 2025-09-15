@@ -1,0 +1,13 @@
+{
+  "hosting": {
+    "site": "futuro-ai",
+
+    "public": "frontend",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  }
+}
+
