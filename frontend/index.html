@@ -680,7 +680,7 @@
           </nav>
 
           <!-- Desktop Auth Buttons -->
-          <div class="auth-buttons">
+          <div id="auth" class="auth-buttons">
             <button
               class="btn btn-ghost"
               onclick="window.location.href='login.html'"
@@ -1232,7 +1232,9 @@
 
           const user = await res.json();
           console.log("Logged in user:", user);
-          alert("Logged in user: " + JSON.stringify(user));
+          login_button = document.getElementById("auth");
+          login_button.style.display = "none";
+          
           return user;
         } catch (err) {
           console.error("Login check failed:", err);
