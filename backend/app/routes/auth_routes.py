@@ -80,7 +80,7 @@ async def google_callback(request: Request):
     access_token = create_access_token(data={"sub": email})
 
     # Set HttpOnly cookie and redirect to frontend
-    response = RedirectResponse(url="https://futuroai.web.app")
+    response = RedirectResponse(url="https://futuro-ai.web.app")
     response.set_cookie(
         key="access_token",
         value=access_token,
@@ -113,6 +113,6 @@ async def get_me(user=Depends(get_current_user_from_cookie)):
 # --- Logout (optional) ---
 @router.post("/logout")
 async def logout():
-    response = RedirectResponse(url="https://futuroai.web.app")
+    response = RedirectResponse(url="https://futuro-ai.web.app")
     response.delete_cookie("access_token")
     return response
