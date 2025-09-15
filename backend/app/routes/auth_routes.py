@@ -32,14 +32,21 @@ def create_access_token(data: dict, expires_delta: timedelta = timedelta(hours=1
     encoded_jwt = jwt.encode(to_encode, settings.JWT_SECRET_KEY, algorithm=settings.JWT_ALGORITHM)
     return encoded_jwt
 
+
 def verify_token(token: str):
     try:
-        payload = jwt.decode(token, settings.JWT_SECRET_KEY, algorithms=[settings.JWT_ALGORITHM])
+        payload = jwt.decode(
+            token,
+            settings.JWT_SECRET_KEY,
+            algorithms=[settings.JWT_ALGORITHM]
+        )
         email = payload.get("sub")
-        if email is None:
+        if not email:
             raise HTTPException(status_code=401, detail="Invalid token payload")
+        
         return {"email": email}
-    except JWTError:
+    
+    except JWTError as e:
         raise HTTPException(status_code=401, detail="Invalid token")
 
 # --- Auth Routes ---
@@ -90,10 +97,11 @@ async def google_callback(request: Request):
     return response
 
 # --- Get Current User from Cookie ---
-def get_current_user_from_cookie(token: str = Cookie(None)):
-    if not token:
+def get_current_user_from_cookie(access_token: str = Cookie(None)):
+    if not access_token:
         raise HTTPException(status_code=401, detail="Not authenticated")
-    return verify_token(token)
+    
+    return verify_token(access_token)
 
 @router.get("/me")
 async def get_me(user=Depends(get_current_user_from_cookie)):
