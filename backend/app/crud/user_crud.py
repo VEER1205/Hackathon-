@@ -45,13 +45,13 @@ async def delete_user(user_id: str) -> bool:
 
 
  # whatever your MongoDB connection is
-async def get_or_create_user(user_data: user.User):
+async def get_or_create_user(user_data: dict):
     collection = db["users"]
-    existing_user = await collection.find_one({"email": user_data.email})
+    existing_user = await collection.find_one({"email": user_data["email"]})
 
     if existing_user:
         return existing_user
 
-    result = await collection.insert_one(user_data.dict())
+    result = await collection.insert_one(user_data)
     return await collection.find_one({"_id": result.inserted_id})
 
