@@ -1180,6 +1180,8 @@
 
     <script>
       // Smooth scrolling for navigation links
+      console.log("Script loaded");
+      console.log("version 1.0.0");
       document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
         anchor.addEventListener("click", function (e) {
           e.preventDefault();
@@ -1232,9 +1234,9 @@
 
           const user = await res.json();
           console.log("Logged in user:", user);
-          login_button = document.getElementById("auth");
+          const login_button = document.getElementById("auth");
           login_button.style.display = "none";
-          
+
           return user;
         } catch (err) {
           console.error("Login check failed:", err);
