@@ -96,7 +96,7 @@ async def google_callback(request: Request):
         httponly=True,
         secure=True,
         samesite="None",  # Change this to allow cross-site requests
-        # max_age=3600,
+        
     )
     return response
 
