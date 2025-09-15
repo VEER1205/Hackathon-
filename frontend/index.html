@@ -188,7 +188,11 @@
         align-items: center;
         gap: 1rem;
       }
-
+      .user-name{
+        display: none;
+        align-items: center;
+        gap: 1rem;
+      }
       .btn {
         padding: 0.5rem 1rem;
         border-radius: 0.5rem;
@@ -680,6 +684,9 @@
           </nav>
 
           <!-- Desktop Auth Buttons -->
+           <div id = "user_name" class="user-name">
+            <span class="logo-text"></span>
+           </div>
           <div id="auth" class="auth-buttons">
             <button
               class="btn btn-ghost"
@@ -1236,6 +1243,9 @@
           console.log("Logged in user:", user);
           const login_button = document.getElementById("auth");
           login_button.style.display = "none";
+          const user_name = document.getElementById("user_name");
+          user_name.style.display = "block";
+          user_name.innerHTML = `<span class="logo-text">${user.name}</span>`;
 
           return user;
         } catch (err) {
