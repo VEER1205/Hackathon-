@@ -61,7 +61,6 @@ async def google_callback(request: Request):
 
     email = user_info.get("email")
     name = user_info.get("name")
-    picture = user_info.get("picture")
 
     if not email:
         raise HTTPException(status_code=400, detail="Email not found in user info")
@@ -71,7 +70,6 @@ async def google_callback(request: Request):
         await user_crud.get_or_create_user({
             "email": email,
             "name": name,
-            "picture": picture,
         })
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"DB Error: {str(e)}")
@@ -107,7 +105,6 @@ async def get_me(user=Depends(get_current_user_from_cookie)):
     return {
         "email": db_user["email"],
         "name": db_user["name"],
-        "picture": db_user["picture"],
     }
 
 # --- Logout (optional) ---

@@ -35,7 +35,7 @@ async def login(form_data: UserLogin):
         raise HTTPException(status_code=404, detail="User not found")
 
     # verify password with passlib
-    if not verify_password(form_data.password, db_user["password"]):
+    if not verify_password(form_data.password, db_user.password):
         raise HTTPException(status_code=401, detail="Invalid password")
 
     token = create_access_token({"sub": str(db_user["_id"])})
