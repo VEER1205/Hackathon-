@@ -10,10 +10,12 @@ from datetime import datetime, timedelta
 router = APIRouter(prefix="/auth", tags=["Auth"])
 
 # --- OAuth Setup ---
-config = Config(environ={
-    "GOOGLE_CLIENT_ID": settings.GOOGLE_CLIENT_ID,
-    "GOOGLE_CLIENT_SECRET": settings.GOOGLE_CLIENT_SECRET,
-})
+config = Config(
+    environ={
+        "GOOGLE_CLIENT_ID": settings.GOOGLE_CLIENT_ID,
+        "GOOGLE_CLIENT_SECRET": settings.GOOGLE_CLIENT_SECRET,
+    }
+)
 oauth = OAuth(config)
 
 oauth.register(
@@ -24,36 +26,36 @@ oauth.register(
     client_kwargs={"scope": "openid email profile"},
 )
 
+
 # --- JWT Token Helper ---
 def create_access_token(data: dict, expires_delta: timedelta = timedelta(hours=1)):
     to_encode = data.copy()
     expire = datetime.utcnow() + expires_delta
     to_encode.update({"exp": expire})
-    encoded_jwt = jwt.encode(to_encode, settings.JWT_SECRET_KEY, algorithm=settings.JWT_ALGORITHM)
+    encoded_jwt = jwt.encode(
+        to_encode, settings.JWT_SECRET_KEY, algorithm=settings.JWT_ALGORITHM
+    )
     return encoded_jwt
 
 
 def verify_token(token: str):
     try:
         payload = jwt.decode(
-            token,
-            settings.JWT_SECRET_KEY,
-            algorithms=[settings.JWT_ALGORITHM]
+            token, settings.JWT_SECRET_KEY, algorithms=[settings.JWT_ALGORITHM]
         )
-        email = payload.get("sub")
-        if not email:
-            raise HTTPException(status_code=401, detail="Invalid token payload")
-        
-        return {"email": email}
-    
-    except JWTError as e:
+        return payload  # e.g., { "sub": "user@example.com", ... }
+    except jwt.ExpiredSignatureError:
+        raise HTTPException(status_code=401, detail="Token expired")
+    except jwt.InvalidTokenError:
         raise HTTPException(status_code=401, detail="Invalid token")
+
 
 # --- Auth Routes ---
 @router.get("/google/login")
 async def google_login(request: Request):
     redirect_uri = request.url_for("google_callback")
     return await oauth.google.authorize_redirect(request, redirect_uri)
+
 
 @router.get("/google/callback", name="google_callback")
 async def google_callback(request: Request):
@@ -74,10 +76,12 @@ async def google_callback(request: Request):
 
     # Store or retrieve user
     try:
-        await user_crud.get_or_create_user({
-            "email": email,
-            "name": name,   # Placeholder; not used
-        })
+        await user_crud.get_or_create_user(
+            {
+                "email": email,
+                "name": name,  # Placeholder; not used
+            }
+        )
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"DB Error: {str(e)}")
 
@@ -91,17 +95,19 @@ async def google_callback(request: Request):
         value=access_token,
         httponly=True,
         secure=True,
-        samesite="Lax",
+        samesite="None",  # Change this to allow cross-site requests
         max_age=3600,
     )
     return response
+
 
 # --- Get Current User from Cookie ---
 def get_current_user_from_cookie(access_token: str = Cookie(None)):
     if not access_token:
         raise HTTPException(status_code=401, detail="Not authenticated")
-    
+
     return verify_token(access_token)
+
 
 @router.get("/me")
 async def get_me(user=Depends(get_current_user_from_cookie)):
@@ -114,6 +120,7 @@ async def get_me(user=Depends(get_current_user_from_cookie)):
         "email": db_user["email"],
         "name": db_user["name"],
     }
+
 
 # --- Logout (optional) ---
 @router.post("/logout")
