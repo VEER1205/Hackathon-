@@ -17,11 +17,7 @@ async def signup(form_data: User):
         raise HTTPException(status_code=400, detail="User already exists")
 
     # hash password using passlib
-    hashed_pw = hash_password(form_data.password)
-
     user_dict = form_data.dict(exclude_unset=True)
-    user_dict["password"] = hashed_pw
-
     await user_crud.create_user(user_dict)
     return {"msg": "User created successfully"}
 
@@ -34,9 +30,12 @@ async def login(form_data: UserLogin):
     if not db_user:
         raise HTTPException(status_code=404, detail="User not found")
 
-    # verify password with passlib
-    if not verify_password(form_data.password, db_user.password):
-        raise HTTPException(status_code=401, detail="Invalid password")
+    print("Fetched user from DB:", db_user)  # 🔍 Add this
+    if not db_user or "password" not in db_user:
+        raise HTTPException(status_code=400, detail="Invalid credentials")
+
+    if not verify_password(form_data.password, db_user["password"]):
+        raise HTTPException(status_code=400, detail="Incorrect password")
 
     token = create_access_token({"sub": str(db_user["_id"])})
     return {"access_token": token, "token_type": "bearer"}

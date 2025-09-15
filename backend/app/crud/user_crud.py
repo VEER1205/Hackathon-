@@ -1,12 +1,20 @@
 from app.database import db
+from app.models import user
 from app.utils.mongo import to_object_id
+from app.auth import hash_password
 
 collection = db["users"]
 
 # --- Create User ---
 async def create_user(user_dict: dict) -> str:
     """Insert a new user into MongoDB."""
-    result = await collection.insert_one(user_dict)
+    user_data = user_dict
+
+    if "password" not in user_data:
+        raise ValueError("Missing password in user data")
+
+    user_data["password"] = hash_password(user_data["password"])
+    result = await collection.insert_one(user_data)
     return str(result.inserted_id)
 
 # --- Get User by Email ---
@@ -37,13 +45,13 @@ async def delete_user(user_id: str) -> bool:
 
 
  # whatever your MongoDB connection is
-async def get_or_create_user(user_data: dict):
+async def get_or_create_user(user_data: user.User):
     collection = db["users"]
-    existing_user = await collection.find_one({"email": user_data["email"]})
-    
+    existing_user = await collection.find_one({"email": user_data.email})
+
     if existing_user:
         return existing_user
-    
-    result = await collection.insert_one(user_data)
+
+    result = await collection.insert_one(user_data.dict())
     return await collection.find_one({"_id": result.inserted_id})
 

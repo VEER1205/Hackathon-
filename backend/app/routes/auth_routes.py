@@ -48,7 +48,7 @@ async def google_login(request: Request):
     redirect_uri = request.url_for("google_callback")
     return await oauth.google.authorize_redirect(request, redirect_uri)
 
-@router.get("/google/callback", name="google_callback")
+@router.post("/google/callback", name="google_callback")
 async def google_callback(request: Request):
     try:
         token = await oauth.google.authorize_access_token(request)
@@ -69,7 +69,7 @@ async def google_callback(request: Request):
     try:
         await user_crud.get_or_create_user({
             "email": email,
-            "name": name,
+            "name": name,   # Placeholder; not used
         })
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"DB Error: {str(e)}")
