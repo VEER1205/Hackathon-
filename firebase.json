@@ -7,6 +7,20 @@
       "firebase.json",
       "**/.*",
       "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "/chatbot",
+        "destination": "/chatbot.html"
+      },
+      {
+        "source": "/chatbot/",
+        "destination": "/chatbot.html"
+      },
+      {
+        "source": "/",
+        "destination": "/index.html"
+      }
     ]
   }
 }
