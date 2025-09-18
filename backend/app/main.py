@@ -13,9 +13,7 @@ origins = [
     "http://127.0.0.1:5500",
     "http://localhost:3000",
     "http://127.0.0.1:3000",
-    "*",
-    "https://futuroai.vercel.app",
-    'https://futuro-ai.web.app', # dev only; tighten for prod
+    "https://futuro-ai.web.app", # dev only; tighten for prod
 ]
 
 app.add_middleware(
@@ -25,7 +23,7 @@ app.add_middleware(
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[origin for origin in origins if origin != "*"],
+    allow_origins=origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

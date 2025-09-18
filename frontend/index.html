@@ -146,8 +146,8 @@
       }
 
       .logo-icon {
-        width: 2.5rem;
-        height: 2.5rem;
+        width: 5rem;
+        height: 5rem;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -167,7 +167,14 @@
         -webkit-text-fill-color: transparent;
         background-clip: text;
       }
-
+      .user-text {
+        font-size: 1.5rem;
+        font-weight: 700;
+        background: var(--gradient-primary);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
       .nav {
         display: none;
         align-items: center;
@@ -720,6 +727,8 @@
         }
         .user-name {
           display: flex;
+          font-weight: 0.05rem;
+          font-size: 0.3rem;
         }
         .mobile-menu-btn {
           display: none;
@@ -754,6 +763,13 @@
         }
       }
 
+      @media (max-width: 430px) {
+        .user-text {
+          display: none;
+        }
+        
+        
+      }
       @media (min-width: 1024px) {
         .hero-title {
           font-size: 4.5rem;
@@ -792,7 +808,7 @@
 
           <!-- Desktop User Name / Auth Buttons -->
           <div id="user_name" class="user-name">
-            <span class="logo-text"></span>
+            <span class="user-text"></span>
           </div>
           <div id="auth" class="auth-buttons">
             <button
@@ -855,7 +871,7 @@
           </div>
 
           <div class="mobile-user-info" id="mobileUserInfo">
-            <span id="mobileUserName" class="user-name"></span>
+            <span id="mobileUserName" class="user-text"></span>
             <button class="btn btn-ghost" id="mobileLogoutBtn">
               <svg
                 width="16"
