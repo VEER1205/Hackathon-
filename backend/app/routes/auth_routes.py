@@ -118,7 +118,7 @@ async def get_me(user=Depends(get_current_user_from_cookie)):
 
     return {
         "email": db_user["email"],
-        "name": db_user["username"],
+        "name": db_user["name"],
     }
 
 

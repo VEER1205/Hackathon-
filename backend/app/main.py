@@ -36,4 +36,4 @@ app.include_router(auth_routes.router)
 
 @app.get("/", tags=["Health"])
 async def root():
-    return {"status": "ok", "service": "PathFinder API"}
+    return {"status": "ok", "service": "PathFinder API","version": "1.1.0"}
