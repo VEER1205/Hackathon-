@@ -3,7 +3,7 @@ from typing import List, Optional
 
 
 class User(BaseModel):  # maps MongoDB _id
-    username: str
+    name: str
     email: EmailStr
     password: str
 
