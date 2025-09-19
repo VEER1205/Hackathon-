@@ -1,45 +1,13 @@
 {
   "hosting": {
     "site": "futuro-ai",
-
     "public": "frontend",
     "ignore": [
       "firebase.json",
       "**/.*",
       "**/node_modules/**"
     ],
-    "redirects": [
-      {
-        "source": "/chatbot",
-        "destination": "/chatbot.html",
-        "type": 301
-      },
-      {
-        "source": "/chatbot/",
-        "destination": "/chatbot.html",
-        "type": 301
-      },
-      {
-        "source": "/psychometiric_test",
-        "destination": "test.html",
-        "type": 301
-      },
-      {
-        "source": "/psychometiric_test/",
-        "destination": "test.html",
-        "type": 301
-      },
-      {
-        "source":"/login",
-        "destination":"/login.html",
-        "type":301
-      },
-      {
-        "source":"/login/",
-        "destination":"/login.html",
-        "type":301
-      }
-    ],
+    "cleanUrls": true,
     "rewrites": [
       {
         "source": "/chatbot",
@@ -58,12 +26,12 @@
         "destination": "/test.html"
       },
       {
-        "source":"/login",
-        "destination":"/login.html"
+        "source": "/login",
+        "destination": "/login.html"
       },
       {
-        "source":"/login/",
-        "destination":"/login.html"
+        "source": "/login/",
+        "destination": "/login.html"
       },
       {
         "source": "/",
@@ -72,4 +40,3 @@
     ]
   }
 }
-
