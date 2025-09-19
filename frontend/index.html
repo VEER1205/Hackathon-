@@ -763,7 +763,10 @@
         }
       }
 
-      @media (max-width: 430px) {
+      @media (max-width: 500px) {
+        .user-text {
+          display: none;
+        }
         .user-text {
           display: none;
         }
@@ -807,7 +810,7 @@
           </nav>
 
           <!-- Desktop User Name / Auth Buttons -->
-          <div id="user_name" class="user-name">
+          <div id="user_name" class="user-text">
             <span class="user-text"></span>
           </div>
           <div id="auth" class="auth-buttons">
@@ -871,22 +874,7 @@
           </div>
 
           <div class="mobile-user-info" id="mobileUserInfo">
-            <span id="mobileUserName" class="user-text"></span>
-            <button class="btn btn-ghost" id="mobileLogoutBtn">
-              <svg
-                width="16"
-                height="16"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-              >
-                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
-                <polyline points="16,17 21,12 16,7"></polyline>
-                <line x1="21" y1="12" x2="9" y2="12"></line>
-              </svg>
-              Logout
-            </button>
+            <span id="mobileUserName" class="logo-text"></span>
           </div>
         </div>
       </div>
@@ -1469,14 +1457,14 @@
           }
 
           const user = await res.json();
-          console.log("Logged in user:", user);
+          // console.log("Logged in user:", user);
           
           // Desktop elements
           const login_button = document.getElementById("auth");
           login_button.style.display = "none";
           const user_name = document.getElementById("user_name");
           user_name.style.display = "flex";
-          user_name.innerHTML = `<span class="logo-text">${user.name}</span>`;
+          user_name.innerHTML = `<span class="user-text">${user.name}</span>`;
 
           // Mobile elements
           const mobileAuthButtons = document.getElementById("mobileAuthButtons");

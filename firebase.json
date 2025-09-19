@@ -8,6 +8,38 @@
       "**/.*",
       "**/node_modules/**"
     ],
+    "redirects": [
+      {
+        "source": "/chatbot",
+        "destination": "/chatbot.html",
+        "type": 301
+      },
+      {
+        "source": "/chatbot/",
+        "destination": "/chatbot.html",
+        "type": 301
+      },
+      {
+        "source": "/psychometiric_test",
+        "destination": "test.html",
+        "type": 301
+      },
+      {
+        "source": "/psychometiric_test/",
+        "destination": "test.html",
+        "type": 301
+      },
+      {
+        "source":"/login",
+        "destination":"/login.html",
+        "type":301
+      },
+      {
+        "source":"/login/",
+        "destination":"/login.html",
+        "type":301
+      }
+    ],
     "rewrites": [
       {
         "source": "/chatbot",
