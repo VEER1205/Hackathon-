@@ -740,7 +740,7 @@
                 <p>Please wait while we verify your login status.</p>
             </div>
 
-            <header id="intro-screen" style="display: none;">
+            <div id="intro-screen" style="display: none;">
                 <h1>Psychometric Test</h1>
                 <p>Welcome! This test assesses your cognitive abilities, problem-solving skills, and personality traits. The test contains 15 carefully selected questions. Please answer all questions truthfully. Good luck!</p>
                 <div class="input-group">
@@ -749,240 +749,7 @@
                     <div class="error-message" id="age-error">You must be at least 8 years old to take this test.</div>
                 </div>
                 <button id="start-button" disabled>Start Test</button>
-            </header>
-
-            <div id="test-container" style="display: none;">
-                <div class="progress-container">
-                    <div class="progress-bar" id="progress-bar"></div>
-                </div>
-                <div class="question-number" id="question-number"></div>
             </div>
-
-            <div id="results-container" style="display: none;">
-            </div>
-        </div>
-    </div>        }
-        
-        /* Progress bar styling */
-        .progress-container {
-            width: 100%;
-            background-color: hsl(var(--border));
-            border-radius: 5px;
-            margin-bottom: 20px;
-        }
-
-        .progress-bar {
-            height: 10px;
-            background: var(--gradient-primary);
-            border-radius: 5px;
-            width: 0%;
-            transition: width 0.3s ease;
-        }
-        
-        .correct-answer {
-            color: hsl(var(--primary));
-            font-weight: bold;
-        }
-
-        .detailed-results ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        .detailed-results li {
-            background: hsl(var(--card) / 0.5);
-            padding: 15px;
-            margin-bottom: 10px;
-            border-radius: 8px;
-            border-left: 4px solid hsl(var(--primary));
-        }
-
-        .detailed-results h4 {
-            color: hsl(var(--primary));
-            margin-top: 20px;
-            margin-bottom: 10px;
-        }
-
-        .question-number {
-            color: hsl(var(--primary));
-            font-size: 0.9em;
-            margin-bottom: 10px;
-            font-weight: 600;
-        }
-
-        /* Responsive Design */
-      @media (min-width: 768px) {
-        .nav {
-          display: flex;
-        }
-        .auth-buttons {
-          display: flex;
-        }
-        .user-name {
-          display: flex;
-        }
-        .mobile-menu-btn {
-          display: none;
-        }
-      }
-
-      @media (max-width: 767px) {
-        .nav {
-          display: none;
-        }
-        .auth-buttons {
-          display: none;
-        }
-        .user-name {
-          display: none;
-        }
-        .mobile-menu-btn {
-          display: flex;
-        }
-        
-        .test-wrapper {
-                padding: 20px;
-                width: 95%;
-            }
-            
-            .navigation-buttons {
-                flex-direction: column;
-                gap: 10px;
-            }
-            
-            header h1 {
-                font-size: 2em;
-            }
-      }
-    </style>
-</head>
-<body>
-    <!-- Header -->
-    <header class="header">
-      <div class="container">
-        <div class="header-content">
-          <!-- Logo -->
-          <div class="logo">
-            <div class="logo-icon">
-              <img src="logo1.png" alt="Futuro Logo" />
-            </div>
-            <span class="logo-text">Futuro</span>
-          </div>
-
-          <!-- Desktop Navigation -->
-          <nav class="nav">
-            <a href="index.html">Home</a>
-            <a href="index.html#about">About</a>
-            <a href="index.html#features">Features</a>
-            <a href="chatbot.html">Chat Bot</a>
-            <a href="test.html" class="active">Psychometric Test</a>
-          </nav>
-
-          <!-- Desktop User Name / Auth Buttons -->
-          <div id="user_name" class="user-name">
-            <span class="logo-text"></span>
-          </div>
-          <div id="auth" class="auth-buttons">
-            <button
-              class="btn btn-ghost"
-              onclick="window.location.href='login.html'"
-            >
-              Login
-            </button>
-            <button class="btn btn-hero" onclick="window.location.href='login.html'">Sign Up</button>
-          </div>
-
-          <!-- Mobile Menu Button -->
-          <button
-            class="mobile-menu-btn"
-            id="mobileMenuBtn"
-            aria-label="Toggle mobile menu"
-          >
-            <svg
-              id="menuIcon"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-            >
-              <line x1="4" x2="20" y1="6" y2="6"></line>
-              <line x1="4" x2="20" y1="12" y2="12"></line>
-              <line x1="4" x2="20" y1="18" y2="18"></line>
-            </svg>
-            <svg
-              id="closeIcon"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              style="display: none"
-            >
-              <path d="m18 6-12 12"></path>
-              <path d="m6 6 12 12"></path>
-            </svg>
-          </button>
-        </div>
-
-        <!-- Mobile Menu -->
-        <div class="mobile-menu" id="mobileMenu">
-          <nav class="mobile-nav">
-            <a href="index.html">Home</a>
-            <a href="index.html#about">About</a>
-            <a href="index.html#features">Features</a>
-            <a href="chatbot.html">Chat Bot</a>
-            <a href="test.html" class="active">Psychometric Test</a>
-          </nav>
-
-          <div class="mobile-auth" id="mobileAuthButtons">
-            <button class="btn btn-ghost" onclick="window.location.href='login.html'">Login</button>
-            <button class="btn btn-hero" onclick="window.location.href='login.html'">Sign Up</button>
-          </div>
-
-          <div class="mobile-user-info" id="mobileUserInfo">
-            <span id="mobileUserName" class="user-name"></span>
-            <button class="btn btn-ghost" id="mobileLogoutBtn">
-              <svg
-                width="16"
-                height="16"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-              >
-                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
-                <polyline points="16,17 21,12 16,7"></polyline>
-                <line x1="21" y1="12" x2="9" y2="12"></line>
-              </svg>
-              Logout
-            </button>
-          </div>
-        </div>
-      </div>
-    </header>
-
-    <div class="main-content">
-        <div class="test-wrapper">
-            <!-- Loading Screen -->
-            <div class="loading-screen" id="loading-screen">
-                <div class="spinner"></div>
-                <h2>Checking Authentication...</h2>
-                <p>Please wait while we verify your login status.</p>
-            </div>
-
-            <header id="intro-screen" style="display: none;">
-                <h1>Psychometric Test</h1>
-                <p>Welcome! This test assesses your cognitive abilities, problem-solving skills, and personality traits. The test contains 15 carefully selected questions. Please answer all questions truthfully. Good luck!</p>
-                <div class="input-group">
-                    <label for="age">Please enter your age (must be 8 or older):</label>
-                    <input type="number" id="age" min="8" max="99" required>
-                    <div class="error-message" id="age-error">You must be at least 8 years old to take this test.</div>
-                </div>
-                <button id="start-button" disabled>Start Test</button>
-            </header>
 
             <div id="test-container" style="display: none;">
                 <div class="progress-container">
@@ -1089,7 +856,7 @@
                 }
             }
 
-            // Reduced question pool for exactly 15 questions
+            // Question database for the test
             const allQuestions = {
                 personality: [
                     { question: "I find it easy to strike up conversations with strangers.", options: ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"], type: "personality" },
@@ -1171,36 +938,50 @@
 
                 const questionData = questions[currentQuestionIndex];
                 
+                // Create options HTML
+                let optionsHTML = '';
+                questionData.options.forEach((option, index) => {
+                    const isSelected = userAnswers[currentQuestionIndex] === index;
+                    const isChecked = isSelected ? 'checked' : '';
+                    const selectedClass = isSelected ? 'selected' : '';
+                    
+                    optionsHTML += `
+                        <label class="${selectedClass}">
+                            <input type="radio" name="question-${currentQuestionIndex}" value="${index}" ${isChecked}>
+                            <span>${option}</span>
+                        </label>
+                    `;
+                });
+
+                // Create navigation buttons
+                const prevDisabled = currentQuestionIndex === 0 ? 'disabled' : '';
+                const nextDisabled = userAnswers[currentQuestionIndex] === undefined ? 'disabled' : '';
+                const nextText = currentQuestionIndex === questions.length - 1 ? 'Submit' : 'Next';
+
                 const navigationButtons = `
                     <div class="navigation-buttons">
-                        <button id="prev-button" ${currentQuestionIndex === 0 ? 'disabled' : ''}>Previous</button>
+                        <button id="prev-button" ${prevDisabled}>Previous</button>
                         <button id="skip-button">Skip</button>
-                        <button id="next-button" ${userAnswers[currentQuestionIndex] === undefined ? 'disabled' : ''}>${currentQuestionIndex === questions.length - 1 ? 'Submit' : 'Next'}</button>
+                        <button id="next-button" ${nextDisabled}>${nextText}</button>
                     </div>
                 `;
 
-                const questionContent = `
+                // Create complete content
+                const completeHTML = `
+                    <div class="progress-container">
+                        <div class="progress-bar" id="progress-bar"></div>
+                    </div>
+                    <div class="question-number" id="question-number"></div>
                     <div class="question-container">
                         <p>${currentQuestionIndex + 1}. ${questionData.question}</p>
                         <div class="options">
-                            ${questionData.options.map((option, index) => `
-                                <label class="${userAnswers[currentQuestionIndex] === index ? 'selected' : ''}">
-                                    <input type="radio" name="question-${currentQuestionIndex}" value="${index}" ${userAnswers[currentQuestionIndex] === index ? 'checked' : ''}>
-                                    <span>${option}</span>
-                                </label>
-                            `).join('')}
+                            ${optionsHTML}
                         </div>
                     </div>
                     ${navigationButtons}
                 `;
                 
-                testContainer.innerHTML = `
-                    <div class="progress-container">
-                        <div class="progress-bar" id="progress-bar"></div>
-                    </div>
-                    <div class="question-number" id="question-number"></div>
-                    ${questionContent}
-                `;
+                testContainer.innerHTML = completeHTML;
                 
                 updateProgressBar();
                 
@@ -1361,261 +1142,6 @@
                     
                     <div style="margin-top: 30px; text-align: center;">
                         <button onclick="location.reload()" style="background: var(--gradient-primary); color: white; padding: 15px 30px; border: none; border-radius: 8px; font-size: 1.1em; cursor: pointer; box-shadow: var(--shadow-primary);">Take Test Again</button>
-                    </div>
-                `;
-                
-                resultsContainer.innerHTML = resultsHTML;
-            }
-        });
-    </script>
-</body>
-</html>
-            }
-            
-            ageInput.addEventListener('input', () => {
-                const age = parseInt(ageInput.value, 10);
-                if (age >= 8 && age <= 99) {
-                    startButton.disabled = false;
-                    userAge = age;
-                    ageError.style.display = 'none';
-                } else {
-                    startButton.disabled = true;
-                    if (age < 8 && ageInput.value !== '') {
-                        ageError.style.display = 'block';
-                    } else {
-                        ageError.style.display = 'none';
-                    }
-                }
-            });
-
-            startButton.addEventListener('click', () => {
-                generateQuestions();
-                introScreen.style.display = 'none';
-                testContainer.style.display = 'block';
-                displayQuestion();
-            });
-
-            function generateQuestions() {
-                // Always select exactly 15 questions: 7 personality + 8 cognitive (mix of math, logic, aptitude)
-                questions = [
-                    ...allQuestions.personality, // 7 questions
-                    ...allQuestions.math, // 3 questions  
-                    ...allQuestions.logic, // 3 questions
-                    ...allQuestions.aptitude // 2 questions
-                ]; // Total: 15 questions
-                
-                questions = shuffleArray(questions);
-            }
-
-            function shuffleArray(array) {
-                const shuffled = [...array];
-                for (let i = shuffled.length - 1; i > 0; i--) {
-                    const j = Math.floor(Math.random() * (i + 1));
-                    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-                }
-                return shuffled;
-            }
-
-            function updateProgressBar() {
-                const progress = ((currentQuestionIndex + 1) / questions.length) * 100;
-                progressBar.style.width = progress + '%';
-                questionNumber.textContent = `Question ${currentQuestionIndex + 1} of ${questions.length}`;
-            }
-
-            function displayQuestion() {
-                if (questions.length === 0 || currentQuestionIndex >= questions.length) return;
-
-                const questionData = questions[currentQuestionIndex];
-                
-                const navigationButtons = `
-                    <div class="navigation-buttons">
-                        <button id="prev-button" ${currentQuestionIndex === 0 ? 'disabled' : ''}>Previous</button>
-                        <button id="skip-button">Skip</button>
-                        <button id="next-button" ${userAnswers[currentQuestionIndex] === undefined ? 'disabled' : ''}>${currentQuestionIndex === questions.length - 1 ? 'Submit' : 'Next'}</button>
-                    </div>
-                `;
-
-                const questionContent = `
-                    <div class="question-container">
-                        <p>${currentQuestionIndex + 1}. ${questionData.question}</p>
-                        <div class="options">
-                            ${questionData.options.map((option, index) => `
-                                <label class="${userAnswers[currentQuestionIndex] === index ? 'selected' : ''}">
-                                    <input type="radio" name="question-${currentQuestionIndex}" value="${index}" ${userAnswers[currentQuestionIndex] === index ? 'checked' : ''}>
-                                    <span>${option}</span>
-                                </label>
-                            `).join('')}
-                        </div>
-                    </div>
-                    ${navigationButtons}
-                `;
-                
-                testContainer.innerHTML = `
-                    <div class="progress-container">
-                        <div class="progress-bar" id="progress-bar"></div>
-                    </div>
-                    <div class="question-number" id="question-number"></div>
-                    ${questionContent}
-                `;
-                
-                updateProgressBar();
-                
-                const nextButton = document.getElementById('next-button');
-                const prevButton = document.getElementById('prev-button');
-                const skipButton = document.getElementById('skip-button');
-                const radioButtons = document.querySelectorAll(`input[name="question-${currentQuestionIndex}"]`);
-                const optionLabels = document.querySelectorAll(".options label");
-
-                radioButtons.forEach((radio, index) => {
-                    radio.addEventListener('change', () => {
-                        optionLabels.forEach(label => label.classList.remove('selected'));
-                        optionLabels[index].classList.add('selected');
-                        nextButton.disabled = false;
-                        saveAnswer();
-                    });
-                });
-                
-                if (userAnswers[currentQuestionIndex] !== undefined) {
-                    nextButton.disabled = false;
-                }
-
-                prevButton.addEventListener('click', () => {
-                    if (currentQuestionIndex > 0) {
-                        currentQuestionIndex--;
-                        displayQuestion();
-                    }
-                });
-                
-                skipButton.addEventListener('click', () => {
-                    userAnswers[currentQuestionIndex] = "skipped";
-                    if (currentQuestionIndex < questions.length - 1) {
-                        currentQuestionIndex++;
-                        displayQuestion();
-                    } else {
-                        submitTest();
-                    }
-                });
-                
-                nextButton.addEventListener('click', () => {
-                    if (currentQuestionIndex < questions.length - 1) {
-                        currentQuestionIndex++;
-                        displayQuestion();
-                    } else {
-                        submitTest();
-                    }
-                });
-            }
-
-            function saveAnswer() {
-                const selectedOption = document.querySelector(`input[name="question-${currentQuestionIndex}"]:checked`);
-                if (selectedOption) {
-                    userAnswers[currentQuestionIndex] = parseInt(selectedOption.value);
-                }
-            }
-
-            function submitTest() {
-                testContainer.style.display = 'none';
-                resultsContainer.style.display = 'block';
-                showResults();
-            }
-
-            function showResults() {
-                let scores = {
-                    math: { correct: 0, total: 0, results: [] },
-                    aptitude: { correct: 0, total: 0, results: [] },
-                    logic: { correct: 0, total: 0, results: [] }
-                };
-                let personalityAnswers = [];
-                
-                questions.forEach((question, index) => {
-                    const userAnswer = userAnswers[index];
-                    if (question.type === "personality") {
-                        personalityAnswers.push({
-                            question: question.question,
-                            answer: userAnswer !== "skipped" && userAnswer !== undefined ? question.options[userAnswer] : "Skipped"
-                        });
-                    } else {
-                        const isCorrect = userAnswer === question.answer;
-                        const result = {
-                            question: question.question,
-                            userAnswer: userAnswer !== "skipped" && userAnswer !== undefined ? question.options[userAnswer] : "Skipped",
-                            correctAnswer: question.options[question.answer],
-                            isCorrect: isCorrect,
-                            isSkipped: userAnswer === "skipped" || userAnswer === undefined
-                        };
-
-                        if (userAnswer !== "skipped" && userAnswer !== undefined) {
-                            if (isCorrect) {
-                                scores[question.type].correct++;
-                            }
-                            scores[question.type].total++;
-                        }
-                        scores[question.type].results.push(result);
-                    }
-                });
-                
-                const totalCorrect = scores.math.correct + scores.aptitude.correct + scores.logic.correct;
-                const totalQuestions = scores.math.total + scores.aptitude.total + scores.logic.total;
-                const percentage = totalQuestions > 0 ? ((totalCorrect / totalQuestions) * 100).toFixed(0) : 0;
-                
-                let rating = "Below Average";
-                if (percentage >= 80) {
-                    rating = "Excellent";
-                } else if (percentage >= 60) {
-                    rating = "Good";
-                } else if (percentage >= 40) {
-                    rating = "Average";
-                }
-                
-                let resultsHTML = `
-                    <h2>Test Complete!</h2>
-                    <p>Thank you for taking the test. Here is a summary of your performance.</p>
-                    <div class="score-display">
-                        Overall Score: ${totalCorrect} / ${totalQuestions} (${percentage}%)
-                        <br>
-                        Rating: <strong>${rating}</strong>
-                    </div>
-                    
-                    <hr>
-                    
-                    <div class="category-scores">
-                        <h3>Score Breakdown by Category</h3>
-                        <p class="category-score">Math Score: <span>${scores.math.correct} / ${scores.math.total}</span></p>
-                        <p class="category-score">Aptitude Score: <span>${scores.aptitude.correct} / ${scores.aptitude.total}</span></p>
-                        <p class="category-score">Logic Score: <span>${scores.logic.correct} / ${scores.logic.total}</span></p>
-                    </div>
-                    
-                    <hr>
-
-                    <div class="detailed-results">
-                        <h3>Detailed Results</h3>
-                        ${Object.keys(scores).map(category => `
-                            <h4>${category.charAt(0).toUpperCase() + category.slice(1)} Questions</h4>
-                            <ul>
-                                ${scores[category].results.map(res => `
-                                    <li>
-                                        <p><strong>Question:</strong> ${res.question}</p>
-                                        <p><strong>Your Answer:</strong> ${res.userAnswer}</p>
-                                        <p><strong>Correct Answer:</strong> <span class="correct-answer">${res.correctAnswer}</span></p>
-                                        <p><strong>Result:</strong> ${res.isSkipped ? 'Skipped' : res.isCorrect ? 'Correct ✓' : 'Incorrect ✗'}</p>
-                                    </li>
-                                `).join('')}
-                            </ul>
-                        `).join('')}
-                    </div>
-
-                    <div class="personality-summary">
-                        <h3>Personality Summary</h3>
-                        <p>Based on your responses, here are some of your personality traits:</p>
-                        <ul>
-                            ${personalityAnswers.map(ans => `
-                                <li><strong>${ans.question}</strong><br><em>Your answer: ${ans.answer}</em></li>
-                            `).join('')}
-                        </ul>
-                    </div>
-                    
-                    <div style="margin-top: 30px; text-align: center;">
-                        <button onclick="location.reload()" style="background-color: #66BB6A; color: white; padding: 15px 30px; border: none; border-radius: 8px; font-size: 1.1em; cursor: pointer;">Take Test Again</button>
                     </div>
                 `;
                 
