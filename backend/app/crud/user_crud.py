@@ -27,7 +27,7 @@ async def add_password_if_missing(email: str, password: str) -> bool:
     return result.modified_count > 0
 
 # --- Get User by Email ---
-async def get_user_by_email(email: str) -> dict | None:
+async def get_user_by_email(email: str) -> dict:
     """Find a user by email."""
     return await collection.find_one({"email": email})
 
