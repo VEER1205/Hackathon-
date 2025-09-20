@@ -3,9 +3,10 @@ from fastapi.security import OAuth2PasswordBearer
 from fastapi.responses import RedirectResponse
 from app.models.user import User, UserLogin
 from app.crud import user_crud
-from app.auth import create_access_token, hash_password, verify_password
+from app.auth import create_access_token, verify_password
 from app.utils.mongo import serialize_doc
-from app.routes.auth_routes import create_access_token, verify_token
+from app.routes.auth_routes import create_access_token
+from fastapi.responses import JSONResponse
 
 router = APIRouter(prefix="/users", tags=["Users"])
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="users/login")
@@ -49,19 +50,15 @@ async def login(form_data: UserLogin):
 
     # Create JWT token
     access_token = create_access_token(data={"sub": form_data.email})
-
-    # Prepare the response with HttpOnly cookie
-    response = RedirectResponse(url="https://futuro-ai.web.app", status_code=302)
+    response = JSONResponse(content={"message": "Login successful"})
     response.set_cookie(
         key="access_token",
         value=access_token,
         httponly=True,
         secure=True,
-        samesite="None",  # Allow cross-origin requests
+        samesite="None"  # Make sure your backend runs over HTTPS
     )
-
     return response
-
 
 # --- Get User ---
 @router.get("/{user_id}", summary="Get a user by ID")
