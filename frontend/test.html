@@ -3,32 +3,314 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Psychometric Test</title>
+    <title>Psychometric Test - Futuro</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
     <style>
+        :root {
+        --background: 240 10% 3.9%;
+        --foreground: 0 0% 98%;
+        --card: 240 10% 5.9%;
+        --card-foreground: 0 0% 98%;
+        --popover: 240 10% 5.9%;
+        --popover-foreground: 0 0% 98%;
+
+        /* Primary - Deep Professional Blue */
+        --primary: 217 91% 60%;
+        --primary-foreground: 0 0% 98%;
+        --primary-glow: 217 91% 70%;
+
+        /* Secondary - Elegant Purple */
+        --secondary: 262 83% 58%;
+        --secondary-foreground: 0 0% 98%;
+
+        /* Accent - Vibrant Cyan */
+        --accent: 188 94% 63%;
+        --accent-foreground: 240 10% 3.9%;
+
+        --muted: 240 5% 15%;
+        --muted-foreground: 240 5% 64.9%;
+        --destructive: 0 62.8% 30.6%;
+        --destructive-foreground: 0 0% 98%;
+        --border: 240 5% 26%;
+        --input: 240 5% 26%;
+        --ring: 217 91% 60%;
+        --radius: 0.75rem;
+
+        /* Custom Design Tokens */
+        --gradient-primary: linear-gradient(
+          135deg,
+          hsl(var(--primary)),
+          hsl(var(--primary-glow))
+        );
+        --gradient-secondary: linear-gradient(
+          135deg,
+          hsl(var(--secondary)),
+          hsl(var(--accent))
+        );
+        --gradient-hero: linear-gradient(
+          135deg,
+          hsl(var(--background)) 0%,
+          hsl(240 15% 9%) 100%
+        );
+        --gradient-card: linear-gradient(
+          145deg,
+          hsl(var(--card)) 0%,
+          hsl(240 8% 8%) 100%
+        );
+
+        /* Shadows with brand colors */
+        --shadow-primary: 0 10px 40px -10px hsl(var(--primary) / 0.3);
+        --shadow-secondary: 0 10px 40px -10px hsl(var(--secondary) / 0.3);
+        --shadow-glow: 0 0 60px hsl(var(--primary-glow) / 0.4);
+        --shadow-elegant: 0 20px 60px -10px hsl(240 10% 3.9% / 0.8);
+
+        /* Animation variables */
+        --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        --transition-bounce: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #282828, #424242);
-            color: #e0e0e0;
+            font-family: "Inter", system-ui, -apple-system, sans-serif;
+            background: var(--gradient-hero);
+            color: hsl(var(--foreground));
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 1rem;
+      }
+
+      /* Header Styles */
+      .header {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 50;
+        background: hsl(var(--background) / 0.8);
+        backdrop-filter: blur(16px);
+        border-bottom: 1px solid hsl(var(--border) / 0.5);
+      }
+
+      .header-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 4rem;
+        position: relative;
+      }
+
+      .logo {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+      }
+
+      .logo-icon {
+        width: 2.5rem;
+        height: 2.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .logo-icon img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+
+      .logo-text {
+        font-size: 1.5rem;
+        font-weight: 700;
+        background: var(--gradient-primary);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .nav {
+        display: none;
+        align-items: center;
+        gap: 2rem;
+      }
+
+      .nav a {
+        color: hsl(var(--muted-foreground));
+        text-decoration: none;
+        font-weight: 500;
+        transition: color 0.3s;
+      }
+
+      .nav a:hover {
+        color: hsl(var(--primary));
+      }
+
+      .nav a.active {
+        color: hsl(var(--foreground));
+      }
+
+      .auth-buttons {
+        display: none;
+        align-items: center;
+        gap: 1rem;
+      }
+      
+      .user-name {
+        display: none;
+        align-items: center;
+        gap: 1rem;
+      }
+
+      .btn {
+        padding: 0.5rem 1rem;
+        border-radius: 0.5rem;
+        text-decoration: none;
+        font-weight: 500;
+        transition: var(--transition-smooth);
+        cursor: pointer;
+        border: none;
+        font-family: inherit;
+      }
+
+      .btn-ghost {
+        background: transparent;
+        color: hsl(var(--muted-foreground));
+      }
+
+      .btn-ghost:hover {
+        color: hsl(var(--primary));
+      }
+
+      .btn-hero {
+        position: relative;
+        overflow: hidden;
+        border-radius: 0.5rem;
+        padding: 0.75rem 2rem;
+        font-weight: 600;
+        transition: all 0.3s;
+        background: var(--gradient-primary);
+        color: white;
+        box-shadow: var(--shadow-primary);
+      }
+
+      .btn-hero:hover {
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-glow);
+      }
+
+      .mobile-menu-btn {
+        display: flex;
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 0.75rem;
+        border-radius: 0.5rem;
+        color: hsl(var(--foreground));
+        transition: all 0.3s ease;
+      }
+
+      .mobile-menu-btn:hover {
+        background: hsl(var(--accent) / 0.2);
+      }
+
+      .mobile-menu {
+        display: none;
+        padding: 1rem 0;
+        border-top: 1px solid hsl(var(--border) / 0.5);
+        background: hsl(var(--background) / 0.95);
+        backdrop-filter: blur(16px);
+      }
+
+      .mobile-menu.open {
+        display: block;
+        animation: slideDown 0.3s ease-out;
+      }
+
+      @keyframes slideDown {
+        from {
+          opacity: 0;
+          transform: translateY(-10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .mobile-nav {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+
+      .mobile-nav a {
+        text-decoration: none;
+        color: hsl(var(--muted-foreground));
+        font-weight: 500;
+        padding: 0.75rem 1rem;
+        border-radius: 0.5rem;
+        transition: all 0.3s ease;
+      }
+
+      .mobile-nav a:hover,
+      .mobile-nav a.active {
+        color: hsl(var(--primary));
+        background: hsl(var(--primary) / 0.1);
+      }
+
+      .mobile-auth {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+        margin-top: 1rem;
+        padding: 1rem;
+        border-top: 1px solid hsl(var(--border));
+      }
+
+      .mobile-user-info {
+        display: none;
+        align-items: center;
+        gap: 0.75rem;
+        padding: 1rem;
+        border-top: 1px solid hsl(var(--border));
+        margin-top: 1rem;
+      }
+
+        .main-content {
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            margin: 0;
-            padding: 20px;
+            padding: 100px 20px 20px;
         }
 
         .test-wrapper {
             background-color: rgba(60, 60, 60, 0.5);
             padding: 40px;
             border-radius: 12px;
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+            box-shadow: var(--shadow-elegant);
             max-width: 800px;
             width: 90%;
             text-align: center;
+            border: 1px solid hsl(var(--border) / 0.3);
         }
 
         header h1 {
-            color: #B0E0E6;
+            color: hsl(var(--primary));
             margin-bottom: 10px;
             font-size: 2.5em;
         }
@@ -37,6 +319,7 @@
             font-size: 1.1em;
             line-height: 1.6;
             margin-bottom: 20px;
+            color: hsl(var(--muted-foreground));
         }
 
         .input-group {
@@ -46,77 +329,107 @@
         .input-group label {
             font-size: 1.1em;
             margin-right: 10px;
-            color: #f0f0f0;
+            color: hsl(var(--foreground));
         }
 
         .input-group input {
             padding: 8px;
             font-size: 1em;
             border-radius: 5px;
-            border: 1px solid #555;
-            background-color: #333;
-            color: #e0e0e0;
+            border: 1px solid hsl(var(--border));
+            background-color: hsl(var(--card));
+            color: hsl(var(--foreground));
+        }
+
+        .input-group input:focus {
+            outline: none;
+            border-color: hsl(var(--primary));
         }
 
         .error-message {
-            color: #ff6b6b;
+            color: hsl(var(--destructive));
             margin-top: 5px;
             font-size: 0.9em;
             display: none;
         }
 
+        .loading-screen {
+            display: none;
+            text-align: center;
+            padding: 40px;
+        }
+
+        .spinner {
+            border: 4px solid hsl(var(--border));
+            border-top: 4px solid hsl(var(--primary));
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 2s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
         #start-button {
-            background-color: #66BB6A;
+            background: var(--gradient-primary);
             color: white;
             padding: 15px 30px;
             border: none;
             border-radius: 8px;
             font-size: 1.2em;
             cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.2s ease;
+            transition: all 0.3s ease;
             margin-top: 20px;
+            box-shadow: var(--shadow-primary);
         }
 
-        #start-button:hover {
-            background-color: #5cb85c;
-            transform: scale(1.05);
+        #start-button:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-glow);
         }
 
         #start-button:disabled {
-            background-color: #888;
+            background-color: hsl(var(--muted));
             cursor: not-allowed;
             transform: none;
+            box-shadow: none;
         }
 
         .question-container {
-            background: rgba(80, 80, 80, 0.6);
+            background: var(--gradient-card);
             border-radius: 8px;
             padding: 25px;
             margin-top: 20px;
             text-align: left;
+            border: 1px solid hsl(var(--border) / 0.3);
         }
 
         .question-container p {
             font-size: 1.2em;
             font-weight: bold;
             margin-bottom: 15px;
-            color: #f0f0f0;
+            color: hsl(var(--foreground));
         }
 
         .options label {
             display: block;
-            background: rgba(100, 100, 100, 0.6);
+            background: rgba(100, 100, 100, 0.3);
             padding: 15px;
             margin-bottom: 10px;
             border-radius: 8px;
             cursor: pointer;
-            transition: background-color 0.3s ease;
-            color: #e0e0e0;
-            border: 1px solid transparent;
+            transition: all 0.3s ease;
+            color: hsl(var(--foreground));
+            border: 1px solid hsl(var(--border) / 0.3);
         }
 
         .options label:hover {
-            background-color: rgba(120, 120, 120, 0.7);
+            background-color: hsl(var(--primary) / 0.2);
+            border-color: hsl(var(--primary) / 0.5);
         }
         
         .options input[type="radio"]:checked + span {
@@ -124,9 +437,9 @@
         }
         
         .options label.selected {
-            background-color: #4A90E2;
-            border: 1px solid #fff;
-            color: #fff;
+            background-color: hsl(var(--primary));
+            border: 1px solid hsl(var(--primary-glow));
+            color: hsl(var(--primary-foreground));
         }
 
         .options input[type="radio"] {
@@ -140,49 +453,50 @@
         }
 
         .navigation-buttons button {
-            background-color: #4A90E2;
+            background: var(--gradient-primary);
             color: white;
             padding: 12px 25px;
             border: none;
             border-radius: 8px;
             cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.2s ease;
+            transition: all 0.3s ease;
+            font-weight: 500;
         }
 
-        .navigation-buttons button:hover {
-            background-color: #357ABD;
-            transform: scale(1.05);
+        .navigation-buttons button:hover:not(:disabled) {
+            background: var(--gradient-secondary);
+            transform: translateY(-1px);
         }
 
         .navigation-buttons button:disabled {
-            background-color: #888;
+            background-color: hsl(var(--muted));
             cursor: not-allowed;
             transform: none;
         }
 
         #results-container {
             padding: 25px;
-            background: rgba(102, 187, 106, 0.2);
-            color: #d4edda;
+            background: hsl(var(--card) / 0.8);
+            color: hsl(var(--foreground));
             border-radius: 8px;
             margin-top: 20px;
             text-align: left;
-            border: 1px solid #66BB6A;
+            border: 1px solid hsl(var(--primary) / 0.3);
         }
 
         #results-container h2 {
-            color: #66BB6A;
+            color: hsl(var(--primary));
             margin-bottom: 10px;
         }
         
         #results-container p {
-            color: #d4edda;
+            color: hsl(var(--muted-foreground));
         }
 
         .score-display {
             font-size: 1.5em;
             font-weight: bold;
-            color: #B0E0E6;
+            color: hsl(var(--primary));
             margin-bottom: 15px;
         }
 
@@ -200,7 +514,7 @@
         }
 
         .personality-summary h3 {
-            color: #66BB6A;
+            color: hsl(var(--primary));
         }
 
         .personality-summary ul {
@@ -209,60 +523,483 @@
         }
 
         .personality-summary li {
-            background: rgba(100, 100, 100, 0.6);
+            background: hsl(var(--card) / 0.6);
             padding: 10px;
             border-radius: 5px;
             margin-bottom: 5px;
+            border-left: 3px solid hsl(var(--primary));
         }
         
         /* Progress bar styling */
         .progress-container {
             width: 100%;
-            background-color: #444;
+            background-color: hsl(var(--border));
             border-radius: 5px;
             margin-bottom: 20px;
         }
 
         .progress-bar {
             height: 10px;
-            background-color: #4A90E2;
+            background: var(--gradient-primary);
             border-radius: 5px;
             width: 0%;
             transition: width 0.3s ease;
         }
         
         .correct-answer {
-            color: #66BB6A;
+            color: hsl(var(--primary));
             font-weight: bold;
         }
+
+        .detailed-results ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .detailed-results li {
+            background: hsl(var(--card) / 0.5);
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            border-left: 4px solid hsl(var(--primary));
+        }
+
+        .detailed-results h4 {
+            color: hsl(var(--primary));
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        .question-number {
+            color: hsl(var(--primary));
+            font-size: 0.9em;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        /* Responsive Design */
+      @media (min-width: 768px) {
+        .nav {
+          display: flex;
+        }
+        .auth-buttons {
+          display: flex;
+        }
+        .user-name {
+          display: flex;
+        }
+        .mobile-menu-btn {
+          display: none;
+        }
+      }
+
+      @media (max-width: 767px) {
+        .nav {
+          display: none;
+        }
+        .auth-buttons {
+          display: none;
+        }
+        .user-name {
+          display: none;
+        }
+        .mobile-menu-btn {
+          display: flex;
+        }
+        
+        .test-wrapper {
+                padding: 20px;
+                width: 95%;
+            }
+            
+            .navigation-buttons {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            header h1 {
+                font-size: 2em;
+            }
+      }
     </style>
 </head>
 <body>
-
-    <div class="test-wrapper">
-        <header id="intro-screen">
-            <h1>Psychometric Test</h1>
-            <p>Welcome! This test assesses your cognitive abilities, problem-solving skills, and personality traits. Please answer all questions truthfully. Good luck!</p>
-            <div class="input-group">
-                <label for="age">Please enter your age (must be 8 or older):</label>
-                <input type="number" id="age" min="8" max="99" required>
-                <div class="error-message" id="age-error">You must be at least 8 years old to take this test.</div>
+    <!-- Header -->
+    <header class="header">
+      <div class="container">
+        <div class="header-content">
+          <!-- Logo -->
+          <div class="logo">
+            <div class="logo-icon">
+              <img src="logo1.png" alt="Futuro Logo" />
             </div>
-            <button id="start-button" disabled>Start Test</button>
-        </header>
+            <span class="logo-text">Futuro</span>
+          </div>
 
-        <div id="test-container" style="display: none;">
-            <div class="progress-container">
-                <div class="progress-bar" id="progress-bar"></div>
-            </div>
+          <!-- Desktop Navigation -->
+          <nav class="nav">
+            <a href="index.html">Home</a>
+            <a href="index.html#about">About</a>
+            <a href="index.html#features">Features</a>
+            <a href="chatbot.html">Chat Bot</a>
+            <a href="test.html" class="active">Psychometric Test</a>
+          </nav>
+
+          <!-- Desktop User Name / Auth Buttons -->
+          <div id="user_name" class="user-name">
+            <span class="logo-text"></span>
+          </div>
+          <div id="auth" class="auth-buttons">
+            <button
+              class="btn btn-ghost"
+              onclick="window.location.href='login.html'"
+            >
+              Login
+            </button>
+            <button class="btn btn-hero" onclick="window.location.href='login.html'">Sign Up</button>
+          </div>
+
+          <!-- Mobile Menu Button -->
+          <button
+            class="mobile-menu-btn"
+            id="mobileMenuBtn"
+            aria-label="Toggle mobile menu"
+          >
+            <svg
+              id="menuIcon"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <line x1="4" x2="20" y1="6" y2="6"></line>
+              <line x1="4" x2="20" y1="12" y2="12"></line>
+              <line x1="4" x2="20" y1="18" y2="18"></line>
+            </svg>
+            <svg
+              id="closeIcon"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              style="display: none"
+            >
+              <path d="m18 6-12 12"></path>
+              <path d="m6 6 12 12"></path>
+            </svg>
+          </button>
         </div>
 
-        <div id="results-container" style="display: none;">
+        <!-- Mobile Menu -->
+        <div class="mobile-menu" id="mobileMenu">
+          <nav class="mobile-nav">
+            <a href="index.html">Home</a>
+            <a href="index.html#about">About</a>
+            <a href="index.html#features">Features</a>
+            <a href="chatbot.html">Chat Bot</a>
+            <a href="test.html" class="active">Psychometric Test</a>
+          </nav>
+
+          <div class="mobile-auth" id="mobileAuthButtons">
+            <button class="btn btn-ghost" onclick="window.location.href='login.html'">Login</button>
+            <button class="btn btn-hero" onclick="window.location.href='login.html'">Sign Up</button>
+          </div>
+
+          <div class="mobile-user-info" id="mobileUserInfo">
+            <span id="mobileUserName" class="user-name"></span>
+            <button class="btn btn-ghost" id="mobileLogoutBtn">
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                <polyline points="16,17 21,12 16,7"></polyline>
+                <line x1="21" y1="12" x2="9" y2="12"></line>
+              </svg>
+              Logout
+            </button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="main-content">
+        <div class="test-wrapper">
+            <!-- Loading Screen -->
+            <div class="loading-screen" id="loading-screen">
+                <div class="spinner"></div>
+                <h2>Checking Authentication...</h2>
+                <p>Please wait while we verify your login status.</p>
+            </div>
+
+            <header id="intro-screen" style="display: none;">
+                <h1>Psychometric Test</h1>
+                <p>Welcome! This test assesses your cognitive abilities, problem-solving skills, and personality traits. The test contains 15 carefully selected questions. Please answer all questions truthfully. Good luck!</p>
+                <div class="input-group">
+                    <label for="age">Please enter your age (must be 8 or older):</label>
+                    <input type="number" id="age" min="8" max="99" required>
+                    <div class="error-message" id="age-error">You must be at least 8 years old to take this test.</div>
+                </div>
+                <button id="start-button" disabled>Start Test</button>
+            </header>
+
+            <div id="test-container" style="display: none;">
+                <div class="progress-container">
+                    <div class="progress-bar" id="progress-bar"></div>
+                </div>
+                <div class="question-number" id="question-number"></div>
+            </div>
+
+            <div id="results-container" style="display: none;">
+            </div>
+        </div>
+    </div>        }
+        
+        /* Progress bar styling */
+        .progress-container {
+            width: 100%;
+            background-color: hsl(var(--border));
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+        .progress-bar {
+            height: 10px;
+            background: var(--gradient-primary);
+            border-radius: 5px;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+        
+        .correct-answer {
+            color: hsl(var(--primary));
+            font-weight: bold;
+        }
+
+        .detailed-results ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .detailed-results li {
+            background: hsl(var(--card) / 0.5);
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            border-left: 4px solid hsl(var(--primary));
+        }
+
+        .detailed-results h4 {
+            color: hsl(var(--primary));
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        .question-number {
+            color: hsl(var(--primary));
+            font-size: 0.9em;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        /* Responsive Design */
+      @media (min-width: 768px) {
+        .nav {
+          display: flex;
+        }
+        .auth-buttons {
+          display: flex;
+        }
+        .user-name {
+          display: flex;
+        }
+        .mobile-menu-btn {
+          display: none;
+        }
+      }
+
+      @media (max-width: 767px) {
+        .nav {
+          display: none;
+        }
+        .auth-buttons {
+          display: none;
+        }
+        .user-name {
+          display: none;
+        }
+        .mobile-menu-btn {
+          display: flex;
+        }
+        
+        .test-wrapper {
+                padding: 20px;
+                width: 95%;
+            }
+            
+            .navigation-buttons {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            header h1 {
+                font-size: 2em;
+            }
+      }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+      <div class="container">
+        <div class="header-content">
+          <!-- Logo -->
+          <div class="logo">
+            <div class="logo-icon">
+              <img src="logo1.png" alt="Futuro Logo" />
+            </div>
+            <span class="logo-text">Futuro</span>
+          </div>
+
+          <!-- Desktop Navigation -->
+          <nav class="nav">
+            <a href="index.html">Home</a>
+            <a href="index.html#about">About</a>
+            <a href="index.html#features">Features</a>
+            <a href="chatbot.html">Chat Bot</a>
+            <a href="test.html" class="active">Psychometric Test</a>
+          </nav>
+
+          <!-- Desktop User Name / Auth Buttons -->
+          <div id="user_name" class="user-name">
+            <span class="logo-text"></span>
+          </div>
+          <div id="auth" class="auth-buttons">
+            <button
+              class="btn btn-ghost"
+              onclick="window.location.href='login.html'"
+            >
+              Login
+            </button>
+            <button class="btn btn-hero" onclick="window.location.href='login.html'">Sign Up</button>
+          </div>
+
+          <!-- Mobile Menu Button -->
+          <button
+            class="mobile-menu-btn"
+            id="mobileMenuBtn"
+            aria-label="Toggle mobile menu"
+          >
+            <svg
+              id="menuIcon"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <line x1="4" x2="20" y1="6" y2="6"></line>
+              <line x1="4" x2="20" y1="12" y2="12"></line>
+              <line x1="4" x2="20" y1="18" y2="18"></line>
+            </svg>
+            <svg
+              id="closeIcon"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              style="display: none"
+            >
+              <path d="m18 6-12 12"></path>
+              <path d="m6 6 12 12"></path>
+            </svg>
+          </button>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div class="mobile-menu" id="mobileMenu">
+          <nav class="mobile-nav">
+            <a href="index.html">Home</a>
+            <a href="index.html#about">About</a>
+            <a href="index.html#features">Features</a>
+            <a href="chatbot.html">Chat Bot</a>
+            <a href="test.html" class="active">Psychometric Test</a>
+          </nav>
+
+          <div class="mobile-auth" id="mobileAuthButtons">
+            <button class="btn btn-ghost" onclick="window.location.href='login.html'">Login</button>
+            <button class="btn btn-hero" onclick="window.location.href='login.html'">Sign Up</button>
+          </div>
+
+          <div class="mobile-user-info" id="mobileUserInfo">
+            <span id="mobileUserName" class="user-name"></span>
+            <button class="btn btn-ghost" id="mobileLogoutBtn">
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                <polyline points="16,17 21,12 16,7"></polyline>
+                <line x1="21" y1="12" x2="9" y2="12"></line>
+              </svg>
+              Logout
+            </button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="main-content">
+        <div class="test-wrapper">
+            <!-- Loading Screen -->
+            <div class="loading-screen" id="loading-screen">
+                <div class="spinner"></div>
+                <h2>Checking Authentication...</h2>
+                <p>Please wait while we verify your login status.</p>
+            </div>
+
+            <header id="intro-screen" style="display: none;">
+                <h1>Psychometric Test</h1>
+                <p>Welcome! This test assesses your cognitive abilities, problem-solving skills, and personality traits. The test contains 15 carefully selected questions. Please answer all questions truthfully. Good luck!</p>
+                <div class="input-group">
+                    <label for="age">Please enter your age (must be 8 or older):</label>
+                    <input type="number" id="age" min="8" max="99" required>
+                    <div class="error-message" id="age-error">You must be at least 8 years old to take this test.</div>
+                </div>
+                <button id="start-button" disabled>Start Test</button>
+            </header>
+
+            <div id="test-container" style="display: none;">
+                <div class="progress-container">
+                    <div class="progress-bar" id="progress-bar"></div>
+                </div>
+                <div class="question-number" id="question-number"></div>
+            </div>
+
+            <div id="results-container" style="display: none;">
+            </div>
         </div>
     </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            // Check authentication first
+            checkAuthenticationStatus();
 
             const startButton = document.getElementById('start-button');
             const introScreen = document.getElementById('intro-screen');
@@ -271,12 +1008,88 @@
             const ageInput = document.getElementById('age');
             const ageError = document.getElementById('age-error');
             const progressBar = document.getElementById('progress-bar');
+            const questionNumber = document.getElementById('question-number');
+            const loadingScreen = document.getElementById('loading-screen');
 
             let userAge;
             let questions = [];
             let currentQuestionIndex = 0;
             const userAnswers = {};
 
+            // Mobile menu functionality
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            const mobileMenu = document.getElementById('mobileMenu');
+            const menuIcon = document.getElementById('menuIcon');
+            const closeIcon = document.getElementById('closeIcon');
+
+            if (mobileMenuBtn) {
+                mobileMenuBtn.addEventListener('click', function() {
+                    mobileMenu.classList.toggle('open');
+                    
+                    if (mobileMenu.classList.contains('open')) {
+                        menuIcon.style.display = 'none';
+                        closeIcon.style.display = 'block';
+                    } else {
+                        menuIcon.style.display = 'block';
+                        closeIcon.style.display = 'none';
+                    }
+                });
+            }
+
+            // Close mobile menu when clicking on navigation links
+            document.querySelectorAll('.mobile-nav a').forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.remove('open');
+                    menuIcon.style.display = 'block';
+                    closeIcon.style.display = 'none';
+                });
+            });
+
+            async function checkAuthenticationStatus() {
+                try {
+                    const res = await fetch(
+                        "https://hackathon-pflh.onrender.com/auth/me",
+                        {
+                            method: "GET",
+                            credentials: "include",
+                        }
+                    );
+
+                    if (!res.ok) {
+                        // User is not logged in, redirect to login
+                        window.location.href = 'login.html';
+                        return;
+                    }
+
+                    const user = await res.json();
+                    
+                    // Hide loading screen and show test interface
+                    loadingScreen.style.display = 'none';
+                    introScreen.style.display = 'block';
+
+                    // Update navigation for logged-in user
+                    const login_button = document.getElementById("auth");
+                    login_button.style.display = "none";
+                    const user_name = document.getElementById("user_name");
+                    user_name.style.display = "flex";
+                    user_name.innerHTML = `<span class="logo-text">${user.name}</span>`;
+
+                    // Mobile elements
+                    const mobileAuthButtons = document.getElementById("mobileAuthButtons");
+                    const mobileUserInfo = document.getElementById("mobileUserInfo");
+                    if (mobileAuthButtons && mobileUserInfo) {
+                        mobileAuthButtons.style.display = "none";
+                        mobileUserInfo.style.display = "flex";
+                        document.getElementById("mobileUserName").textContent = user.name;
+                    }
+
+                } catch (err) {
+                    console.error("Authentication check failed:", err);
+                    window.location.href = 'login.html';
+                }
+            }
+
+            // Reduced question pool for exactly 15 questions
             const allQuestions = {
                 personality: [
                     { question: "I find it easy to strike up conversations with strangers.", options: ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"], type: "personality" },
@@ -284,49 +1097,23 @@
                     { question: "I get stressed out easily.", options: ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"], type: "personality" },
                     { question: "I am a very detail-oriented person.", options: ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"], type: "personality" },
                     { question: "I am confident in my ability to lead a group.", options: ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"], type: "personality" },
-                    { question: "I am more of a 'big picture' person than a 'details' person.", options: ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"], type: "personality" },
                     { question: "I can easily adapt to new environments and situations.", options: ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"], type: "personality" },
-                    { question: "I feel a deep sense of responsibility towards others.", options: ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"], type: "personality" },
-                    { question: "I enjoy taking on new and challenging tasks.", options: ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"], type: "personality" },
-                    { question: "I like to stick to a routine and prefer predictability.", options: ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"], type: "personality" }
+                    { question: "I enjoy taking on new and challenging tasks.", options: ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"], type: "personality" }
                 ],
-                math: {
-                    easy: [
-                        { question: "What is 7% of 500?", options: ["30", "35", "40", "45"], answer: 1, type: "math" },
-                        { question: "Solve for x: 2x + 5 = 15", options: ["x = 5", "x = 8", "x = 10", "x = 2"], answer: 0, type: "math" }
-                    ],
-                    medium: [
-                        { question: "A train travels at a speed of 60 km/h. How long will it take to travel 180 km?", options: ["2 hours", "3 hours", "4 hours", "5 hours"], answer: 1, type: "math" },
-                        { question: "If a shirt costs $25 after a 20% discount, what was its original price?", options: ["$30", "$31.25", "$35", "$28"], answer: 1, type: "math" }
-                    ],
-                    hard: [
-                        { question: "A sum of money doubles itself in 5 years at simple interest. What is the rate of interest?", options: ["10%", "15%", "20%", "25%"], answer: 2, type: "math" },
-                        { question: "If the area of a square is 64 cm², what is the length of its side?", options: ["6 cm", "8 cm", "16 cm", "32 cm"], answer: 1, type: "math" }
-                    ]
-                },
-                aptitude: {
-                    easy: [
-                        { question: "Which number comes next in the sequence: 2, 4, 8, 16, ...", options: ["24", "30", "32", "36"], answer: 2, type: "aptitude" }
-                    ],
-                    medium: [
-                        { question: "A B C D E F G H I J K L M N O P Q R S T U V W X Y Z. Which letter is fifth to the right of the ninth letter from the left?", options: ["N", "O", "P", "Q"], answer: 0, type: "aptitude" }
-                    ],
-                    hard: [
-                        { question: "If 'CAT' is coded as '3120', what is 'DOG' coded as?", options: ["4157", "4158", "4159", "4151"], answer: 3, type: "aptitude" }
-                    ]
-                },
-                logic: {
-                    easy: [
-                        { question: "Which of the following is the odd one out: Car, Train, Bus, Bicycle?", options: ["Car", "Train", "Bus", "Bicycle"], answer: 3, type: "logic" }
-                    ],
-                    medium: [
-                        { question: "All dogs are animals. Some animals are black. Therefore, some dogs are black. Is this statement:", options: ["True", "False", "Cannot be determined"], answer: 2, type: "logic" }
-                    ],
-                    hard: [
-                        { question: "Which of the following figures completes the sequence?", options: ["A", "B", "C", "D"], answer: 2, type: "logic" },
-                        { question: "If you rearrange the letters 'CIFAICP', you get the name of a(n):", options: ["City", "Animal", "Ocean", "Country"], answer: 2, type: "logic" }
-                    ]
-                }
+                math: [
+                    { question: "What is 15% of 200?", options: ["25", "30", "35", "40"], answer: 1, type: "math" },
+                    { question: "Solve for x: 3x + 7 = 22", options: ["x = 5", "x = 6", "x = 7", "x = 8"], answer: 0, type: "math" },
+                    { question: "A car travels 120 km in 2 hours. What is its speed?", options: ["50 km/h", "60 km/h", "70 km/h", "80 km/h"], answer: 1, type: "math" }
+                ],
+                logic: [
+                    { question: "Which number comes next: 1, 4, 9, 16, ?", options: ["20", "23", "25", "30"], answer: 2, type: "logic" },
+                    { question: "If all roses are flowers and some flowers are red, which statement is true?", options: ["All roses are red", "Some roses are red", "No roses are red", "Cannot be determined"], answer: 3, type: "logic" },
+                    { question: "Complete the pattern: A, D, G, J, ?", options: ["K", "L", "M", "N"], answer: 2, type: "logic" }
+                ],
+                aptitude: [
+                    { question: "Choose the odd one out: Triangle, Square, Circle, Rectangle", options: ["Triangle", "Square", "Circle", "Rectangle"], answer: 2, type: "aptitude" },
+                    { question: "If BOOK is coded as 2115-11-11, what is WORD coded as?", options: ["23-15-18-4", "23-16-18-4", "24-15-18-4", "23-15-19-4"], answer: 0, type: "aptitude" }
+                ]
             };
             
             ageInput.addEventListener('input', () => {
@@ -353,62 +1140,34 @@
             });
 
             function generateQuestions() {
-                questions.push(...allQuestions.personality);
-                
-                let mathQuestions = [], aptitudeQuestions = [], logicQuestions = [];
-
-                if (userAge <= 25) {
-                    mathQuestions = [...allQuestions.math.easy, ...allQuestions.math.medium];
-                    aptitudeQuestions = [...allQuestions.aptitude.easy, ...allQuestions.aptitude.medium];
-                    logicQuestions = [...allQuestions.logic.easy, ...allQuestions.logic.medium];
-                } else {
-                    mathQuestions = [...allQuestions.math.easy, ...allQuestions.math.medium, ...allQuestions.math.hard];
-                    aptitudeQuestions = [...allQuestions.aptitude.easy, ...allQuestions.aptitude.medium, ...allQuestions.aptitude.hard];
-                    logicQuestions = [...allQuestions.logic.easy, ...allQuestions.logic.medium, ...allQuestions.logic.hard];
-                }
-                
-                // For ages <= 25, just use the easy/medium questions
-                // For ages > 25, pull a mix of easy, medium, and one hard
-                if (userAge > 25) {
-                    questions.push(
-                        ...shuffleArray(allQuestions.math.easy).slice(0, 1),
-                        ...shuffleArray(allQuestions.math.medium).slice(0, 1),
-                        ...shuffleArray(allQuestions.math.hard).slice(0, 1)
-                    );
-                    questions.push(
-                        ...shuffleArray(allQuestions.aptitude.easy).slice(0, 1),
-                        ...shuffleArray(allQuestions.aptitude.medium).slice(0, 1),
-                        ...shuffleArray(allQuestions.aptitude.hard).slice(0, 1)
-                    );
-                    questions.push(
-                        ...shuffleArray(allQuestions.logic.easy).slice(0, 1),
-                        ...shuffleArray(allQuestions.logic.medium).slice(0, 1),
-                        ...shuffleArray(allQuestions.logic.hard).slice(0, 1)
-                    );
-                } else {
-                    questions.push(...shuffleArray(mathQuestions).slice(0, 3));
-                    questions.push(...shuffleArray(aptitudeQuestions).slice(0, 3));
-                    questions.push(...shuffleArray(logicQuestions).slice(0, 3));
-                }
+                // Always select exactly 15 questions: 7 personality + 8 cognitive (mix of math, logic, aptitude)
+                questions = [
+                    ...allQuestions.personality, // 7 questions
+                    ...allQuestions.math, // 3 questions  
+                    ...allQuestions.logic, // 3 questions
+                    ...allQuestions.aptitude // 2 questions
+                ]; // Total: 15 questions
                 
                 questions = shuffleArray(questions);
             }
 
             function shuffleArray(array) {
-                for (let i = array.length - 1; i > 0; i--) {
+                const shuffled = [...array];
+                for (let i = shuffled.length - 1; i > 0; i--) {
                     const j = Math.floor(Math.random() * (i + 1));
-                    [array[i], array[j]] = [array[j], array[i]];
+                    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
                 }
-                return array;
+                return shuffled;
             }
 
             function updateProgressBar() {
                 const progress = ((currentQuestionIndex + 1) / questions.length) * 100;
                 progressBar.style.width = progress + '%';
+                questionNumber.textContent = `Question ${currentQuestionIndex + 1} of ${questions.length}`;
             }
 
             function displayQuestion() {
-                if (questions.length === 0) return;
+                if (questions.length === 0 || currentQuestionIndex >= questions.length) return;
 
                 const questionData = questions[currentQuestionIndex];
                 
@@ -420,47 +1179,35 @@
                     </div>
                 `;
 
-                let questionContent;
-                if (questionData.question.includes('figures completes')) {
-                    questionContent = `
-                        <div class="question-container">
-                            <p>${currentQuestionIndex + 1}. ${questionData.question}</p>
-                            <img src="https://via.placeholder.com/400x150.png?text=Logical+Reasoning+Sequence" alt="Logical Reasoning Sequence" style="display:block; margin: 15px auto;">
-                            <div class="options">
-                                ${questionData.options.map((option, index) => `
-                                    <label class="${userAnswers[currentQuestionIndex] === index ? 'selected' : ''}">
-                                        <input type="radio" name="question-${currentQuestionIndex}" value="${index}" ${userAnswers[currentQuestionIndex] === index ? 'checked' : ''}>
-                                        <span>${option}</span>
-                                    </label>
-                                `).join('')}
-                            </div>
+                const questionContent = `
+                    <div class="question-container">
+                        <p>${currentQuestionIndex + 1}. ${questionData.question}</p>
+                        <div class="options">
+                            ${questionData.options.map((option, index) => `
+                                <label class="${userAnswers[currentQuestionIndex] === index ? 'selected' : ''}">
+                                    <input type="radio" name="question-${currentQuestionIndex}" value="${index}" ${userAnswers[currentQuestionIndex] === index ? 'checked' : ''}>
+                                    <span>${option}</span>
+                                </label>
+                            `).join('')}
                         </div>
-                        ${navigationButtons}
-                    `;
-                } else {
-                    questionContent = `
-                        <div class="question-container">
-                            <p>${currentQuestionIndex + 1}. ${questionData.question}</p>
-                            <div class="options">
-                                ${questionData.options.map((option, index) => `
-                                    <label class="${userAnswers[currentQuestionIndex] === index ? 'selected' : ''}">
-                                        <input type="radio" name="question-${currentQuestionIndex}" value="${index}" ${userAnswers[currentQuestionIndex] === index ? 'checked' : ''}>
-                                        <span>${option}</span>
-                                    </label>
-                                `).join('')}
-                            </div>
-                        </div>
-                        ${navigationButtons}
-                    `;
-                }
+                    </div>
+                    ${navigationButtons}
+                `;
                 
-                testContainer.innerHTML = questionContent;
+                testContainer.innerHTML = `
+                    <div class="progress-container">
+                        <div class="progress-bar" id="progress-bar"></div>
+                    </div>
+                    <div class="question-number" id="question-number"></div>
+                    ${questionContent}
+                `;
+                
                 updateProgressBar();
                 
                 const nextButton = document.getElementById('next-button');
                 const prevButton = document.getElementById('prev-button');
                 const skipButton = document.getElementById('skip-button');
-                const radioButtons = document.querySelectorAll(input[name="question-${currentQuestionIndex}"]);
+                const radioButtons = document.querySelectorAll(`input[name="question-${currentQuestionIndex}"]`);
                 const optionLabels = document.querySelectorAll(".options label");
 
                 radioButtons.forEach((radio, index) => {
@@ -484,7 +1231,6 @@
                 });
                 
                 skipButton.addEventListener('click', () => {
-                    // Save a 'skipped' value
                     userAnswers[currentQuestionIndex] = "skipped";
                     if (currentQuestionIndex < questions.length - 1) {
                         currentQuestionIndex++;
@@ -530,25 +1276,281 @@
                     if (question.type === "personality") {
                         personalityAnswers.push({
                             question: question.question,
-                            answer: userAnswer !== "skipped" ? question.options[userAnswer] : "Skipped"
+                            answer: userAnswer !== "skipped" && userAnswer !== undefined ? question.options[userAnswer] : "Skipped"
                         });
                     } else {
                         const isCorrect = userAnswer === question.answer;
                         const result = {
                             question: question.question,
-                            userAnswer: userAnswer !== "skipped" ? question.options[userAnswer] : "Skipped",
+                            userAnswer: userAnswer !== "skipped" && userAnswer !== undefined ? question.options[userAnswer] : "Skipped",
                             correctAnswer: question.options[question.answer],
                             isCorrect: isCorrect,
-                            isSkipped: userAnswer === "skipped"
+                            isSkipped: userAnswer === "skipped" || userAnswer === undefined
                         };
 
-                        if (userAnswer !== "skipped") {
+                        if (userAnswer !== "skipped" && userAnswer !== undefined) {
                             if (isCorrect) {
                                 scores[question.type].correct++;
                             }
                             scores[question.type].total++;
-                            scores[question.type].results.push(result);
                         }
+                        scores[question.type].results.push(result);
+                    }
+                });
+                
+                const totalCorrect = scores.math.correct + scores.aptitude.correct + scores.logic.correct;
+                const totalQuestions = scores.math.total + scores.aptitude.total + scores.logic.total;
+                const percentage = totalQuestions > 0 ? ((totalCorrect / totalQuestions) * 100).toFixed(0) : 0;
+                
+                let rating = "Below Average";
+                if (percentage >= 80) {
+                    rating = "Excellent";
+                } else if (percentage >= 60) {
+                    rating = "Good";
+                } else if (percentage >= 40) {
+                    rating = "Average";
+                }
+                
+                let resultsHTML = `
+                    <h2>Test Complete!</h2>
+                    <p>Thank you for taking the test. Here is a summary of your performance on all 15 questions.</p>
+                    <div class="score-display">
+                        Cognitive Score: ${totalCorrect} / ${totalQuestions} (${percentage}%)
+                        <br>
+                        Rating: <strong>${rating}</strong>
+                    </div>
+                    
+                    <hr>
+                    
+                    <div class="category-scores">
+                        <h3>Score Breakdown by Category</h3>
+                        <p class="category-score">Math Score: <span>${scores.math.correct} / ${scores.math.total}</span></p>
+                        <p class="category-score">Aptitude Score: <span>${scores.aptitude.correct} / ${scores.aptitude.total}</span></p>
+                        <p class="category-score">Logic Score: <span>${scores.logic.correct} / ${scores.logic.total}</span></p>
+                        <p class="category-score">Personality Questions: <span>${personalityAnswers.length} completed</span></p>
+                    </div>
+                    
+                    <hr>
+
+                    <div class="detailed-results">
+                        <h3>Detailed Results</h3>
+                        ${Object.keys(scores).map(category => `
+                            <h4>${category.charAt(0).toUpperCase() + category.slice(1)} Questions</h4>
+                            <ul>
+                                ${scores[category].results.map(res => `
+                                    <li>
+                                        <p><strong>Question:</strong> ${res.question}</p>
+                                        <p><strong>Your Answer:</strong> ${res.userAnswer}</p>
+                                        <p><strong>Correct Answer:</strong> <span class="correct-answer">${res.correctAnswer}</span></p>
+                                        <p><strong>Result:</strong> ${res.isSkipped ? 'Skipped' : res.isCorrect ? 'Correct ✓' : 'Incorrect ✗'}</p>
+                                    </li>
+                                `).join('')}
+                            </ul>
+                        `).join('')}
+                    </div>
+
+                    <div class="personality-summary">
+                        <h3>Personality Summary</h3>
+                        <p>Based on your responses to the personality questions:</p>
+                        <ul>
+                            ${personalityAnswers.map(ans => `
+                                <li><strong>${ans.question}</strong><br><em>Your answer: ${ans.answer}</em></li>
+                            `).join('')}
+                        </ul>
+                    </div>
+                    
+                    <div style="margin-top: 30px; text-align: center;">
+                        <button onclick="location.reload()" style="background: var(--gradient-primary); color: white; padding: 15px 30px; border: none; border-radius: 8px; font-size: 1.1em; cursor: pointer; box-shadow: var(--shadow-primary);">Take Test Again</button>
+                    </div>
+                `;
+                
+                resultsContainer.innerHTML = resultsHTML;
+            }
+        });
+    </script>
+</body>
+</html>
+            }
+            
+            ageInput.addEventListener('input', () => {
+                const age = parseInt(ageInput.value, 10);
+                if (age >= 8 && age <= 99) {
+                    startButton.disabled = false;
+                    userAge = age;
+                    ageError.style.display = 'none';
+                } else {
+                    startButton.disabled = true;
+                    if (age < 8 && ageInput.value !== '') {
+                        ageError.style.display = 'block';
+                    } else {
+                        ageError.style.display = 'none';
+                    }
+                }
+            });
+
+            startButton.addEventListener('click', () => {
+                generateQuestions();
+                introScreen.style.display = 'none';
+                testContainer.style.display = 'block';
+                displayQuestion();
+            });
+
+            function generateQuestions() {
+                // Always select exactly 15 questions: 7 personality + 8 cognitive (mix of math, logic, aptitude)
+                questions = [
+                    ...allQuestions.personality, // 7 questions
+                    ...allQuestions.math, // 3 questions  
+                    ...allQuestions.logic, // 3 questions
+                    ...allQuestions.aptitude // 2 questions
+                ]; // Total: 15 questions
+                
+                questions = shuffleArray(questions);
+            }
+
+            function shuffleArray(array) {
+                const shuffled = [...array];
+                for (let i = shuffled.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+                }
+                return shuffled;
+            }
+
+            function updateProgressBar() {
+                const progress = ((currentQuestionIndex + 1) / questions.length) * 100;
+                progressBar.style.width = progress + '%';
+                questionNumber.textContent = `Question ${currentQuestionIndex + 1} of ${questions.length}`;
+            }
+
+            function displayQuestion() {
+                if (questions.length === 0 || currentQuestionIndex >= questions.length) return;
+
+                const questionData = questions[currentQuestionIndex];
+                
+                const navigationButtons = `
+                    <div class="navigation-buttons">
+                        <button id="prev-button" ${currentQuestionIndex === 0 ? 'disabled' : ''}>Previous</button>
+                        <button id="skip-button">Skip</button>
+                        <button id="next-button" ${userAnswers[currentQuestionIndex] === undefined ? 'disabled' : ''}>${currentQuestionIndex === questions.length - 1 ? 'Submit' : 'Next'}</button>
+                    </div>
+                `;
+
+                const questionContent = `
+                    <div class="question-container">
+                        <p>${currentQuestionIndex + 1}. ${questionData.question}</p>
+                        <div class="options">
+                            ${questionData.options.map((option, index) => `
+                                <label class="${userAnswers[currentQuestionIndex] === index ? 'selected' : ''}">
+                                    <input type="radio" name="question-${currentQuestionIndex}" value="${index}" ${userAnswers[currentQuestionIndex] === index ? 'checked' : ''}>
+                                    <span>${option}</span>
+                                </label>
+                            `).join('')}
+                        </div>
+                    </div>
+                    ${navigationButtons}
+                `;
+                
+                testContainer.innerHTML = `
+                    <div class="progress-container">
+                        <div class="progress-bar" id="progress-bar"></div>
+                    </div>
+                    <div class="question-number" id="question-number"></div>
+                    ${questionContent}
+                `;
+                
+                updateProgressBar();
+                
+                const nextButton = document.getElementById('next-button');
+                const prevButton = document.getElementById('prev-button');
+                const skipButton = document.getElementById('skip-button');
+                const radioButtons = document.querySelectorAll(`input[name="question-${currentQuestionIndex}"]`);
+                const optionLabels = document.querySelectorAll(".options label");
+
+                radioButtons.forEach((radio, index) => {
+                    radio.addEventListener('change', () => {
+                        optionLabels.forEach(label => label.classList.remove('selected'));
+                        optionLabels[index].classList.add('selected');
+                        nextButton.disabled = false;
+                        saveAnswer();
+                    });
+                });
+                
+                if (userAnswers[currentQuestionIndex] !== undefined) {
+                    nextButton.disabled = false;
+                }
+
+                prevButton.addEventListener('click', () => {
+                    if (currentQuestionIndex > 0) {
+                        currentQuestionIndex--;
+                        displayQuestion();
+                    }
+                });
+                
+                skipButton.addEventListener('click', () => {
+                    userAnswers[currentQuestionIndex] = "skipped";
+                    if (currentQuestionIndex < questions.length - 1) {
+                        currentQuestionIndex++;
+                        displayQuestion();
+                    } else {
+                        submitTest();
+                    }
+                });
+                
+                nextButton.addEventListener('click', () => {
+                    if (currentQuestionIndex < questions.length - 1) {
+                        currentQuestionIndex++;
+                        displayQuestion();
+                    } else {
+                        submitTest();
+                    }
+                });
+            }
+
+            function saveAnswer() {
+                const selectedOption = document.querySelector(`input[name="question-${currentQuestionIndex}"]:checked`);
+                if (selectedOption) {
+                    userAnswers[currentQuestionIndex] = parseInt(selectedOption.value);
+                }
+            }
+
+            function submitTest() {
+                testContainer.style.display = 'none';
+                resultsContainer.style.display = 'block';
+                showResults();
+            }
+
+            function showResults() {
+                let scores = {
+                    math: { correct: 0, total: 0, results: [] },
+                    aptitude: { correct: 0, total: 0, results: [] },
+                    logic: { correct: 0, total: 0, results: [] }
+                };
+                let personalityAnswers = [];
+                
+                questions.forEach((question, index) => {
+                    const userAnswer = userAnswers[index];
+                    if (question.type === "personality") {
+                        personalityAnswers.push({
+                            question: question.question,
+                            answer: userAnswer !== "skipped" && userAnswer !== undefined ? question.options[userAnswer] : "Skipped"
+                        });
+                    } else {
+                        const isCorrect = userAnswer === question.answer;
+                        const result = {
+                            question: question.question,
+                            userAnswer: userAnswer !== "skipped" && userAnswer !== undefined ? question.options[userAnswer] : "Skipped",
+                            correctAnswer: question.options[question.answer],
+                            isCorrect: isCorrect,
+                            isSkipped: userAnswer === "skipped" || userAnswer === undefined
+                        };
+
+                        if (userAnswer !== "skipped" && userAnswer !== undefined) {
+                            if (isCorrect) {
+                                scores[question.type].correct++;
+                            }
+                            scores[question.type].total++;
+                        }
+                        scores[question.type].results.push(result);
                     }
                 });
                 
@@ -595,6 +1597,7 @@
                                         <p><strong>Question:</strong> ${res.question}</p>
                                         <p><strong>Your Answer:</strong> ${res.userAnswer}</p>
                                         <p><strong>Correct Answer:</strong> <span class="correct-answer">${res.correctAnswer}</span></p>
+                                        <p><strong>Result:</strong> ${res.isSkipped ? 'Skipped' : res.isCorrect ? 'Correct ✓' : 'Incorrect ✗'}</p>
                                     </li>
                                 `).join('')}
                             </ul>
@@ -609,6 +1612,10 @@
                                 <li><strong>${ans.question}</strong><br><em>Your answer: ${ans.answer}</em></li>
                             `).join('')}
                         </ul>
+                    </div>
+                    
+                    <div style="margin-top: 30px; text-align: center;">
+                        <button onclick="location.reload()" style="background-color: #66BB6A; color: white; padding: 15px 30px; border: none; border-radius: 8px; font-size: 1.1em; cursor: pointer;">Take Test Again</button>
                     </div>
                 `;
                 
