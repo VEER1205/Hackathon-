@@ -5,6 +5,7 @@ from app.models.user import User, UserLogin
 from app.crud import user_crud
 from app.auth import create_access_token, hash_password, verify_password
 from app.utils.mongo import serialize_doc
+from app.routes.auth_routes import create_access_token, verify_token
 
 router = APIRouter(prefix="/users", tags=["Users"])
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="users/login")
@@ -13,15 +14,13 @@ oauth2_scheme = OAuth2PasswordBearer(tokenUrl="users/login")
 @router.post("/signup", summary="Register a new user")
 async def signup(form_data: User):
     existing_user = await user_crud.get_user_by_email(form_data.email)
-    if existing_user:
+    if existing_user and not existing_user.get("password", None) is None:
         raise HTTPException(status_code=400, detail="User already exists")
 
-    # Hash the password before saving
-    hashed_password = hash_password(form_data.password)
-    
-    # Create user dict and store the hashed password
+    if existing_user.get("password", None) is None:
+        await user_crud.add_password_if_missing(form_data.email, form_data.password)
+        return {"msg": "Password added to existing user"}
     user_dict = form_data.dict(exclude_unset=True)
-    user_dict['password'] = hashed_password
     
     await user_crud.create_user(user_dict)
     return {"msg": "User created successfully"}
@@ -33,23 +32,25 @@ async def login(form_data: UserLogin):
     if not db_user:
         raise HTTPException(status_code=404, detail="User not found")
 
+    if not db_user.get("password", None):
+        raise HTTPException(status_code=400, detail="User has no password set. or Please use Google login.")
     # Verify the password
     if not verify_password(form_data.password, db_user["password"]):
         raise HTTPException(status_code=400, detail="Incorrect password")
 
     # Create JWT token
-    token = create_access_token({"sub": str(db_user["_id"])})
+    access_token = create_access_token(data={"sub": form_data.email})
 
-    # Set the JWT token as a cookie and redirect to the frontend
-    response = RedirectResponse(url="https://futuro-ai.web.app")  # Change to your frontend URL
+    # Set HttpOnly cookie and redirect to frontend
+    response = RedirectResponse(url="https://futuro-ai.web.app")
     response.set_cookie(
-        key="access_token", 
-        value=token, 
-        httponly=True, 
-        secure=True, 
-        samesite="None"  # Change to `Lax` if you don't want cross-site cookies
+        key="access_token",
+        value=access_token,
+        httponly=True,
+        secure=True,
+        samesite="None",  # Change this to allow cross-site requests
+        
     )
-
     return response
 
 # --- Get User ---

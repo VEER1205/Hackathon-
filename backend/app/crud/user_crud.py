@@ -17,6 +17,15 @@ async def create_user(user_dict: dict) -> str:
     result = await collection.insert_one(user_data)
     return str(result.inserted_id)
 
+# --- add password if user have account but not password ---
+async def add_password_if_missing(email: str, password: str) -> bool:
+    """Add a password to an existing user if it doesn't have one."""
+    result = await collection.update_one(
+        {"email": email, "password": None},
+        {"$set": {"password": hash_password(password)}}
+    )
+    return result.modified_count > 0
+
 # --- Get User by Email ---
 async def get_user_by_email(email: str) -> dict | None:
     """Find a user by email."""

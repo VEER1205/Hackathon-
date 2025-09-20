@@ -16,38 +16,33 @@
       }
 
       :root {
-        --primary-bg: #121212;
-        --secondary-bg: #1e1e1e;
-        --tertiary-bg: #2a2a2a;
-        --accent-primary: #00aaff;
-        --accent-secondary: #00c0ff;
-        --accent-tertiary: #0077b3;
-        --text-primary: #e0e0e0;
-        --text-secondary: #b0b0b0;
-        --text-muted: #999999;
-        --border-color: #00aaff;
-        --glass-bg: rgba(0, 0, 0, 0.8);
-        --glass-border: rgba(0, 170, 255, 0.2);
-        --gradient-start: #003366;
-        --gradient-end: #0077b3;
-        --shadow-primary: 0 4px 20px rgba(0, 170, 255, 0.1);
-        --shadow-secondary: 0 0 30px rgba(0, 170, 255, 0.3);
-        --shadow-hover: 0 0 15px rgba(0, 170, 255, 0.8);
-        --input-focus: 0 0 10px rgba(0, 170, 255, 0.8);
-        --social-hover-bg: rgba(0, 170, 255, 0.1);
-        --nav-hover-bg: rgba(0, 170, 255, 0.1);
-        --nav-active-bg: rgba(0, 170, 255, 0.15);
+        --primary-bg: #0a0a0a;
+        --secondary-bg: #111111;
+        --tertiary-bg: #1a1a1a;
+        --card-bg: #1f1f1f;
+        --accent-primary: #00d4ff;
+        --accent-secondary: #0099cc;
+        --accent-tertiary: #006699;
+        --text-primary: #f5f5f5;
+        --text-secondary: #cccccc;
+        --text-muted: #888888;
+        --border-color: #333333;
+        --glass-bg: rgba(17, 17, 17, 0.9);
+        --glass-border: rgba(0, 212, 255, 0.2);
+        --success-color: #00ff88;
+        --error-color: #ff4444;
+        --shadow-primary: 0 8px 32px rgba(0, 0, 0, 0.6);
+        --shadow-secondary: 0 0 40px rgba(0, 212, 255, 0.3);
+        --shadow-hover: 0 0 20px rgba(0, 212, 255, 0.5);
+        --input-focus: 0 0 15px rgba(0, 212, 255, 0.6);
+        --social-hover-bg: rgba(0, 212, 255, 0.1);
+        --nav-hover-bg: rgba(0, 212, 255, 0.1);
+        --nav-active-bg: rgba(0, 212, 255, 0.2);
       }
 
       body {
         font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
-        background: linear-gradient(
-          135deg,
-          var(--primary-bg) 0%,
-          #4a464f 50%,
-          var(--primary-bg) 100%
-        );
-        background-attachment: fixed;
+        background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
         color: var(--text-primary);
         line-height: 1.6;
         min-height: 100vh;
@@ -56,7 +51,7 @@
         overflow-x: hidden;
       }
 
-      /* Animated background elements */
+      /* Enhanced animated background elements */
       .bg-decoration {
         position: fixed;
         top: 0;
@@ -71,60 +66,61 @@
       .bg-circle {
         position: absolute;
         border-radius: 50%;
-        opacity: 0.03;
-        animation: float 20s infinite linear;
+        opacity: 0.05;
+        animation: float 25s infinite linear;
+        filter: blur(1px);
       }
 
       .bg-circle:nth-child(1) {
-        width: 300px;
-        height: 300px;
-        background: var(--accent-primary);
-        top: 10%;
-        left: 10%;
+        width: 400px;
+        height: 400px;
+        background: radial-gradient(circle, var(--accent-primary), transparent 70%);
+        top: 5%;
+        left: 5%;
         animation-delay: 0s;
       }
 
       .bg-circle:nth-child(2) {
-        width: 200px;
-        height: 200px;
-        background: var(--accent-secondary);
-        top: 60%;
-        right: 10%;
-        animation-delay: -7s;
+        width: 250px;
+        height: 250px;
+        background: radial-gradient(circle, var(--accent-secondary), transparent 70%);
+        top: 50%;
+        right: 5%;
+        animation-delay: -8s;
       }
 
       .bg-circle:nth-child(3) {
-        width: 150px;
-        height: 150px;
-        background: var(--accent-tertiary);
-        bottom: 20%;
-        left: 20%;
-        animation-delay: -14s;
+        width: 180px;
+        height: 180px;
+        background: radial-gradient(circle, var(--accent-tertiary), transparent 70%);
+        bottom: 15%;
+        left: 15%;
+        animation-delay: -16s;
       }
 
       @keyframes float {
         0%,
         100% {
-          transform: translateY(0px) rotate(0deg);
+          transform: translateY(0px) rotate(0deg) scale(1);
         }
         33% {
-          transform: translateY(-20px) rotate(120deg);
+          transform: translateY(-30px) rotate(120deg) scale(1.1);
         }
         66% {
-          transform: translateY(10px) rotate(240deg);
+          transform: translateY(15px) rotate(240deg) scale(0.9);
         }
       }
 
-      /* Header */
+      /* Enhanced Header */
       .header {
-        background: var(--glass-bg);
+        background: var(--secondary-bg);
         backdrop-filter: blur(20px);
-        border-bottom: 1px solid var(--glass-border);
+        border-bottom: 1px solid var(--border-color);
         padding: 16px 24px;
         display: flex;
         align-items: center;
         justify-content: space-between;
-        box-shadow: var(--shadow-lg);
+        box-shadow: var(--shadow-primary);
         position: sticky;
         top: 0;
         z-index: 100;
@@ -143,28 +139,14 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        scale: 0.05;
-      }
-
-      @keyframes pulse-logo {
-        0%,
-        100% {
-          transform: scale(1);
-        }
-        50% {
-          transform: scale(1.05);
-        }
+        background: var(--accent-primary);
+        box-shadow: 0 0 20px rgba(0, 212, 255, 0.4);
       }
 
       .title {
         font-size: 20px;
-        font-weight: 600;
-        color: var(--text-primary);
-        background: linear-gradient(
-          135deg,
-          var(--accent-primary),
-          var(--accent-secondary)
-        );
+        font-weight: 700;
+        background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
@@ -176,36 +158,17 @@
         gap: 12px;
       }
 
-      .theme-toggle {
-        background: transparent;
-        border: 1px solid var(--border-color);
-        border-radius: 8px;
-        width: 36px;
-        height: 36px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        color: var(--text-secondary);
-      }
-
-      .theme-toggle:hover {
-        background: var(--glass-bg);
-        border-color: var(--accent-primary);
-        color: var(--accent-primary);
-      }
-
       .status-indicator {
         display: flex;
         align-items: center;
         gap: 8px;
-        background: var(--glass-bg);
-        border: 1px solid var(--glass-border);
+        background: var(--tertiary-bg);
+        border: 1px solid var(--border-color);
         border-radius: 20px;
         padding: 6px 12px;
         font-size: 12px;
         color: var(--text-secondary);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
       }
 
       .status-dot {
@@ -214,19 +177,22 @@
         border-radius: 50%;
         background: var(--success-color);
         animation: pulse-dot 2s infinite;
+        box-shadow: 0 0 10px var(--success-color);
       }
 
       @keyframes pulse-dot {
         0%,
         100% {
           opacity: 1;
+          transform: scale(1);
         }
         50% {
-          opacity: 0.5;
+          opacity: 0.6;
+          transform: scale(1.2);
         }
       }
 
-      /* Main Chat Container */
+      /* Enhanced Chat Container */
       .chat-container {
         flex: 1;
         display: flex;
@@ -244,28 +210,29 @@
         scroll-behavior: smooth;
       }
 
-      /* Custom scrollbar */
+      /* Enhanced scrollbar */
       .messages-container::-webkit-scrollbar {
-        width: 6px;
+        width: 8px;
       }
 
       .messages-container::-webkit-scrollbar-track {
-        background: transparent;
+        background: var(--primary-bg);
       }
 
       .messages-container::-webkit-scrollbar-thumb {
-        background: var(--border-color);
-        border-radius: 3px;
+        background: var(--accent-primary);
+        border-radius: 4px;
+        box-shadow: 0 0 10px var(--accent-primary);
       }
 
       .messages-container::-webkit-scrollbar-thumb:hover {
-        background: var(--text-muted);
+        background: var(--accent-secondary);
       }
 
-      /* Messages */
+      /* Enhanced Messages */
       .message {
         margin-bottom: 32px;
-        animation: slideInUp 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        animation: slideInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1);
         opacity: 0;
         animation-fill-mode: forwards;
       }
@@ -273,7 +240,7 @@
       @keyframes slideInUp {
         from {
           opacity: 0;
-          transform: translateY(30px) scale(0.95);
+          transform: translateY(40px) scale(0.9);
         }
         to {
           opacity: 1;
@@ -289,44 +256,37 @@
       }
 
       .avatar {
-        width: 32px;
-        height: 32px;
+        width: 36px;
+        height: 36px;
         border-radius: 50%;
         display: flex;
         align-items: center;
         justify-content: center;
         font-size: 14px;
-        font-weight: 600;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        font-weight: 700;
+        box-shadow: var(--shadow-primary);
         position: relative;
+        border: 2px solid var(--accent-primary);
       }
 
       .user-avatar {
-        background: linear-gradient(135deg, var(--accent-tertiary), #0891b2);
+        background: linear-gradient(135deg, var(--accent-tertiary), var(--accent-secondary));
         color: white;
       }
 
       .assistant-avatar {
-        background: linear-gradient(
-          135deg,
-          var(--accent-primary),
-          var(--accent-secondary)
-        );
+        background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
         color: white;
       }
 
       .avatar::after {
         content: "";
         position: absolute;
-        top: -2px;
-        left: -2px;
-        right: -2px;
-        bottom: -2px;
-        background: linear-gradient(
-          135deg,
-          var(--accent-primary),
-          var(--accent-secondary)
-        );
+        top: -3px;
+        left: -3px;
+        right: -3px;
+        bottom: -3px;
+        background: var(--accent-primary);
         border-radius: 50%;
         z-index: -1;
         opacity: 0;
@@ -334,7 +294,7 @@
       }
 
       .message:hover .avatar::after {
-        opacity: 0.3;
+        opacity: 0.4;
       }
 
       .sender-name {
@@ -356,21 +316,21 @@
       }
 
       .message-content {
-        margin-left: 44px;
+        margin-left: 48px;
         font-size: 15px;
         line-height: 1.7;
         color: var(--text-secondary);
       }
 
       .user-message .message-content {
-        background: var(--glass-bg);
-        backdrop-filter: blur(10px);
-        border: 1px solid var(--glass-border);
-        border-radius: 18px;
-        padding: 18px 22px;
+        background: var(--card-bg);
+        border: 1px solid var(--border-color);
+        border-radius: 20px;
+        padding: 20px 24px;
         position: relative;
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        box-shadow: var(--shadow-primary);
         color: var(--text-primary);
+        backdrop-filter: blur(10px);
       }
 
       .user-message .message-content::before {
@@ -380,12 +340,8 @@
         left: -1px;
         right: -1px;
         bottom: -1px;
-        background: linear-gradient(
-          135deg,
-          var(--accent-primary),
-          var(--accent-secondary)
-        );
-        border-radius: 18px;
+        background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+        border-radius: 20px;
         z-index: -1;
         opacity: 0;
         transition: opacity 0.3s ease;
@@ -396,56 +352,65 @@
       }
 
       .assistant-message .message-content {
-        margin-left: 44px;
+        margin-left: 48px;
         color: var(--text-secondary);
       }
 
-      /* Message formatting */
+      /* Enhanced message formatting */
       .message-content h1,
       .message-content h2,
       .message-content h3 {
         color: var(--text-primary);
-        margin: 16px 0 8px 0;
+        margin: 20px 0 10px 0;
       }
 
       .message-content h1 {
-        font-size: 18px;
+        font-size: 20px;
+        background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
       }
       .message-content h2 {
-        font-size: 16px;
+        font-size: 18px;
+        color: var(--accent-primary);
       }
       .message-content h3 {
-        font-size: 14px;
+        font-size: 16px;
+        color: var(--accent-secondary);
       }
 
       .message-content p {
-        margin: 8px 0;
+        margin: 10px 0;
       }
 
       .message-content code {
-        background: var(--card-bg);
-        color: var(--accent-tertiary);
-        padding: 2px 6px;
-        border-radius: 4px;
+        background: var(--secondary-bg);
+        color: var(--accent-primary);
+        padding: 4px 8px;
+        border-radius: 6px;
         font-family: "Fira Code", monospace;
         font-size: 0.9em;
+        border: 1px solid var(--border-color);
       }
 
       .message-content pre {
-        background: var(--card-bg);
+        background: var(--secondary-bg);
         border: 1px solid var(--border-color);
-        border-radius: 8px;
-        padding: 16px;
+        border-radius: 12px;
+        padding: 20px;
         overflow-x: auto;
-        margin: 16px 0;
+        margin: 20px 0;
+        box-shadow: var(--shadow-primary);
       }
 
       .message-content pre code {
         background: none;
         padding: 0;
+        border: none;
       }
 
-      /* Loading States */
+      /* Enhanced Loading States */
       .loading-message {
         display: flex;
         align-items: center;
@@ -456,15 +421,16 @@
 
       .loading-dots {
         display: flex;
-        gap: 4px;
+        gap: 6px;
       }
 
       .loading-dot {
-        width: 6px;
-        height: 6px;
+        width: 8px;
+        height: 8px;
         border-radius: 50%;
         background: var(--accent-primary);
         animation: loadingPulse 1.5s infinite ease-in-out;
+        box-shadow: 0 0 10px var(--accent-primary);
       }
 
       .loading-dot:nth-child(2) {
@@ -483,29 +449,26 @@
         }
         50% {
           opacity: 1;
-          transform: scale(1.2);
+          transform: scale(1.3);
         }
       }
 
-      /* Error Messages */
+      /* Enhanced Error Messages */
       .error-message {
-        background: linear-gradient(
-          135deg,
-          rgba(239, 68, 68, 0.1),
-          rgba(220, 38, 38, 0.1)
-        );
-        border: 1px solid rgba(239, 68, 68, 0.3);
-        border-radius: 12px;
-        padding: 16px;
-        margin: 16px 0;
+        background: rgba(255, 68, 68, 0.1);
+        border: 1px solid rgba(255, 68, 68, 0.3);
+        border-radius: 16px;
+        padding: 20px;
+        margin: 20px 0;
         display: flex;
         align-items: flex-start;
-        gap: 12px;
+        gap: 16px;
+        backdrop-filter: blur(10px);
       }
 
       .error-icon {
         color: var(--error-color);
-        font-size: 18px;
+        font-size: 20px;
         flex-shrink: 0;
         margin-top: 2px;
       }
@@ -517,20 +480,20 @@
       .error-title {
         color: var(--error-color);
         font-weight: 600;
-        margin-bottom: 4px;
+        margin-bottom: 6px;
       }
 
       .error-text {
-        color: #fca5a5;
+        color: #ffaaaa;
         font-size: 14px;
       }
 
-      /* Input Container */
+      /* Enhanced Input Container */
       .input-container {
-        background: var(--glass-bg);
+        background: var(--secondary-bg);
         backdrop-filter: blur(20px);
-        border-top: 1px solid var(--glass-border);
-        padding: 20px 24px;
+        border-top: 1px solid var(--border-color);
+        padding: 24px;
         position: sticky;
         bottom: 0;
         z-index: 50;
@@ -545,13 +508,12 @@
       .input-box {
         display: flex;
         align-items: flex-end;
-        background: var(--glass-bg);
-        backdrop-filter: blur(20px);
-        border: 2px solid var(--glass-border);
-        border-radius: 24px;
-        padding: 14px 18px;
+        background: var(--tertiary-bg);
+        border: 2px solid var(--border-color);
+        border-radius: 28px;
+        padding: 16px 20px;
         transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        box-shadow: var(--shadow-lg);
+        box-shadow: var(--shadow-primary);
         position: relative;
         overflow: hidden;
       }
@@ -563,11 +525,7 @@
         left: 0;
         right: 0;
         bottom: 0;
-        background: linear-gradient(
-          135deg,
-          var(--accent-primary),
-          var(--accent-secondary)
-        );
+        background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
         opacity: 0;
         transition: opacity 0.3s ease;
         z-index: -1;
@@ -575,8 +533,8 @@
 
       .input-box:focus-within {
         border-color: var(--accent-primary);
-        box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.25), var(--shadow-xl);
-        transform: translateY(-2px);
+        box-shadow: 0 0 0 4px rgba(0, 212, 255, 0.3), var(--shadow-secondary);
+        transform: translateY(-3px);
       }
 
       .input-box:focus-within::before {
@@ -591,9 +549,9 @@
         background: transparent;
         color: var(--text-muted);
         border: none;
-        border-radius: 12px;
-        width: 40px;
-        height: 40px;
+        border-radius: 14px;
+        width: 44px;
+        height: 44px;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -604,9 +562,10 @@
       }
 
       .input-button:hover {
-        background: rgba(99, 102, 241, 0.1);
+        background: rgba(0, 212, 255, 0.15);
         color: var(--accent-primary);
         transform: scale(1.1);
+        box-shadow: 0 0 15px rgba(0, 212, 255, 0.3);
       }
 
       .input-button:active {
@@ -618,12 +577,12 @@
         border: none;
         outline: none;
         font-size: 16px;
-        line-height: 1.5;
+        line-height: 1.6;
         resize: none;
         background: transparent;
-        min-height: 28px;
+        min-height: 30px;
         max-height: 120px;
-        padding: 8px 12px;
+        padding: 10px 14px;
         font-family: inherit;
         color: var(--text-primary);
         font-weight: 400;
@@ -637,28 +596,24 @@
       .input-actions {
         display: flex;
         align-items: center;
-        gap: 6px;
-        margin-left: 8px;
+        gap: 8px;
+        margin-left: 10px;
       }
 
       .send-button {
-        background: linear-gradient(
-          135deg,
-          var(--accent-primary),
-          var(--accent-secondary)
-        );
+        background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
         color: white;
         border: none;
-        border-radius: 16px;
-        width: 48px;
-        height: 48px;
+        border-radius: 20px;
+        width: 52px;
+        height: 52px;
         display: flex;
         align-items: center;
         justify-content: center;
         cursor: pointer;
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         flex-shrink: 0;
-        box-shadow: 0 4px 16px rgba(99, 102, 241, 0.4);
+        box-shadow: 0 6px 20px rgba(0, 212, 255, 0.5);
         position: relative;
         overflow: hidden;
       }
@@ -677,18 +632,14 @@
       }
 
       .send-button:hover:not(:disabled) {
-        background: linear-gradient(
-          135deg,
-          var(--accent-secondary),
-          var(--accent-primary)
-        );
-        transform: scale(1.08) rotate(15deg);
-        box-shadow: 0 6px 24px rgba(99, 102, 241, 0.6);
+        background: linear-gradient(135deg, var(--accent-secondary), var(--accent-primary));
+        transform: scale(1.1) rotate(15deg);
+        box-shadow: 0 8px 30px rgba(0, 212, 255, 0.7);
       }
 
       .send-button:hover:not(:disabled)::before {
-        width: 100%;
-        height: 100%;
+        width: 120%;
+        height: 120%;
       }
 
       .send-button:active:not(:disabled) {
@@ -708,10 +659,10 @@
       }
 
       .send-button:hover:not(:disabled) .send-icon {
-        transform: scale(1.1);
+        transform: scale(1.2);
       }
 
-      /* Welcome Screen */
+      /* Enhanced Welcome Screen */
       .welcome-screen {
         flex: 1;
         display: flex;
@@ -719,44 +670,36 @@
         align-items: center;
         justify-content: center;
         text-align: center;
-        padding: 60px 40px;
+        padding: 80px 40px;
         color: var(--text-secondary);
-        animation: fadeInUp 1s ease-out;
+        animation: fadeInUp 1.2s ease-out;
       }
 
       .welcome-icon {
-        width: 80px;
-        height: 80px;
-        background: linear-gradient(
-          135deg,
-          var(--accent-primary),
-          var(--accent-secondary)
-        );
-        border-radius: 20px;
+        width: 100px;
+        height: 100px;
+        background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+        border-radius: 24px;
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 36px;
+        font-size: 40px;
         color: white;
-        margin-bottom: 32px;
+        margin-bottom: 40px;
         animation: floatWelcome 4s ease-in-out infinite;
-        box-shadow: var(--shadow-xl);
+        box-shadow: var(--shadow-secondary);
         position: relative;
       }
 
       .welcome-icon::after {
         content: "";
         position: absolute;
-        top: -4px;
-        left: -4px;
-        right: -4px;
-        bottom: -4px;
-        background: linear-gradient(
-          135deg,
-          var(--accent-primary),
-          var(--accent-secondary)
-        );
-        border-radius: 24px;
+        top: -6px;
+        left: -6px;
+        right: -6px;
+        bottom: -6px;
+        background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+        border-radius: 30px;
         z-index: -1;
         opacity: 0.3;
         animation: pulse 2s infinite;
@@ -768,48 +711,43 @@
           transform: translateY(0px) rotate(0deg);
         }
         50% {
-          transform: translateY(-10px) rotate(5deg);
+          transform: translateY(-15px) rotate(5deg);
         }
       }
 
       .welcome-title {
-        font-size: 32px;
+        font-size: 36px;
         font-weight: 700;
-        color: var(--text-primary);
-        margin-bottom: 12px;
-        background: linear-gradient(
-          135deg,
-          var(--accent-primary),
-          var(--accent-secondary)
-        );
+        background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
+        margin-bottom: 16px;
       }
 
       .welcome-subtitle {
         font-size: 18px;
-        margin-bottom: 40px;
-        max-width: 500px;
+        margin-bottom: 50px;
+        max-width: 600px;
         font-weight: 300;
-        opacity: 0.8;
+        opacity: 0.9;
+        color: var(--text-secondary);
       }
 
       .prompt-suggestions {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-        gap: 12px;
-        margin-top: 20px;
-        max-width: 600px;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 16px;
+        margin-top: 24px;
+        max-width: 700px;
         width: 100%;
       }
 
       .prompt-chip {
-        background: var(--glass-bg);
-        backdrop-filter: blur(10px);
-        border: 1px solid var(--glass-border);
-        border-radius: 16px;
-        padding: 14px 20px;
+        background: var(--card-bg);
+        border: 1px solid var(--border-color);
+        border-radius: 20px;
+        padding: 18px 24px;
         font-size: 14px;
         color: var(--text-secondary);
         cursor: pointer;
@@ -817,6 +755,7 @@
         position: relative;
         overflow: hidden;
         font-weight: 500;
+        backdrop-filter: blur(10px);
       }
 
       .prompt-chip::before {
@@ -829,28 +768,28 @@
         background: linear-gradient(
           90deg,
           transparent,
-          rgba(99, 102, 241, 0.1),
+          rgba(0, 212, 255, 0.15),
           transparent
         );
         transition: left 0.8s ease;
       }
 
       .prompt-chip:hover {
-        background: rgba(249, 115, 22, 0.1);
+        background: rgba(0, 212, 255, 0.15);
         border-color: var(--accent-primary);
         color: var(--text-primary);
-        transform: translateY(-2px) scale(1.02);
-        box-shadow: 0 8px 25px rgba(249, 115, 22, 0.2);
+        transform: translateY(-4px) scale(1.03);
+        box-shadow: 0 12px 35px rgba(0, 212, 255, 0.3);
       }
 
       .prompt-chip:hover::before {
         left: 100%;
       }
 
-      /* Responsive Design */
+      /* Enhanced Responsive Design */
       @media (max-width: 768px) {
         .header {
-          padding: 12px 16px;
+          padding: 14px 18px;
         }
 
         .header-right {
@@ -862,19 +801,19 @@
         }
 
         .messages-container {
-          padding: 20px 16px;
+          padding: 20px 18px;
         }
 
         .input-container {
-          padding: 16px;
+          padding: 18px;
         }
 
         .welcome-screen {
-          padding: 40px 20px;
+          padding: 50px 24px;
         }
 
         .welcome-title {
-          font-size: 24px;
+          font-size: 28px;
         }
 
         .welcome-subtitle {
@@ -898,19 +837,30 @@
         }
       }
 
-      /* Dark theme toggle styles */
-      .theme-dark {
-        --primary-bg: #ffffff;
-        --secondary-bg: #f8fafc;
-        --card-bg: #f1f5f9;
-        --text-primary: #0f172a;
-        --text-secondary: #475569;
-        --text-muted: #64748b;
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          opacity: 0.3;
+        }
+        50% {
+          opacity: 0.6;
+        }
       }
     </style>
   </head>
   <body>
-    <!-- Animated background -->
+    <!-- Enhanced animated background -->
     <div class="bg-decoration">
       <div class="bg-circle"></div>
       <div class="bg-circle"></div>
@@ -919,7 +869,7 @@
 
     <div class="header">
       <div class="header-left">
-        <div class="logo"><img src="logo1.png" alt="Futuro AI"></div>
+        <div class="logo">🤖</div>
         <div class="title">Futuro AI</div>
       </div>
       <div class="header-right">
@@ -927,24 +877,22 @@
           <div class="status-dot"></div>
           <span>Online</span>
         </div>
-        <button class="theme-toggle" title="Toggle theme">🌙</button>
       </div>
     </div>
 
     <div class="chat-container">
       <div class="messages-container" id="messagesContainer">
         <div class="welcome-screen" id="welcomeScreen">
-          <div class="welcome-icon">🤖</div>
+          <div class="welcome-icon">🚀</div>
           <h1 class="welcome-title">Welcome to Futuro AI</h1>
           <p class="welcome-subtitle">
-            Your intelligent assistant powered by Google's Gemini AI. Ask me
-            anything - from coding help to creative writing!
+            Your intelligent assistant powered by advanced AI. Experience the future of conversation with enhanced dark mode design.
           </p>
           <div class="prompt-suggestions">
-            <div class="prompt-chip">💡 Linkedin Automation</div>
-            <div class="prompt-chip">📝 Road Maps of Education</div>
-            <div class="prompt-chip">💻 Recommendations of Courses</div>
-            <div class="prompt-chip">📈 Market Signal Tracker</div>
+            <div class="prompt-chip">💡 LinkedIn Automation</div>
+            <div class="prompt-chip">📝 Education Roadmaps</div>
+            <div class="prompt-chip">💻 Course Recommendations</div>
+            <div class="prompt-chip">📈 Market Analysis</div>
           </div>
         </div>
       </div>
@@ -961,8 +909,8 @@
             />
             <button class="input-button" type="button" title="Attach file">
               <svg
-                width="20"
-                height="20"
+                width="22"
+                height="22"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
@@ -982,8 +930,8 @@
             <div class="input-actions">
               <button class="input-button" title="Voice input">
                 <svg
-                  width="18"
-                  height="18"
+                  width="20"
+                  height="20"
                   viewBox="0 0 24 24"
                   fill="none"
                   stroke="currentColor"
@@ -1000,8 +948,8 @@
             <button class="send-button" id="sendButton" disabled>
               <svg
                 class="send-icon"
-                width="22"
-                height="22"
+                width="24"
+                height="24"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
@@ -1027,428 +975,5 @@
       const welcomeScreen = document.getElementById("welcomeScreen");
       const fileInput = document.getElementById("fileInput");
       const fileButton = document.querySelector(".input-button");
-      const themeToggle = document.querySelector(".theme-toggle");
 
-      // State
-      let isLoading = false;
-      let messageCount = 0;
-
-      // Theme handling
-      themeToggle.addEventListener("click", () => {
-        document.body.classList.toggle("theme-dark");
-        themeToggle.textContent = document.body.classList.contains("theme-dark")
-          ? "☀️"
-          : "🌙";
-      });
-
-      // Auto-resize textarea
-      messageInput.addEventListener("input", function () {
-        this.style.height = "auto";
-        this.style.height = Math.min(this.scrollHeight, 120) + "px";
-        updateSendButton();
-      });
-
-      // Update send button state
-      function updateSendButton() {
-        const hasText = messageInput.value.trim() !== "";
-        sendButton.disabled = !hasText || isLoading;
-
-        if (hasText && !isLoading) {
-          sendButton.style.transform = "scale(1.05)";
-        } else {
-          sendButton.style.transform = "scale(1)";
-        }
-      }
-
-      // File attachment
-      fileButton.addEventListener("click", () => fileInput.click());
-
-      fileInput.addEventListener("change", (e) => {
-        const files = Array.from(e.target.files);
-        if (files.length > 0) {
-          const fileNames = files.map((f) => f.name).join(", ");
-          showNotification(
-            `📎 ${files.length} file(s) selected: ${fileNames}`,
-            "info"
-          );
-        }
-      });
-
-      // Notification system
-      function showNotification(message, type = "info") {
-        const notification = document.createElement("div");
-        notification.className = `notification notification-${type}`;
-        notification.style.cssText = `
-        position: fixed;
-        top: 80px;
-        right: 20px;
-        background: var(--glass-bg);
-        backdrop-filter: blur(20px);
-        border: 1px solid var(--glass-border);
-        border-radius: 12px;
-        padding: 12px 16px;
-        color: var(--text-primary);
-        font-size: 14px;
-        font-weight: 500;
-        z-index: 1000;
-        animation: slideInRight 0.3s ease;
-        box-shadow: var(--shadow-lg);
-        max-width: 300px;
-      `;
-
-        if (type === "error") {
-          notification.style.borderColor = "var(--error-color)";
-          notification.style.background = "rgba(239, 68, 68, 0.1)";
-        } else if (type === "success") {
-          notification.style.borderColor = "var(--success-color)";
-          notification.style.background = "rgba(16, 185, 129, 0.1)";
-        }
-
-        notification.textContent = message;
-        document.body.appendChild(notification);
-
-        setTimeout(() => {
-          notification.style.animation = "slideOutRight 0.3s ease";
-          setTimeout(() => notification.remove(), 300);
-        }, 3000);
-      }
-
-      // API call to backend
-      async function callGeminiAPI(prompt) {
-        try {
-          const response = await fetch(
-            `${API_BASE_URL}/ask/?prompt=${encodeURIComponent(prompt)}`,
-            {
-              method: "GET",
-              headers: {
-                "Content-Type": "application/json",
-              },
-            }
-          );
-
-          if (!response.ok) {
-            const errorData = await response.json();
-            throw new Error(
-              errorData.detail || `HTTP error! status: ${response.status}`
-            );
-          }
-
-          const data = await response.json();
-          return data.response;
-        } catch (error) {
-          console.error("API call failed:", error);
-          if (error.name === "TypeError" && error.message.includes("fetch")) {
-            throw new Error(
-              "Unable to connect to server. Please ensure the backend is running."
-            );
-          }
-          throw error;
-        }
-      }
-
-      // Send message function
-      async function sendMessage() {
-        const message = messageInput.value.trim();
-        if (message === "" || isLoading) return;
-
-        // Set loading state
-        isLoading = true;
-        updateSendButton();
-
-        // Hide welcome screen after first message
-        if (welcomeScreen.style.display !== "none") {
-          welcomeScreen.style.display = "none";
-        }
-
-        // Add user message to chat
-        addMessage(message, "user");
-
-        // Clear input
-        messageInput.value = "";
-        messageInput.style.height = "auto";
-
-        // Add loading message
-        const loadingMessageId = addLoadingMessage();
-
-        try {
-          // Call the API
-          const response = await callGeminiAPI(message);
-
-          // Remove loading message and add AI response
-          removeMessage(loadingMessageId);
-          addMessage(response, "assistant");
-
-          // Update status
-          updateStatus("success");
-        } catch (error) {
-          // Remove loading message and show error
-          removeMessage(loadingMessageId);
-          addErrorMessage(error.message);
-          updateStatus("error");
-          showNotification("Failed to get AI response", "error");
-        } finally {
-          // Reset loading state
-          isLoading = false;
-          updateSendButton();
-        }
-      }
-
-      // Add message to chat
-      function addMessage(text, sender) {
-        const messageElement = document.createElement("div");
-        messageElement.classList.add("message", `${sender}-message`);
-        messageElement.id = generateMessageId();
-        messageElement.style.animationDelay = `${messageCount * 0.1}s`;
-
-        const now = new Date();
-        const timeString = now.toLocaleTimeString([], {
-          hour: "2-digit",
-          minute: "2-digit",
-        });
-
-        messageElement.innerHTML = `
-        <div class="message-header">
-          <div class="avatar ${sender}-avatar">${
-          sender === "user" ? "U" : "F"
-        }</div>
-          <div class="sender-name">${sender === "user" ? "You" : "Futuro"}</div>
-          <div class="timestamp">${timeString}</div>
-        </div>
-        <div class="message-content">${formatMessage(text)}</div>
-      `;
-
-        messagesContainer.appendChild(messageElement);
-        messageCount++;
-        scrollToBottom();
-        return messageElement.id;
-      }
-
-      // Add loading message
-      function addLoadingMessage() {
-        const messageElement = document.createElement("div");
-        messageElement.classList.add("message", "assistant-message");
-        messageElement.id = generateMessageId();
-
-        const now = new Date();
-        const timeString = now.toLocaleTimeString([], {
-          hour: "2-digit",
-          minute: "2-digit",
-        });
-
-        messageElement.innerHTML = `
-        <div class="message-header">
-          <div class="avatar assistant-avatar">F</div>
-          <div class="sender-name">Futuro</div>
-          <div class="timestamp">${timeString}</div>
-        </div>
-        <div class="message-content">
-          <div class="loading-message">
-            <div class="loading-dots">
-              <div class="loading-dot"></div>
-              <div class="loading-dot"></div>
-              <div class="loading-dot"></div>
-            </div>
-            <span>Thinking...</span>
-          </div>
-        </div>
-      `;
-
-        messagesContainer.appendChild(messageElement);
-        scrollToBottom();
-        return messageElement.id;
-      }
-
-      // Add error message
-      function addErrorMessage(errorText) {
-        const messageElement = document.createElement("div");
-        messageElement.classList.add("message", "assistant-message");
-        messageElement.id = generateMessageId();
-
-        const now = new Date();
-        const timeString = now.toLocaleTimeString([], {
-          hour: "2-digit",
-          minute: "2-digit",
-        });
-
-        messageElement.innerHTML = `
-        <div class="message-header">
-          <div class="avatar assistant-avatar">F</div>
-          <div class="sender-name">Futuro</div>
-          <div class="timestamp">${timeString}</div>
-        </div>
-        <div class="message-content">
-          <div class="error-message">
-            <div class="error-icon">⚠️</div>
-            <div class="error-content">
-              <div class="error-title">Unable to Process Request</div>
-              <div class="error-text">${errorText}</div>
-            </div>
-          </div>
-        </div>
-      `;
-
-        messagesContainer.appendChild(messageElement);
-        scrollToBottom();
-        return messageElement.id;
-      }
-
-      // Remove message by ID
-      function removeMessage(messageId) {
-        const messageElement = document.getElementById(messageId);
-        if (messageElement) {
-          messageElement.style.animation = "fadeOut 0.3s ease";
-          setTimeout(() => messageElement.remove(), 300);
-        }
-      }
-
-      // Format message text with enhanced markdown support
-      function formatMessage(text) {
-        return text
-          .replace(/\n/g, "<br>")
-          .replace(/\*\*\*(.*?)\*\*\*/g, "<strong><em>$1</em></strong>")
-          .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
-          .replace(/\*(.*?)\*/g, "<em>$1</em>")
-          .replace(/`([^`]+)`/g, "<code>$1</code>")
-          .replace(/```([^`]+)```/g, "<pre><code>$1</code></pre>")
-          .replace(/^# (.*$)/gm, "<h1>$1</h1>")
-          .replace(/^## (.*$)/gm, "<h2>$1</h2>")
-          .replace(/^### (.*$)/gm, "<h3>$1</h3>");
-      }
-
-      // Generate unique message ID
-      function generateMessageId() {
-        return (
-          "msg-" + Date.now() + "-" + Math.random().toString(36).substr(2, 9)
-        );
-      }
-
-      // Smooth scroll to bottom
-      function scrollToBottom() {
-        const scrollHeight = messagesContainer.scrollHeight;
-        const height = messagesContainer.clientHeight;
-        const maxScrollTop = scrollHeight - height;
-
-        messagesContainer.scrollTo({
-          top: maxScrollTop > 0 ? maxScrollTop : 0,
-          behavior: "smooth",
-        });
-      }
-
-      // Update connection status
-      function updateStatus(status) {
-        const statusDot = document.querySelector(".status-dot");
-        const statusText = document.querySelector(".status-indicator span");
-
-        if (status === "success") {
-          statusDot.style.background = "var(--success-color)";
-          statusText.textContent = "Online";
-        } else if (status === "error") {
-          statusDot.style.background = "var(--error-color)";
-          statusText.textContent = "Error";
-          setTimeout(() => {
-            statusDot.style.background = "var(--success-color)";
-            statusText.textContent = "Online";
-          }, 3000);
-        }
-      }
-
-      // Send message on button click
-      sendButton.addEventListener("click", sendMessage);
-
-      // Send message on Enter key (Shift+Enter for new line)
-      messageInput.addEventListener("keydown", function (e) {
-        if (e.key === "Enter" && !e.shiftKey) {
-          e.preventDefault();
-          sendMessage();
-        }
-      });
-
-      // Prompt chip functionality
-      const promptChips = document.querySelectorAll(".prompt-chip");
-      promptChips.forEach((chip) => {
-        chip.addEventListener("click", () => {
-          const text = chip.textContent.replace(/^[^\s]+\s/, ""); // Remove emoji
-          messageInput.value = text;
-          messageInput.dispatchEvent(new Event("input"));
-          messageInput.focus();
-
-          // Add ripple effect
-          const ripple = document.createElement("div");
-          ripple.style.cssText = `
-          position: absolute;
-          border-radius: 50%;
-          background: rgba(99, 102, 241, 0.3);
-          animation: ripple 0.6s ease-out;
-          pointer-events: none;
-        `;
-          chip.style.position = "relative";
-          chip.appendChild(ripple);
-
-          setTimeout(() => ripple.remove(), 600);
-        });
-      });
-
-      // Add CSS animations for notifications and effects
-      const style = document.createElement("style");
-      style.textContent = `
-      @keyframes slideInRight {
-        from { transform: translateX(100%); opacity: 0; }
-        to { transform: translateX(0); opacity: 1; }
-      }
-      
-      @keyframes slideOutRight {
-        from { transform: translateX(0); opacity: 1; }
-        to { transform: translateX(100%); opacity: 0; }
-      }
-      
-      @keyframes fadeOut {
-        from { opacity: 1; transform: scale(1); }
-        to { opacity: 0; transform: scale(0.95); }
-      }
-      
-      @keyframes ripple {
-        from {
-          width: 0;
-          height: 0;
-          opacity: 1;
-          top: 50%;
-          left: 50%;
-          transform: translate(-50%, -50%);
-        }
-        to {
-          width: 200px;
-          height: 200px;
-          opacity: 0;
-          top: 50%;
-          left: 50%;
-          transform: translate(-50%, -50%);
-        }
-      }
-    `;
-      document.head.appendChild(style);
-
-      // Initialize
-      updateSendButton();
-
-      // Add some demo functionality for better UX
-      setTimeout(() => {
-        if (messagesContainer.children.length === 1) {
-          // Only welcome screen
-          showNotification("👋 Welcome! Try asking me anything!", "info");
-        }
-      }, 2000);
-
-      // Check backend connection on load
-      fetch(`${API_BASE_URL}/health`)
-        .then((response) => response.json())
-        .then(() => {
-          showNotification("🚀 Connected to Futuro AI", "success");
-          updateStatus("success");
-        })
-        .catch(() => {
-          showNotification("⚠️ Backend not connected", "error");
-          updateStatus("error");
-        });
-    </script>
-  </body>
-</html>
+      //
