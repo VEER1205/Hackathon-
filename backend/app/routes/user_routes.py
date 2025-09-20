@@ -29,32 +29,39 @@ async def signup(form_data: User):
     return {"msg": "User created successfully"}
 
 # --- Login ---
+from fastapi.responses import RedirectResponse
+from fastapi import HTTPException
+
 @router.post("/login", summary="Login and get access token")
 async def login(form_data: UserLogin):
+    # Fetch user by email
     db_user = await user_crud.get_user_by_email(form_data.email)
     if not db_user:
         raise HTTPException(status_code=404, detail="User not found")
 
-    if not db_user.get("password", None):
-        raise HTTPException(status_code=400, detail="User has no password set. or Please use Google login.")
+    # Check if the user has a password
+    if not db_user.get("password"):
+        raise HTTPException(status_code=400, detail="User has no password set. Please use Google login.")
+
     # Verify the password
     if not verify_password(form_data.password, db_user["password"]):
         raise HTTPException(status_code=400, detail="Incorrect password")
 
-    # Create JWT token
-    access_token = create_access_token(data={"sub": form_data.email})
+    # Create JWT token with expiration
+    access_token = create_access_token(data={"sub": form_data.email}, expires_delta=timedelta(hours=1))
 
-    # Set HttpOnly cookie and redirect to frontend
-    response = RedirectResponse(url="https://futuro-ai.web.app")
+    # Prepare the response with HttpOnly cookie
+    response = RedirectResponse(url="https://futuro-ai.web.app", status_code=302)
     response.set_cookie(
         key="access_token",
         value=access_token,
         httponly=True,
         secure=True,
-        samesite="None",  # Change this to allow cross-site requests
-        
+        samesite="None",  # Allow cross-origin requests
     )
+
     return response
+
 
 # --- Get User ---
 @router.get("/{user_id}", summary="Get a user by ID")
