@@ -10,18 +10,21 @@ from app.routes.auth_routes import create_access_token, verify_token
 router = APIRouter(prefix="/users", tags=["Users"])
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="users/login")
 
-# --- Signup ---
 @router.post("/signup", summary="Register a new user")
 async def signup(form_data: User):
     existing_user = await user_crud.get_user_by_email(form_data.email)
-    if existing_user and not existing_user.get("password", None) is None:
-        raise HTTPException(status_code=400, detail="User already exists")
 
-    if existing_user.get("password", None) is None:
+    # Check if the user already exists (this condition should run first)
+    if existing_user is not None and existing_user.get("password") is not None:
+        raise HTTPException(status_code=400, detail="User already exists with a password.")
+
+    # If user exists but has no password, update the password
+    if existing_user is not None and existing_user.get("password") is None:
         await user_crud.add_password_if_missing(form_data.email, form_data.password)
         return {"msg": "Password added to existing user"}
+
+    # If user doesn't exist at all, create a new one
     user_dict = form_data.dict(exclude_unset=True)
-    
     await user_crud.create_user(user_dict)
     return {"msg": "User created successfully"}
 
