@@ -3,9 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Career Path Discovery - Psychometric Assessment</title>
-    <meta name="description" content="Discover your ideal career path through comprehensive psychometric testing. Get personalized insights into your personality, skills, and interests to guide your future career decisions." />
+    <title>Career Compass - Advanced Psychometric Assessment</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
+        :root {
+            --primary-blue: #1e40af;
+            --secondary-blue: #3b82f6;
+            --accent-blue: #60a5fa;
+            --dark-bg: #0f172a;
+            --card-bg: #1e293b;
+            --text-primary: #f8fafc;
+            --text-secondary: #cbd5e1;
+            --text-muted: #94a3b8;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --error: #ef4444;
+            --border: #334155;
+            --gradient: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -13,1305 +29,1143 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            background: #0a0f1c;
-            color: #e2e8f0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--dark-bg);
+            color: var(--text-primary);
             line-height: 1.6;
+            min-height: 100vh;
         }
 
         .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
             min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 1rem;
         }
 
-        .card {
-            background: linear-gradient(145deg, #1a202c, #2d3748);
-            border-radius: 0.75rem;
-            border: 1px solid #374151;
-            box-shadow: 0 10px 40px -10px rgba(59, 130, 246, 0.2);
-            overflow: hidden;
-        }
-
-        .card-header {
-            padding: 2rem 2rem 1rem;
+        .header {
             text-align: center;
+            margin-bottom: 30px;
         }
 
-        .card-content {
-            padding: 0 2rem 2rem;
-        }
-
-        .icon-circle {
-            width: 5rem;
-            height: 5rem;
-            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 1.5rem;
-            box-shadow: 0 0 30px rgba(59, 130, 246, 0.3);
-        }
-
-        .icon {
-            width: 2.5rem;
-            height: 2.5rem;
-            fill: white;
-        }
-
-        .title {
+        .header h1 {
             font-size: 2.5rem;
-            font-weight: bold;
-            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            background: var(--gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            margin-bottom: 1rem;
+            margin-bottom: 10px;
         }
 
-        .subtitle {
-            font-size: 1.125rem;
-            color: #94a3b8;
-            margin-bottom: 2rem;
+        .header p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
         }
 
-        .skill-grid {
+        .section {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 20px;
+            border: 1px solid var(--border);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .progress-container {
+            background: var(--dark-bg);
+            border-radius: 12px;
+            padding: 8px;
+            margin-bottom: 30px;
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: var(--gradient);
+            border-radius: 4px;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .progress-text {
+            text-align: center;
+            margin-top: 10px;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            background: var(--dark-bg);
+            color: var(--text-primary);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: var(--secondary-blue);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .question-card {
+            background: var(--dark-bg);
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 20px;
+            border: 1px solid var(--border);
+        }
+
+        .question-number {
+            color: var(--accent-blue);
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .question-text {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        .options {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 1rem;
-            margin-bottom: 2rem;
+            gap: 12px;
         }
 
-        @media (min-width: 768px) {
-            .skill-grid {
-                grid-template-columns: repeat(4, 1fr);
-            }
-        }
-
-        .skill-item {
+        .option {
             display: flex;
-            flex-direction: column;
             align-items: center;
-            padding: 1rem;
-            background: rgba(51, 65, 85, 0.5);
-            border-radius: 0.5rem;
-            border: 1px solid rgba(55, 65, 81, 0.3);
+            padding: 15px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: var(--card-bg);
         }
 
-        .skill-icon {
-            width: 2rem;
-            height: 2rem;
-            margin-bottom: 0.5rem;
+        .option:hover {
+            border-color: var(--secondary-blue);
+            background: rgba(59, 130, 246, 0.1);
         }
 
-        .personality { fill: #f43f5e; }
-        .mathematics { fill: #06b6d4; }
-        .logic { fill: #10b981; }
-        .problem-solving { fill: #8b5cf6; }
-        .creativity { fill: #f59e0b; }
+        .option.selected {
+            border-color: var(--secondary-blue);
+            background: rgba(59, 130, 246, 0.2);
+        }
+
+        .option input[type="radio"] {
+            margin-right: 12px;
+            width: auto;
+        }
 
         .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
             display: inline-flex;
             align-items: center;
-            justify-content: center;
-            padding: 0.75rem 1.5rem;
-            font-size: 1rem;
-            font-weight: 500;
-            border-radius: 0.5rem;
-            border: none;
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            text-decoration: none;
-            gap: 0.5rem;
+            gap: 8px;
         }
 
         .btn-primary {
-            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            background: var(--gradient);
             color: white;
         }
 
         .btn-primary:hover {
-            box-shadow: 0 0 30px rgba(59, 130, 246, 0.3);
             transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
         }
 
-        .btn-outline {
-            background: transparent;
-            border: 1px solid #374151;
-            color: #e2e8f0;
+        .btn-secondary {
+            background: var(--card-bg);
+            color: var(--text-primary);
+            border: 1px solid var(--border);
         }
 
-        .btn-outline:hover {
-            background: rgba(59, 130, 246, 0.1);
-            border-color: #3b82f6;
+        .btn-secondary:hover {
+            background: var(--border);
         }
 
-        .btn-outline.selected, .btn-outline.active {
-            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
-            border-color: #3b82f6;
-            color: white;
-        }
-
-        .btn-lg {
-            padding: 1rem 2rem;
-            font-size: 1.125rem;
-        }
-
-        .btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-
-        .age-btn {
-            width: 100%;
-            height: 4rem;
-            text-align: left;
-            margin-bottom: 1rem;
-        }
-
-        .progress-container {
-            margin-bottom: 2rem;
-        }
-
-        .progress-header {
-            display: flex;
-            align-items: center;
-            justify-content: between;
-            margin-bottom: 1rem;
-        }
-
-        .badge {
-            display: inline-flex;
-            align-items: center;
-            padding: 0.5rem 1rem;
-            background: rgba(51, 65, 85, 0.5);
-            border-radius: 0.375rem;
-            font-size: 0.875rem;
-            gap: 0.5rem;
-        }
-
-        .progress-bar {
-            width: 100%;
-            height: 0.5rem;
-            background: rgba(55, 65, 81, 0.5);
-            border-radius: 0.25rem;
-            overflow: hidden;
-        }
-
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
-            transition: width 0.3s ease;
-        }
-
-        .question-card {
-            margin-bottom: 2rem;
-        }
-
-        .question-title {
-            font-size: 1.25rem;
-            font-weight: 600;
-            margin-bottom: 1.5rem;
-        }
-
-        .answer-btn {
-            width: 100%;
-            text-align: left;
-            justify-content: flex-start;
-            height: auto;
-            padding: 1rem;
-            margin-bottom: 0.75rem;
-        }
-
-        .answer-indicator {
-            width: 1.5rem;
-            height: 1.5rem;
-            border: 2px solid #374151;
-            border-radius: 50%;
-            margin-right: 0.75rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .answer-indicator.selected {
-            background: #3b82f6;
-            border-color: #3b82f6;
-        }
-
-        .check-icon {
-            width: 1rem;
-            height: 1rem;
-            fill: white;
-        }
-
-        .navigation {
+        .btn-container {
             display: flex;
             justify-content: space-between;
-            margin-top: 2rem;
+            margin-top: 30px;
         }
 
         .results-grid {
             display: grid;
-            grid-template-columns: repeat(1, 1fr);
-            gap: 1.5rem;
-            margin-bottom: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
         }
 
-        @media (min-width: 768px) {
-            .results-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        @media (min-width: 1024px) {
-            .results-grid {
-                grid-template-columns: repeat(4, 1fr);
-            }
-        }
-
-        .result-card {
+        .skill-card {
+            background: var(--dark-bg);
+            border-radius: 12px;
+            padding: 20px;
             text-align: center;
-            padding: 1.5rem;
+            border: 1px solid var(--border);
         }
 
-        .result-score {
+        .skill-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: var(--accent-blue);
+        }
+
+        .skill-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .skill-score {
             font-size: 2rem;
             font-weight: bold;
-            margin-top: 0.5rem;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
         }
 
-        .career-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 0.75rem;
+        .skill-description {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
         }
 
-        @media (min-width: 768px) {
-            .career-grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
+        .career-recommendations {
+            margin-top: 30px;
         }
 
-        .career-badge {
-            background: rgba(51, 65, 85, 0.5);
-            padding: 0.5rem 1rem;
-            border-radius: 0.375rem;
-            text-align: center;
-            font-size: 0.875rem;
+        .career-card {
+            background: var(--dark-bg);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-left: 4px solid var(--secondary-blue);
         }
 
-        .interest-badge {
-            background: #f59e0b;
+        .career-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--accent-blue);
+        }
+
+        .career-match {
+            background: var(--gradient);
             color: white;
-            padding: 0.5rem 1rem;
-            border-radius: 0.375rem;
-            margin-right: 0.75rem;
-            margin-bottom: 0.75rem;
+            padding: 4px 12px;
+            border-radius: 16px;
+            font-size: 0.8rem;
+            font-weight: 600;
             display: inline-block;
-            font-size: 0.875rem;
+            margin-bottom: 10px;
         }
 
-        .roadmap-phase {
+        .career-description {
+            color: var(--text-secondary);
+            margin-bottom: 10px;
+        }
+
+        .career-skills {
             display: flex;
-            align-items: flex-start;
-            gap: 1rem;
-            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+            gap: 8px;
         }
 
-        .phase-badge {
-            padding: 0.25rem 0.75rem;
-            border-radius: 0.375rem;
-            font-size: 0.875rem;
-            font-weight: 500;
+        .skill-tag {
+            background: rgba(59, 130, 246, 0.2);
+            color: var(--accent-blue);
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+        }
+
+        .roadmap-section {
+            margin-top: 30px;
+            padding: 20px;
+            background: var(--card-bg);
+            border-radius: 12px;
+            border: 1px solid var(--border);
+        }
+
+        .roadmap-step {
+            display: flex;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .roadmap-step::before {
+            content: '';
+            position: absolute;
+            left: 15px;
+            top: 40px;
+            bottom: -20px;
+            width: 2px;
+            background: var(--border);
+        }
+
+        .roadmap-step:last-child::before {
+            display: none;
+        }
+
+        .step-number {
+            width: 30px;
+            height: 30px;
+            background: var(--gradient);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 0.9rem;
+            margin-right: 20px;
             flex-shrink: 0;
         }
 
-        .phase-1 { background: #3b82f6; color: white; }
-        .phase-2 { background: #8b5cf6; color: white; }
-        .phase-3 { background: #10b981; color: white; }
-
-        .roadmap-content h3 {
-            font-weight: 600;
-            margin-bottom: 0.5rem;
+        .step-content h4 {
+            margin-bottom: 8px;
+            color: var(--text-primary);
         }
 
-        .roadmap-content ul {
-            list-style: none;
-            color: #94a3b8;
-            font-size: 0.875rem;
-        }
-
-        .roadmap-content li {
-            margin-bottom: 0.25rem;
-        }
-
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 0.5rem;
-            margin-top: 1rem;
-        }
-
-        @media (min-width: 768px) {
-            .skills-grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
-        }
-
-        .skill-badge {
-            background: transparent;
-            border: 1px solid #374151;
-            padding: 0.5rem;
-            border-radius: 0.375rem;
-            text-align: center;
-            font-size: 0.875rem;
+        .step-content p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
         }
 
         .hidden {
-            display: none !important;
-        }
-
-        .text-center {
-            text-align: center;
-        }
-
-        .w-full {
-            width: 100%;
-        }
-
-        .max-w-2xl {
-            max-width: 42rem;
-            width: 100%;
-        }
-
-        .max-w-md {
-            max-width: 28rem;
-            width: 100%;
-        }
-
-        .max-w-3xl {
-            max-width: 48rem;
-            width: 100%;
-        }
-
-        .max-w-4xl {
-            max-width: 56rem;
-            width: 100%;
-        }
-
-        .py-8 {
-            padding-top: 2rem;
-            padding-bottom: 2rem;
-        }
-
-        .space-y-4 > * + * {
-            margin-top: 1rem;
-        }
-
-        .space-y-6 > * + * {
-            margin-top: 1.5rem;
-        }
-
-        .flex {
-            display: flex;
-        }
-
-        .items-center {
-            align-items: center;
-        }
-
-        .justify-between {
-            justify-content: space-between;
-        }
-
-        .mt-6 {
-            margin-top: 1.5rem;
-        }
-
-        .mb-8 {
-            margin-bottom: 2rem;
-        }
-
-        .border-t {
-            border-top: 1px solid #374151;
-        }
-
-        .pt-6 {
-            padding-top: 1.5rem;
+            display: none;
         }
 
         @media (max-width: 768px) {
             .container {
-                padding: 0.5rem;
+                padding: 15px;
             }
             
-            .title {
+            .header h1 {
                 font-size: 2rem;
             }
             
-            .card-header {
-                padding: 1.5rem 1rem 1rem;
+            .results-grid {
+                grid-template-columns: 1fr;
             }
             
-            .card-content {
-                padding: 0 1rem 1.5rem;
+            .btn-container {
+                flex-direction: column;
+                gap: 10px;
             }
         }
     </style>
 </head>
 <body>
-    <div id="app">
-        <!-- Welcome Screen -->
-        <div id="welcome-screen" class="container">
-            <div class="card max-w-2xl">
-                <div class="card-header">
-                    <div class="icon-circle">
-                        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M9.5 2A2.5 2.5 0 0 0 7 4.5v15A2.5 2.5 0 0 0 9.5 22h5a2.5 2.5 0 0 0 2.5-2.5v-15A2.5 2.5 0 0 0 14.5 2h-5Z"/>
-                            <path d="M9 6h6"/>
-                            <path d="M10 9h4"/>
-                            <path d="M10 12h4"/>
-                            <path d="M10 15h4"/>
-                        </svg>
-                    </div>
-                    <h1 class="title">Career Path Discovery</h1>
-                    <p class="subtitle">
-                        Discover your ideal career path through our comprehensive psychometric assessment. 
-                        Get personalized insights into your personality, skills, and interests to guide your future decisions.
-                    </p>
-                </div>
-                <div class="card-content">
-                    <div class="skill-grid">
-                        <div class="skill-item">
-                            <svg class="skill-icon personality" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
-                                <circle cx="9" cy="7" r="4"/>
-                                <path d="M22 21v-2a4 4 0 0 0-3-3.87"/>
-                                <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
-                            </svg>
-                            <span>Personality</span>
-                        </div>
-                        <div class="skill-item">
-                            <svg class="skill-icon mathematics" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <rect width="16" height="20" x="4" y="2" rx="2" ry="2"/>
-                                <path d="M9 22v-4h6v4"/>
-                                <path d="M8 6h.01"/>
-                                <path d="M16 6h.01"/>
-                                <path d="M12 6h.01"/>
-                                <path d="M12 10h.01"/>
-                                <path d="M12 14h.01"/>
-                                <path d="M16 10h.01"/>
-                                <path d="M16 14h.01"/>
-                                <path d="M8 10h.01"/>
-                                <path d="M8 14h.01"/>
-                            </svg>
-                            <span>Mathematics</span>
-                        </div>
-                        <div class="skill-item">
-                            <svg class="skill-icon logic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.29 1.51 4.04 3 5.5Z"/>
-                                <path d="M12 5L8 21l4-7 4 7-4-16"/>
-                            </svg>
-                            <span>Logic</span>
-                        </div>
-                        <div class="skill-item">
-                            <svg class="skill-icon problem-solving" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/>
-                                <path d="M9 18h6"/>
-                                <path d="M10 22h4"/>
-                            </svg>
-                            <span>Problem Solving</span>
-                        </div>
-                    </div>
-                    <div class="text-center">
-                        <button id="start-btn" class="btn btn-primary btn-lg">
-                            Start Assessment
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M5 12h14"/>
-                                <path d="M12 5l7 7-7 7"/>
-                            </svg>
-                        </button>
-                    </div>
-                </div>
+    <div class="container">
+        <div class="header">
+            <h1><i class="fas fa-compass"></i> Career Compass</h1>
+            <p>Advanced Psychometric Assessment for Your Future</p>
+        </div>
+
+        <div class="progress-container">
+            <div class="progress-bar" id="progressBar"></div>
+            <div class="progress-text" id="progressText">0% Complete</div>
+        </div>
+
+
+
+        <!-- Questions Section -->
+        <div id="questionsSection" class="section">
+            <div id="questionContainer"></div>
+            <div class="btn-container">
+                <button class="btn btn-secondary" id="prevBtn" onclick="previousQuestion()" disabled>
+                    <i class="fas fa-arrow-left"></i> Previous
+                </button>
+                <button class="btn btn-primary" id="nextBtn" onclick="nextQuestion()">
+                    Next <i class="fas fa-arrow-right"></i>
+                </button>
             </div>
         </div>
 
-        <!-- Age Selection Screen -->
-        <div id="age-screen" class="container hidden">
-            <div class="card max-w-md">
-                <div class="card-header">
-                    <h2 class="title" style="font-size: 2rem;">Select Your Academic Level</h2>
-                    <p class="subtitle">This helps us customize questions to your level</p>
-                </div>
-                <div class="card-content space-y-4">
-                    <button id="school-btn" class="btn btn-outline age-btn">
-                        <div>
-                            <div style="font-weight: 600;">School Student</div>
-                            <div style="font-size: 0.875rem; color: #94a3b8;">Grades 6-12</div>
-                        </div>
-                    </button>
-                    <button id="college-btn" class="btn btn-outline age-btn">
-                        <div>
-                            <div style="font-weight: 600;">College Student</div>
-                            <div style="font-size: 0.875rem; color: #94a3b8;">Undergraduate & Graduate</div>
-                        </div>
-                    </button>
-                    <button id="continue-btn" class="btn btn-primary w-full mt-6" disabled>
-                        Continue to Test
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M5 12h14"/>
-                            <path d="M12 5l7 7-7 7"/>
-                        </svg>
-                    </button>
-                </div>
+        <!-- Results Section -->
+        <div id="resultsSection" class="section hidden">
+            <h2><i class="fas fa-chart-bar"></i> Your Assessment Results</h2>
+            <div class="results-grid" id="skillsGrid"></div>
+            
+            <div class="career-recommendations">
+                <h3><i class="fas fa-briefcase"></i> Recommended Career Paths</h3>
+                <div id="careerRecommendations"></div>
+            </div>
+
+            <div style="text-align: center; margin-top: 30px;">
+                <button class="btn btn-primary" onclick="showRoadmap()">
+                    <i class="fas fa-map"></i> Get Career Roadmap
+                </button>
             </div>
         </div>
 
-        <!-- Test Screen -->
-        <div id="test-screen" class="container hidden" style="align-items: flex-start; padding-top: 2rem;">
-            <div class="max-w-3xl w-full py-8">
-                <div class="progress-container">
-                    <div class="flex items-center justify-between mb-4">
-                        <div id="category-badge" class="badge">
-                            <svg id="category-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
-                                <circle cx="9" cy="7" r="4"/>
-                                <path d="M22 21v-2a4 4 0 0 0-3-3.87"/>
-                                <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
-                            </svg>
-                            <span id="category-text">Personality</span>
-                        </div>
-                        <span id="question-counter" style="font-size: 0.875rem; color: #94a3b8;">1 of 20</span>
-                    </div>
-                    <div class="progress-bar">
-                        <div id="progress-fill" class="progress-fill" style="width: 5%;"></div>
-                    </div>
-                </div>
-
-                <div class="question-card card">
-                    <div class="card-header">
-                        <h3 id="question-text" class="question-title">How do you prefer to work on group projects?</h3>
-                    </div>
-                    <div class="card-content">
-                        <div id="answers-container">
-                            <!-- Answer options will be populated here -->
-                        </div>
-                    </div>
-                </div>
-
-                <div class="navigation">
-                    <button id="prev-btn" class="btn btn-outline" disabled>Previous</button>
-                    <button id="next-btn" class="btn btn-primary" disabled>
-                        Next Question
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M5 12h14"/>
-                            <path d="M12 5l7 7-7 7"/>
-                        </svg>
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Results Screen -->
-        <div id="results-screen" class="container hidden" style="align-items: flex-start; padding-top: 2rem;">
-            <div class="max-w-4xl w-full py-8">
-                <div class="text-center mb-8">
-                    <div class="icon-circle" style="background: linear-gradient(135deg, #10b981, #059669); width: 4rem; height: 4rem;">
-                        <svg class="icon" style="width: 2rem; height: 2rem;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
-                            <path d="M22 4L12 14.01l-3-3"/>
-                        </svg>
-                    </div>
-                    <h1 class="title" style="font-size: 3rem;">Assessment Complete!</h1>
-                    <p class="subtitle">Here are your personalized results and career recommendations</p>
-                </div>
-
-                <!-- Skill Scores -->
-                <div class="results-grid mb-8">
-                    <div class="card result-card">
-                        <svg class="skill-icon personality mx-auto mb-3" style="width: 2rem; height: 2rem; margin: 0 auto 0.75rem;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
-                            <circle cx="9" cy="7" r="4"/>
-                            <path d="M22 21v-2a4 4 0 0 0-3-3.87"/>
-                            <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
-                        </svg>
-                        <h3 style="font-weight: 600; margin-bottom: 0.5rem;">Personality</h3>
-                        <div id="personality-score" class="result-score personality">75%</div>
-                    </div>
-                    <div class="card result-card">
-                        <svg class="skill-icon mathematics mx-auto mb-3" style="width: 2rem; height: 2rem; margin: 0 auto 0.75rem;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <rect width="16" height="20" x="4" y="2" rx="2" ry="2"/>
-                            <path d="M9 22v-4h6v4"/>
-                            <path d="M8 6h.01"/>
-                            <path d="M16 6h.01"/>
-                            <path d="M12 6h.01"/>
-                            <path d="M12 10h.01"/>
-                            <path d="M12 14h.01"/>
-                            <path d="M16 10h.01"/>
-                            <path d="M16 14h.01"/>
-                            <path d="M8 10h.01"/>
-                            <path d="M8 14h.01"/>
-                        </svg>
-                        <h3 style="font-weight: 600; margin-bottom: 0.5rem;">Mathematics</h3>
-                        <div id="mathematics-score" class="result-score mathematics">60%</div>
-                    </div>
-                    <div class="card result-card">
-                        <svg class="skill-icon logic mx-auto mb-3" style="width: 2rem; height: 2rem; margin: 0 auto 0.75rem;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.29 1.51 4.04 3 5.5Z"/>
-                            <path d="M12 5L8 21l4-7 4 7-4-16"/>
-                        </svg>
-                        <h3 style="font-weight: 600; margin-bottom: 0.5rem;">Logic</h3>
-                        <div id="logic-score" class="result-score logic">85%</div>
-                    </div>
-                    <div class="card result-card">
-                        <svg class="skill-icon problem-solving mx-auto mb-3" style="width: 2rem; height: 2rem; margin: 0 auto 0.75rem;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/>
-                            <path d="M9 18h6"/>
-                            <path d="M10 22h4"/>
-                        </svg>
-                        <h3 style="font-weight: 600; margin-bottom: 0.5rem;">Problem Solving</h3>
-                        <div id="problem-solving-score" class="result-score problem-solving">70%</div>
-                    </div>
-                </div>
-
-                <!-- Career Recommendations -->
-                <div class="card mb-8">
-                    <div class="card-header">
-                        <h2 style="font-size: 1.25rem; display: flex; align-items: center; text-align: left;">
-                            <svg style="width: 1.5rem; height: 1.5rem; margin-right: 0.5rem; fill: #3b82f6;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <circle cx="12" cy="12" r="10"/>
-                                <path d="M16 12l-4-4-4 4"/>
-                                <path d="M12 16V8"/>
-                            </svg>
-                            Recommended Career Paths
-                        </h2>
-                    </div>
-                    <div class="card-content">
-                        <div id="career-recommendations" class="career-grid">
-                            <!-- Career recommendations will be populated here -->
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Interest Areas -->
-                <div class="card mb-8">
-                    <div class="card-header">
-                        <h2 style="font-size: 1.25rem; display: flex; align-items: center; text-align: left;">
-                            <svg style="width: 1.5rem; height: 1.5rem; margin-right: 0.5rem; fill: #3b82f6;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M9.5 2A2.5 2.5 0 0 0 7 4.5v15A2.5 2.5 0 0 0 9.5 22h5a2.5 2.5 0 0 0 2.5-2.5v-15A2.5 2.5 0 0 0 14.5 2h-5Z"/>
-                            </svg>
-                            Your Key Interest Areas
-                        </h2>
-                    </div>
-                    <div class="card-content">
-                        <div id="interest-areas">
-                            <!-- Interest areas will be populated here -->
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Roadmap Option -->
-                <div class="text-center">
-                    <button id="roadmap-btn" class="btn btn-primary btn-lg">
-                        Get Your Career Roadmap
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M5 12h14"/>
-                            <path d="M12 5l7 7-7 7"/>
-                        </svg>
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Roadmap Screen -->
-        <div id="roadmap-screen" class="container hidden" style="align-items: flex-start; padding-top: 2rem;">
-            <div class="max-w-4xl w-full py-8">
-                <div class="text-center mb-8">
-                    <h1 class="title" style="font-size: 3rem;">Your Career Roadmap</h1>
-                    <p id="roadmap-subtitle" class="subtitle">Personalized roadmap for Technology</p>
-                </div>
-
-                <div class="card">
-                    <div class="card-header">
-                        <h2 id="roadmap-title" style="font-size: 1.25rem; text-align: left;">Roadmap to Technology</h2>
-                    </div>
-                    <div class="card-content space-y-6">
-                        <div class="roadmap-phase">
-                            <div class="phase-badge phase-1">Phase 1</div>
-                            <div class="roadmap-content">
-                                <h3>Foundation Building (6-12 months)</h3>
-                                <ul>
-                                    <li>• Master fundamental concepts in your chosen field</li>
-                                    <li>• Take relevant online courses and certifications</li>
-                                    <li>• Build basic projects to practice skills</li>
-                                    <li>• Join professional communities and networks</li>
-                                </ul>
-                            </div>
-                        </div>
-                        
-                        <div class="roadmap-phase">
-                            <div class="phase-badge phase-2">Phase 2</div>
-                            <div class="roadmap-content">
-                                <h3>Skill Development (1-2 years)</h3>
-                                <ul>
-                                    <li>• Gain hands-on experience through internships</li>
-                                    <li>• Work on advanced projects and portfolios</li>
-                                    <li>• Develop both technical and soft skills</li>
-                                    <li>• Seek mentorship from industry professionals</li>
-                                </ul>
-                            </div>
-                        </div>
-                        
-                        <div class="roadmap-phase">
-                            <div class="phase-badge phase-3">Phase 3</div>
-                            <div class="roadmap-content">
-                                <h3>Career Launch (2-3 years)</h3>
-                                <ul>
-                                    <li>• Apply for entry-level positions in your field</li>
-                                    <li>• Continue learning and staying updated with trends</li>
-                                    <li>• Build professional reputation and network</li>
-                                    <li>• Consider specialization areas for growth</li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        <div class="border-t pt-6">
-                            <h3 style="font-weight: 600; margin-bottom: 0.75rem;">Recommended Skills to Develop:</h3>
-                            <div class="skills-grid">
-                                <div class="skill-badge">Critical Thinking</div>
-                                <div class="skill-badge">Communication</div>
-                                <div class="skill-badge">Problem Solving</div>
-                                <div class="skill-badge">Technical Skills</div>
-                                <div class="skill-badge">Leadership</div>
-                                <div class="skill-badge">Adaptability</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="text-center mt-8">
-                    <button id="retake-btn" class="btn btn-outline" style="margin-right: 1rem;">
-                        Take Test Again
-                    </button>
-                    <button id="download-btn" class="btn btn-primary">
-                        Download Results
-                    </button>
-                </div>
-            </div>
+        <!-- Roadmap Section -->
+        <div id="roadmapSection" class="roadmap-section hidden">
+            <h3><i class="fas fa-route"></i> Your Career Roadmap</h3>
+            <div id="roadmapContent"></div>
         </div>
     </div>
 
     <script>
-        // Questions data
-        const questions = [
-            // Personality Questions
-            {
-                id: 1,
-                text: "How do you prefer to work on group projects?",
-                options: ["Lead the team and delegate tasks", "Contribute ideas and collaborate equally", "Focus on specific tasks independently", "Support others and help where needed"],
-                category: "personality",
-                ageGroup: "both",
-                difficulty: "easy"
-            },
-            {
-                id: 2,
-                text: "When facing a difficult problem, you typically:",
-                options: ["Break it down into smaller parts", "Ask for help from others", "Research extensively before acting", "Try different approaches until something works"],
-                category: "personality",
-                ageGroup: "both",
-                difficulty: "medium"
-            },
-            {
-                id: 3,
-                text: "Your ideal work environment would be:",
-                options: ["Fast-paced and dynamic", "Structured and organized", "Creative and flexible", "Collaborative and social"],
-                category: "personality",
-                ageGroup: "both",
-                difficulty: "easy"
-            },
-            {
-                id: 4,
-                text: "How do you handle stress and pressure?",
-                options: ["Stay calm and think logically", "Take breaks and come back refreshed", "Talk through problems with others", "Push through with determination"],
-                category: "personality",
-                ageGroup: "both",
-                difficulty: "medium"
-            },
-            {
-                id: 5,
-                text: "What motivates you most in your studies/work?",
-                options: ["Achieving excellence and recognition", "Learning new things and growing", "Helping others and making a difference", "Creating innovative solutions"],
-                category: "personality",
-                ageGroup: "both",
-                difficulty: "easy"
-            },
+        // Assessment Data Structure
+        const assessmentData = {
+            currentQuestion: 0,
+            userInfo: {},
+            answers: [],
+            scores: {
+                analytical: 0,
+                creative: 0,
+                social: 0,
+                technical: 0,
+                leadership: 0,
+                mathematical: 0,
+                verbal: 0,
+                spatial: 0,
+                logical: 0,
+                problemSolving: 0
+            }
+        };
 
-            // Mathematics Questions
-            {
-                id: 6,
-                text: "If a train travels 120 km in 2 hours, what is its average speed?",
-                options: ["50 km/h", "60 km/h", "70 km/h", "80 km/h"],
-                category: "mathematics",
-                ageGroup: "school",
-                difficulty: "easy"
-            },
-            {
-                id: 7,
-                text: "A rectangular garden has a length of 15m and width of 8m. What is its area?",
-                options: ["120 m²", "130 m²", "46 m²", "23 m²"],
-                category: "mathematics",
-                ageGroup: "school",
-                difficulty: "easy"
-            },
-            {
-                id: 8,
-                text: "If f(x) = 2x² + 3x - 1, what is f(2)?",
-                options: ["13", "11", "9", "7"],
-                category: "mathematics",
-                ageGroup: "college",
-                difficulty: "medium"
-            },
-            {
-                id: 9,
-                text: "The probability of getting a head when flipping a fair coin twice is:",
-                options: ["1/4", "1/2", "3/4", "1"],
-                category: "mathematics",
-                ageGroup: "college",
-                difficulty: "medium"
-            },
+        // Question Bank - Adaptive based on age/education
+        const questionBank = {
+            school: [
+                {
+                    category: 'interest',
+                    question: 'What type of activities do you enjoy most in your free time?',
+                    options: [
+                        { text: 'Building things, coding, or experimenting', scores: { technical: 3, analytical: 2 } },
+                        { text: 'Reading, writing, or storytelling', scores: { verbal: 3, creative: 2 } },
+                        { text: 'Organizing events or leading group projects', scores: { leadership: 3, social: 2 } },
+                        { text: 'Solving puzzles or math problems', scores: { mathematical: 3, logical: 2 } }
+                    ]
+                },
+                {
+                    category: 'problemSolving',
+                    question: 'When faced with a difficult math problem, what do you do first?',
+                    options: [
+                        { text: 'Break it down into smaller parts', scores: { analytical: 3, problemSolving: 2 } },
+                        { text: 'Look for patterns or similar problems', scores: { logical: 3, mathematical: 2 } },
+                        { text: 'Try different approaches until something works', scores: { creative: 2, problemSolving: 3 } },
+                        { text: 'Ask for help or look up the solution method', scores: { social: 2, analytical: 1 } }
+                    ]
+                },
+                {
+                    category: 'learning',
+                    question: 'How do you prefer to learn new concepts?',
+                    options: [
+                        { text: 'Through hands-on experiments and practice', scores: { technical: 3, spatial: 2 } },
+                        { text: 'By reading and taking detailed notes', scores: { verbal: 3, analytical: 2 } },
+                        { text: 'Through discussions and group study', scores: { social: 3, verbal: 1 } },
+                        { text: 'Using visual aids, diagrams, and charts', scores: { spatial: 3, creative: 2 } }
+                    ]
+                },
+                {
+                    category: 'personality',
+                    question: 'In group projects, you usually:',
+                    options: [
+                        { text: 'Take charge and organize everyone', scores: { leadership: 3, social: 2 } },
+                        { text: 'Focus on research and analysis', scores: { analytical: 3, verbal: 1 } },
+                        { text: 'Come up with creative solutions', scores: { creative: 3, problemSolving: 2 } },
+                        { text: 'Handle the technical implementation', scores: { technical: 3, logical: 2 } }
+                    ]
+                },
+                {
+                    category: 'thinking',
+                    question: 'Which statement best describes your thinking style?',
+                    options: [
+                        { text: 'I like step-by-step logical processes', scores: { logical: 3, analytical: 2 } },
+                        { text: 'I think in pictures and visualizations', scores: { spatial: 3, creative: 2 } },
+                        { text: 'I prefer abstract ideas and theories', scores: { analytical: 2, verbal: 3 } },
+                        { text: 'I focus on practical applications', scores: { technical: 3, problemSolving: 2 } }
+                    ]
+                },
+                {
+                    category: 'interest',
+                    question: 'Which subject area interests you most?',
+                    options: [
+                        { text: 'Science and Technology', scores: { technical: 3, analytical: 2, mathematical: 1 } },
+                        { text: 'Literature and Languages', scores: { verbal: 3, creative: 2 } },
+                        { text: 'Social Studies and History', scores: { social: 2, verbal: 2, analytical: 1 } },
+                        { text: 'Mathematics and Logic', scores: { mathematical: 3, logical: 3 } }
+                    ]
+                },
+                {
+                    category: 'problemSolving',
+                    question: 'If you were designing a school app, what would be your main focus?',
+                    options: [
+                        { text: 'User-friendly interface and design', scores: { creative: 3, spatial: 2 } },
+                        { text: 'Efficient algorithms and performance', scores: { technical: 3, logical: 2 } },
+                        { text: 'Social features and community building', scores: { social: 3, leadership: 1 } },
+                        { text: 'Data analysis and insights', scores: { analytical: 3, mathematical: 2 } }
+                    ]
+                },
+                {
+                    category: 'career',
+                    question: 'What motivates you most in your future career?',
+                    options: [
+                        { text: 'Solving complex problems', scores: { problemSolving: 3, analytical: 2 } },
+                        { text: 'Creating something new and innovative', scores: { creative: 3, technical: 1 } },
+                        { text: 'Helping and working with people', scores: { social: 3, leadership: 2 } },
+                        { text: 'Understanding how things work', scores: { analytical: 2, technical: 3 } }
+                    ]
+                },
+                {
+                    category: 'skills',
+                    question: 'Which activity would you find most engaging?',
+                    options: [
+                        { text: 'Building a robot or coding a game', scores: { technical: 3, logical: 2, problemSolving: 1 } },
+                        { text: 'Writing a story or creating art', scores: { creative: 3, verbal: 2 } },
+                        { text: 'Debating or public speaking', scores: { verbal: 2, social: 3, leadership: 1 } },
+                        { text: 'Analyzing data or doing research', scores: { analytical: 3, mathematical: 2 } }
+                    ]
+                },
+                {
+                    category: 'thinking',
+                    question: 'When making decisions, you rely most on:',
+                    options: [
+                        { text: 'Data and logical analysis', scores: { analytical: 3, logical: 2 } },
+                        { text: 'Intuition and gut feelings', scores: { creative: 2, social: 1 } },
+                        { text: 'Advice from others', scores: { social: 3, verbal: 1 } },
+                        { text: 'Past experiences and patterns', scores: { analytical: 2, logical: 2, problemSolving: 1 } }
+                    ]
+                },
+                {
+                    category: 'communication',
+                    question: 'How do you prefer to explain complex ideas?',
+                    options: [
+                        { text: 'Using diagrams and visual representations', scores: { spatial: 3, creative: 1 } },
+                        { text: 'Breaking it down into simple steps', scores: { analytical: 2, verbal: 2, logical: 1 } },
+                        { text: 'Using analogies and stories', scores: { verbal: 3, creative: 2 } },
+                        { text: 'Through practical demonstrations', scores: { technical: 3, spatial: 1 } }
+                    ]
+                },
+                {
+                    category: 'environment',
+                    question: 'What type of work environment appeals to you?',
+                    options: [
+                        { text: 'Quiet space for focused individual work', scores: { analytical: 2, technical: 2 } },
+                        { text: 'Collaborative team environment', scores: { social: 3, leadership: 2 } },
+                        { text: 'Dynamic, fast-changing environment', scores: { problemSolving: 2, creative: 2, leadership: 1 } },
+                        { text: 'Structured, organized workplace', scores: { logical: 2, analytical: 2 } }
+                    ]
+                },
+                {
+                    category: 'challenge',
+                    question: 'What type of challenges excite you most?',
+                    options: [
+                        { text: 'Technical puzzles and engineering problems', scores: { technical: 3, problemSolving: 2, logical: 1 } },
+                        { text: 'Creative projects and artistic expression', scores: { creative: 3, spatial: 2 } },
+                        { text: 'Social issues and helping communities', scores: { social: 3, leadership: 1 } },
+                        { text: 'Research and discovering new knowledge', scores: { analytical: 3, verbal: 1 } }
+                    ]
+                },
+                {
+                    category: 'future',
+                    question: 'In 10 years, you see yourself:',
+                    options: [
+                        { text: 'Leading a team or organization', scores: { leadership: 3, social: 2 } },
+                        { text: 'Being an expert in your technical field', scores: { technical: 3, analytical: 2 } },
+                        { text: 'Creating innovative products or content', scores: { creative: 3, problemSolving: 1 } },
+                        { text: 'Teaching or mentoring others', scores: { social: 2, verbal: 3, leadership: 1 } }
+                    ]
+                },
+                {
+                    category: 'interests',
+                    question: 'Which of these activities sounds most appealing for a weekend project?',
+                    options: [
+                        { text: 'Building a website or mobile app', scores: { technical: 3, creative: 1, problemSolving: 1 } },
+                        { text: 'Writing and illustrating a short story', scores: { creative: 3, verbal: 2 } },
+                        { text: 'Organizing a community event', scores: { social: 3, leadership: 2 } },
+                        { text: 'Conducting a science experiment', scores: { analytical: 3, logical: 2, technical: 1 } }
+                    ]
+                }
+            ],
+            college: [
+                {
+                    category: 'career',
+                    question: 'Which career aspect is most important to you?',
+                    options: [
+                        { text: 'Intellectual challenge and problem-solving', scores: { analytical: 3, problemSolving: 3 } },
+                        { text: 'Creative expression and innovation', scores: { creative: 3, spatial: 2 } },
+                        { text: 'Leadership and team management', scores: { leadership: 3, social: 2 } },
+                        { text: 'Technical expertise and specialization', scores: { technical: 3, logical: 2 } }
+                    ]
+                },
+                {
+                    category: 'problemSolving',
+                    question: 'When approaching a complex project, you typically:',
+                    options: [
+                        { text: 'Create detailed plans and timelines', scores: { analytical: 3, logical: 2 } },
+                        { text: 'Start with brainstorming and ideation', scores: { creative: 3, problemSolving: 2 } },
+                        { text: 'Research existing solutions and best practices', scores: { analytical: 2, verbal: 2 } },
+                        { text: 'Dive in and learn by doing', scores: { technical: 2, problemSolving: 3 } }
+                    ]
+                },
+                {
+                    category: 'leadership',
+                    question: 'In team situations, you naturally:',
+                    options: [
+                        { text: 'Take initiative and delegate tasks', scores: { leadership: 3, social: 2 } },
+                        { text: 'Focus on technical implementation', scores: { technical: 3, logical: 1 } },
+                        { text: 'Facilitate communication between members', scores: { social: 3, verbal: 2 } },
+                        { text: 'Generate innovative solutions', scores: { creative: 3, problemSolving: 2 } }
+                    ]
+                },
+                {
+                    category: 'analysis',
+                    question: 'When analyzing data or information, you prefer to:',
+                    options: [
+                        { text: 'Use statistical methods and quantitative analysis', scores: { mathematical: 3, analytical: 2 } },
+                        { text: 'Look for patterns and trends', scores: { logical: 3, analytical: 2 } },
+                        { text: 'Focus on practical implications', scores: { problemSolving: 2, technical: 2 } },
+                        { text: 'Consider multiple perspectives and contexts', scores: { social: 2, verbal: 2, analytical: 1 } }
+                    ]
+                },
+                {
+                    category: 'innovation',
+                    question: 'Your approach to innovation involves:',
+                    options: [
+                        { text: 'Systematic research and development', scores: { analytical: 3, technical: 2 } },
+                        { text: 'Creative experimentation and iteration', scores: { creative: 3, problemSolving: 2 } },
+                        { text: 'User-centered design thinking', scores: { social: 2, creative: 2, spatial: 1 } },
+                        { text: 'Technology-driven solutions', scores: { technical: 3, logical: 2 } }
+                    ]
+                },
+                {
+                    category: 'communication',
+                    question: 'Your strongest communication style is:',
+                    options: [
+                        { text: 'Written reports and documentation', scores: { verbal: 3, analytical: 1 } },
+                        { text: 'Visual presentations and infographics', scores: { spatial: 3, creative: 2 } },
+                        { text: 'Face-to-face discussions and meetings', scores: { social: 3, verbal: 2 } },
+                        { text: 'Technical demonstrations and prototypes', scores: { technical: 3, spatial: 1 } }
+                    ]
+                },
+                {
+                    category: 'expertise',
+                    question: 'You would rather be known for your:',
+                    options: [
+                        { text: 'Deep technical knowledge in a specific field', scores: { technical: 3, analytical: 2 } },
+                        { text: 'Creative problem-solving abilities', scores: { creative: 3, problemSolving: 3 } },
+                        { text: 'Leadership and people management skills', scores: { leadership: 3, social: 3 } },
+                        { text: 'Research and analytical capabilities', scores: { analytical: 3, mathematical: 2 } }
+                    ]
+                },
+                {
+                    category: 'workplace',
+                    question: 'Your ideal work involves:',
+                    options: [
+                        { text: 'Independent research and analysis', scores: { analytical: 3, logical: 2 } },
+                        { text: 'Collaborative creative projects', scores: { creative: 2, social: 3 } },
+                        { text: 'Managing teams and strategic planning', scores: { leadership: 3, analytical: 1 } },
+                        { text: 'Technical development and engineering', scores: { technical: 3, problemSolving: 2 } }
+                    ]
+                },
+                {
+                    category: 'decision',
+                    question: 'When making important decisions, you prioritize:',
+                    options: [
+                        { text: 'Objective data and measurable outcomes', scores: { analytical: 3, mathematical: 2 } },
+                        { text: 'Creative possibilities and potential impact', scores: { creative: 2, problemSolving: 2 } },
+                        { text: 'Stakeholder input and consensus building', scores: { social: 3, leadership: 2 } },
+                        { text: 'Technical feasibility and implementation', scores: { technical: 3, logical: 2 } }
+                    ]
+                },
+                {
+                    category: 'learning',
+                    question: 'You learn best through:',
+                    options: [
+                        { text: 'Theoretical frameworks and academic research', scores: { analytical: 3, verbal: 2 } },
+                        { text: 'Hands-on experimentation and practice', scores: { technical: 3, spatial: 2 } },
+                        { text: 'Case studies and real-world applications', scores: { problemSolving: 2, social: 2 } },
+                        { text: 'Creative projects and artistic expression', scores: { creative: 3, spatial: 2 } }
+                    ]
+                },
+                {
+                    category: 'impact',
+                    question: 'The type of impact you want to make is:',
+                    options: [
+                        { text: 'Advancing scientific knowledge and research', scores: { analytical: 3, technical: 2 } },
+                        { text: 'Creating beautiful, functional designs', scores: { creative: 3, spatial: 2 } },
+                        { text: 'Building and leading successful organizations', scores: { leadership: 3, social: 2 } },
+                        { text: 'Developing innovative technologies', scores: { technical: 3, problemSolving: 2 } }
+                    ]
+                },
+                {
+                    category: 'specialization',
+                    question: 'Your ideal specialization would involve:',
+                    options: [
+                        { text: 'Data science and machine learning', scores: { analytical: 3, mathematical: 3, technical: 2 } },
+                        { text: 'User experience and design thinking', scores: { creative: 3, social: 2, spatial: 2 } },
+                        { text: 'Strategic consulting and business development', scores: { leadership: 3, analytical: 2, social: 2 } },
+                        { text: 'Software engineering and system architecture', scores: { technical: 3, logical: 3, problemSolving: 2 } }
+                    ]
+                },
+                {
+                    category: 'methodology',
+                    question: 'Your preferred methodology for complex problem-solving is:',
+                    options: [
+                        { text: 'Systematic analysis and hypothesis testing', scores: { analytical: 3, logical: 3 } },
+                        { text: 'Design thinking and iterative prototyping', scores: { creative: 3, problemSolving: 2, spatial: 1 } },
+                        { text: 'Agile collaboration and continuous feedback', scores: { social: 3, leadership: 2 } },
+                        { text: 'Technical modeling and simulation', scores: { technical: 3, mathematical: 2, logical: 2 } }
+                    ]
+                },
+                {
+                    category: 'technology',
+                    question: 'Your relationship with technology is:',
+                    options: [
+                        { text: 'I love understanding how it works internally', scores: { technical: 3, analytical: 2 } },
+                        { text: 'I focus on its creative and expressive potential', scores: { creative: 3, spatial: 1 } },
+                        { text: 'I see it as a tool for connecting people', scores: { social: 3, verbal: 1 } },
+                        { text: 'I use it to solve complex mathematical problems', scores: { mathematical: 3, logical: 2 } }
+                    ]
+                },
+                {
+                    category: 'career_vision',
+                    question: 'In your ideal career, success would be measured by:',
+                    options: [
+                        { text: 'Recognition for technical expertise and innovation', scores: { technical: 3, analytical: 2 } },
+                        { text: 'Impact on user experience and design', scores: { creative: 3, social: 2 } },
+                        { text: 'Team performance and organizational growth', scores: { leadership: 3, social: 3 } },
+                        { text: 'Research publications and academic contributions', scores: { analytical: 3, verbal: 2, mathematical: 1 } }
+                    ]
+                }
+            ]
+        };
 
-            // Logic Questions
+        // Career Database with skill requirements
+        const careerDatabase = [
             {
-                id: 10,
-                text: "All birds can fly. Penguins are birds. Therefore:",
-                options: ["Penguins can fly", "The statement is incorrect", "Some birds cannot fly", "Logic cannot determine this"],
-                category: "logic",
-                ageGroup: "both",
-                difficulty: "medium"
+                title: "Software Engineer",
+                match: (scores) => scores.technical * 0.4 + scores.logical * 0.3 + scores.problemSolving * 0.3,
+                description: "Design and develop software applications, systems, and platforms using various programming languages and frameworks.",
+                skills: ["Programming", "Problem Solving", "Logic", "System Design"],
+                roadmap: [
+                    { title: "Learn Programming Fundamentals", description: "Start with languages like Python, Java, or JavaScript. Practice coding daily." },
+                    { title: "Build Projects", description: "Create personal projects, contribute to open source, build a portfolio." },
+                    { title: "Study Computer Science Concepts", description: "Learn data structures, algorithms, databases, and system design." },
+                    { title: "Gain Experience", description: "Apply for internships, freelance projects, or entry-level positions." },
+                    { title: "Specialize", description: "Focus on areas like web development, mobile apps, or backend systems." }
+                ]
             },
             {
-                id: 11,
-                text: "Complete the pattern: 2, 4, 8, 16, ?",
-                options: ["24", "32", "20", "18"],
-                category: "logic",
-                ageGroup: "school",
-                difficulty: "easy"
+                title: "Data Scientist",
+                match: (scores) => scores.analytical * 0.4 + scores.mathematical * 0.3 + scores.problemSolving * 0.3,
+                description: "Analyze complex data to extract insights and build predictive models for business decisions.",
+                skills: ["Statistics", "Programming", "Machine Learning", "Data Visualization"],
+                roadmap: [
+                    { title: "Master Statistics and Mathematics", description: "Strong foundation in statistics, linear algebra, and calculus." },
+                    { title: "Learn Programming", description: "Python or R for data analysis, SQL for databases." },
+                    { title: "Study Machine Learning", description: "Understand algorithms, model selection, and evaluation techniques." },
+                    { title: "Work on Real Projects", description: "Analyze real datasets, participate in competitions like Kaggle." },
+                    { title: "Build Domain Expertise", description: "Specialize in areas like healthcare, finance, or technology." }
+                ]
             },
             {
-                id: 12,
-                text: "If all A are B, and some B are C, then:",
-                options: ["All A are C", "Some A are C", "No A are C", "Cannot be determined"],
-                category: "logic",
-                ageGroup: "college",
-                difficulty: "hard"
-            },
-
-            // Problem Solving Questions
-            {
-                id: 13,
-                text: "You have a 3-liter and 5-liter jug. How do you measure exactly 4 liters?",
-                options: ["Fill 5L, pour to 3L, empty 3L, pour remaining 2L to 3L, fill 5L again, pour 1L to complete 3L jug", "Fill 3L twice and remove 2L", "Fill 5L and remove 1L", "It's impossible"],
-                category: "problem-solving",
-                ageGroup: "both",
-                difficulty: "hard"
+                title: "UX/UI Designer",
+                match: (scores) => scores.creative * 0.4 + scores.spatial * 0.3 + scores.social * 0.3,
+                description: "Design user interfaces and experiences that are both beautiful and functional for digital products.",
+                skills: ["Design Thinking", "User Research", "Prototyping", "Visual Design"],
+                roadmap: [
+                    { title: "Learn Design Fundamentals", description: "Study color theory, typography, layout, and visual hierarchy." },
+                    { title: "Master Design Tools", description: "Figma, Sketch, Adobe Creative Suite, and prototyping tools." },
+                    { title: "Understand User Psychology", description: "Learn about user behavior, usability principles, and accessibility." },
+                    { title: "Build a Portfolio", description: "Create case studies showing your design process and thinking." },
+                    { title: "Gain Real Experience", description: "Work on real projects, internships, or redesign existing products." }
+                ]
             },
             {
-                id: 14,
-                text: "A man lives on the 20th floor but only takes the elevator to the 10th floor on sunny days. Why?",
-                options: ["He's short and can't reach the 20th floor button without an umbrella", "He likes to exercise", "The elevator is broken", "He visits a friend on the 10th floor"],
-                category: "problem-solving",
-                ageGroup: "both",
-                difficulty: "medium"
+                title: "Product Manager",
+                match: (scores) => scores.leadership * 0.3 + scores.analytical * 0.3 + scores.social * 0.2 + scores.problemSolving * 0.2,
+                description: "Lead product development from concept to launch, working with cross-functional teams to build user-centered solutions.",
+                skills: ["Strategic Thinking", "Leadership", "Analytics", "Communication"],
+                roadmap: [
+                    { title: "Develop Business Acumen", description: "Understand market analysis, business models, and competitive strategy." },
+                    { title: "Learn Product Management Frameworks", description: "Study Agile, Scrum, OKRs, and product development lifecycles." },
+                    { title: "Build Analytical Skills", description: "Learn data analysis, A/B testing, and metrics interpretation." },
+                    { title: "Gain Cross-functional Experience", description: "Work with engineering, design, and marketing teams." },
+                    { title: "Lead Projects", description: "Take ownership of products or features, demonstrate impact." }
+                ]
             },
             {
-                id: 15,
-                text: "How would you move a mountain?",
-                options: ["Use heavy machinery and transport it piece by piece", "It's impossible to move a mountain", "Use explosives to break it down", "Move people away from the mountain instead"],
-                category: "problem-solving",
-                ageGroup: "both",
-                difficulty: "hard"
-            },
-
-            // Interest Questions
-            {
-                id: 16,
-                text: "Which activity sounds most appealing to you?",
-                options: ["Conducting scientific experiments", "Creating digital art or music", "Organizing community events", "Analyzing data and trends"],
-                category: "interests",
-                ageGroup: "both",
-                difficulty: "easy"
+                title: "Research Scientist",
+                match: (scores) => scores.analytical * 0.4 + scores.logical * 0.3 + scores.verbal * 0.3,
+                description: "Conduct original research to advance knowledge in your field and publish findings in academic journals.",
+                skills: ["Research Methods", "Critical Thinking", "Writing", "Statistical Analysis"],
+                roadmap: [
+                    { title: "Excel in Academic Studies", description: "Maintain high grades and develop strong relationships with professors." },
+                    { title: "Participate in Research", description: "Join research labs, assist with ongoing projects, learn methodology." },
+                    { title: "Develop Writing Skills", description: "Practice academic writing, submit to conferences and journals." },
+                    { title: "Pursue Graduate Studies", description: "Consider PhD programs in your area of interest." },
+                    { title: "Build Research Network", description: "Attend conferences, collaborate with other researchers." }
+                ]
             },
             {
-                id: 17,
-                text: "Your dream weekend would involve:",
-                options: ["Building or fixing something", "Reading and learning new concepts", "Socializing and meeting new people", "Exploring nature or traveling"],
-                category: "interests",
-                ageGroup: "both",
-                difficulty: "easy"
+                title: "Digital Marketing Manager",
+                match: (scores) => scores.creative * 0.3 + scores.analytical * 0.3 + scores.social * 0.4,
+                description: "Develop and execute digital marketing strategies across multiple channels to drive business growth.",
+                skills: ["Marketing Strategy", "Analytics", "Content Creation", "Social Media"],
+                roadmap: [
+                    { title: "Learn Marketing Fundamentals", description: "Understand consumer behavior, market segmentation, and positioning." },
+                    { title: "Master Digital Channels", description: "Study SEO, SEM, social media, email marketing, and content marketing." },
+                    { title: "Develop Analytical Skills", description: "Learn Google Analytics, A/B testing, and marketing metrics." },
+                    { title: "Create a Personal Brand", description: "Build your own online presence and demonstrate marketing skills." },
+                    { title: "Gain Practical Experience", description: "Manage campaigns for small businesses or non-profits." }
+                ]
             },
             {
-                id: 18,
-                text: "Which subject/field interests you most?",
-                options: ["Technology and Engineering", "Arts and Literature", "Business and Economics", "Healthcare and Life Sciences"],
-                category: "interests",
-                ageGroup: "both",
-                difficulty: "easy"
+                title: "Financial Analyst",
+                match: (scores) => scores.mathematical * 0.4 + scores.analytical * 0.4 + scores.logical * 0.2,
+                description: "Analyze financial data and market trends to help organizations make informed investment and business decisions.",
+                skills: ["Financial Modeling", "Statistics", "Market Analysis", "Excel"],
+                roadmap: [
+                    { title: "Master Financial Concepts", description: "Study accounting, corporate finance, and investment principles." },
+                    { title: "Learn Financial Modeling", description: "Excel advanced functions, DCF models, and valuation techniques." },
+                    { title: "Understand Markets", description: "Study market dynamics, economic indicators, and industry analysis." },
+                    { title: "Get Certified", description: "Consider CFA, FRM, or other relevant financial certifications." },
+                    { title: "Gain Experience", description: "Internships at banks, consulting firms, or corporate finance departments." }
+                ]
             },
             {
-                id: 19,
-                text: "What type of problems do you enjoy solving?",
-                options: ["Technical and systematic problems", "Creative and open-ended challenges", "People-related and social issues", "Strategic and analytical puzzles"],
-                category: "interests",
-                ageGroup: "both",
-                difficulty: "medium"
+                title: "Mechanical Engineer",
+                match: (scores) => scores.technical * 0.4 + scores.spatial * 0.3 + scores.mathematical * 0.3,
+                description: "Design, develop, and test mechanical devices, engines, and machines for various industrial applications.",
+                skills: ["CAD Design", "Thermodynamics", "Materials Science", "Project Management"],
+                roadmap: [
+                    { title: "Strong STEM Foundation", description: "Excel in mathematics, physics, and chemistry courses." },
+                    { title: "Learn CAD Software", description: "Master SolidWorks, AutoCAD, or similar engineering design tools." },
+                    { title: "Hands-on Projects", description: "Build mechanical devices, participate in robotics or engineering competitions." },
+                    { title: "Engineering Internships", description: "Gain experience in manufacturing, automotive, or aerospace industries." },
+                    { title: "Professional Development", description: "Consider FE exam and eventual PE license for career advancement." }
+                ]
             },
             {
-                id: 20,
-                text: "In your future career, you'd prefer to:",
-                options: ["Work with cutting-edge technology", "Express creativity and innovation", "Lead teams and make decisions", "Help others and serve the community"],
-                category: "interests",
-                ageGroup: "both",
-                difficulty: "easy"
+                title: "Content Writer/Creator",
+                match: (scores) => scores.verbal * 0.4 + scores.creative * 0.4 + scores.social * 0.2,
+                description: "Create engaging written content for various media including blogs, websites, social media, and marketing materials.",
+                skills: ["Writing", "SEO", "Content Strategy", "Research"],
+                roadmap: [
+                    { title: "Develop Writing Skills", description: "Practice different writing styles, read extensively, study grammar." },
+                    { title: "Build a Portfolio", description: "Create a blog, write guest posts, build a diverse content portfolio." },
+                    { title: "Learn Digital Marketing", description: "Understand SEO, content marketing, and social media strategies." },
+                    { title: "Specialize in Niches", description: "Focus on specific industries or content types that interest you." },
+                    { title: "Build Your Network", description: "Connect with other writers, editors, and potential clients." }
+                ]
+            },
+            {
+                title: "Psychologist/Counselor",
+                match: (scores) => scores.social * 0.5 + scores.verbal * 0.3 + scores.analytical * 0.2,
+                description: "Help individuals and groups address mental health challenges and improve their psychological well-being.",
+                skills: ["Active Listening", "Empathy", "Assessment", "Therapy Techniques"],
+                roadmap: [
+                    { title: "Psychology Education", description: "Complete bachelor's degree in psychology with strong GPA." },
+                    { title: "Gain Experience", description: "Volunteer at mental health organizations, crisis hotlines, or research labs." },
+                    { title: "Graduate Studies", description: "Pursue master's or doctoral degree in clinical or counseling psychology." },
+                    { title: "Supervised Practice", description: "Complete required internships and supervised clinical hours." },
+                    { title: "Licensure", description: "Pass licensing exams and maintain continuing education requirements." }
+                ]
             }
         ];
 
-        // Application state
-        let currentStep = 'welcome';
-        let selectedAge = 'school';
-        let currentQuestionIndex = 0;
-        let answers = {};
-        let results = null;
-        let filteredQuestions = [];
-
-        // DOM elements
-        const screens = {
-            welcome: document.getElementById('welcome-screen'),
-            age: document.getElementById('age-screen'),
-            test: document.getElementById('test-screen'),
-            results: document.getElementById('results-screen'),
-            roadmap: document.getElementById('roadmap-screen')
-        };
-
-        // Category icons and info
-        const categoryData = {
-            personality: {
-                icon: <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>,
-                name: 'Personality'
+        // Skill descriptions for results display
+        const skillDescriptions = {
+            analytical: {
+                name: "Analytical Thinking",
+                icon: "fas fa-chart-line",
+                description: "Your ability to break down complex problems and analyze information systematically"
             },
-            mathematics: {
-                icon: <rect width="16" height="20" x="4" y="2" rx="2" ry="2"/><path d="M9 22v-4h6v4"/><path d="M8 6h.01"/><path d="M16 6h.01"/><path d="M12 6h.01"/><path d="M12 10h.01"/><path d="M12 14h.01"/><path d="M16 10h.01"/><path d="M16 14h.01"/><path d="M8 10h.01"/><path d="M8 14h.01"/>,
-                name: 'Mathematics'
+            creative: {
+                name: "Creative Problem Solving",
+                icon: "fas fa-palette",
+                description: "Your capacity for innovative thinking and generating original solutions"
             },
-            logic: {
-                icon: <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.29 1.51 4.04 3 5.5Z"/><path d="M12 5L8 21l4-7 4 7-4-16"/>,
-                name: 'Logic'
+            social: {
+                name: "Social Intelligence",
+                icon: "fas fa-users",
+                description: "Your skills in understanding and working effectively with others"
             },
-            'problem-solving': {
-                icon: <path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/><path d="M9 18h6"/><path d="M10 22h4"/>,
-                name: 'Problem Solving'
+            technical: {
+                name: "Technical Aptitude",
+                icon: "fas fa-cogs",
+                description: "Your affinity for understanding and working with technology and systems"
             },
-            interests: {
-                icon: <circle cx="12" cy="12" r="10"/><path d="M16 12l-4-4-4 4"/><path d="M12 16V8"/>,
-                name: 'Interests'
+            leadership: {
+                name: "Leadership Potential",
+                icon: "fas fa-crown",
+                description: "Your natural ability to guide, motivate, and organize others"
+            },
+            mathematical: {
+                name: "Mathematical Reasoning",
+                icon: "fas fa-calculator",
+                description: "Your proficiency with numbers, patterns, and quantitative analysis"
+            },
+            verbal: {
+                name: "Verbal Intelligence",
+                icon: "fas fa-comments",
+                description: "Your skills in communication, language, and expressing ideas clearly"
+            },
+            spatial: {
+                name: "Spatial Intelligence",
+                icon: "fas fa-cube",
+                description: "Your ability to visualize and manipulate objects in three-dimensional space"
+            },
+            logical: {
+                name: "Logical Reasoning",
+                icon: "fas fa-brain",
+                description: "Your capacity for structured thinking and drawing logical conclusions"
+            },
+            problemSolving: {
+                name: "Problem Solving",
+                icon: "fas fa-puzzle-piece",
+                description: "Your overall ability to identify, analyze, and resolve complex challenges"
             }
         };
 
-        // Utility functions
-        function showScreen(screenName) {
-            Object.values(screens).forEach(screen => screen.classList.add('hidden'));
-            screens[screenName].classList.remove('hidden');
-            currentStep = screenName;
-        }
-
-        function filterQuestions() {
-            filteredQuestions = questions.filter(q => 
-                q.ageGroup === selectedAge || q.ageGroup === 'both'
-            );
-        }
-
-        function updateProgress() {
-            const progress = ((currentQuestionIndex + 1) / filteredQuestions.length) * 100;
-            document.getElementById('progress-fill').style.width = progress + '%';
-            document.getElementById('question-counter').textContent = 
-                ${currentQuestionIndex + 1} of ${filteredQuestions.length};
-        }
-
-        function updateCategoryBadge(category) {
-            const categoryIcon = document.getElementById('category-icon');
-            const categoryText = document.getElementById('category-text');
+        function startAssessment() {
+            // Set default education level to school for general audience
+            assessmentData.userInfo = { education: 'school' };
             
-            categoryIcon.innerHTML = categoryData[category].icon;
-            categoryText.textContent = categoryData[category].name;
-        }
-
-        function renderQuestion() {
-            const question = filteredQuestions[currentQuestionIndex];
-            const questionText = document.getElementById('question-text');
-            const answersContainer = document.getElementById('answers-container');
-            
-            questionText.textContent = question.text;
-            updateCategoryBadge(question.category);
+            loadQuestions();
+            displayQuestion();
             updateProgress();
+        }
+
+        // Initialize assessment when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            startAssessment();
+        });
+
+        function loadQuestions() {
+            const education = assessmentData.userInfo.education;
+            assessmentData.questions = questionBank[education === 'school' ? 'school' : 'college'];
+        }
+
+        function displayQuestion() {
+            const questionIndex = assessmentData.currentQuestion;
+            const question = assessmentData.questions[questionIndex];
             
-            answersContainer.innerHTML = '';
-            
-            question.options.forEach((option, index) => {
-                const button = document.createElement('button');
-                button.className = 'btn btn-outline answer-btn';
-                button.onclick = () => selectAnswer(index);
-                
-                const isSelected = answers[question.id] === index;
-                if (isSelected) {
-                    button.classList.add('selected');
-                }
-                
-                button.innerHTML = `
-                    <div class="flex items-center">
-                        <div class="answer-indicator ${isSelected ? 'selected' : ''}">
-                            ${isSelected ? '<svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg>' : ''}
-                        </div>
-                        <span style="flex: 1;">${option}</span>
+            const container = document.getElementById('questionContainer');
+            container.innerHTML = `
+                <div class="question-card">
+                    <div class="question-number">Question ${questionIndex + 1} of ${assessmentData.questions.length}</div>
+                    <h3 class="question-text">${question.question}</h3>
+                    <div class="options">
+                        ${question.options.map((option, index) => `
+                            <div class="option" onclick="selectOption(${index})">
+                                <input type="radio" name="q${questionIndex}" id="q${questionIndex}_${index}" value="${index}">
+                                <label for="q${questionIndex}_${index}">${option.text}</label>
+                            </div>
+                        `).join('')}
                     </div>
-                `;
-                
-                answersContainer.appendChild(button);
+                </div>
+            `;
+
+            // Restore previous answer if exists
+            if (assessmentData.answers[questionIndex] !== undefined) {
+                const selectedIndex = assessmentData.answers[questionIndex];
+                const radio = document.getElementById(`q${questionIndex}_${selectedIndex}`);
+                const option = radio.parentElement;
+                radio.checked = true;
+                option.classList.add('selected');
+            }
+
+            updateNavigationButtons();
+        }
+
+        function selectOption(optionIndex) {
+            const questionIndex = assessmentData.currentQuestion;
+            
+            // Remove previous selection
+            document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+            
+            // Add selection to clicked option
+            const selectedOption = document.querySelectorAll('.option')[optionIndex];
+            const radio = selectedOption.querySelector('input');
+            radio.checked = true;
+            selectedOption.classList.add('selected');
+            
+            assessmentData.answers[questionIndex] = optionIndex;
+            
+            // Update scores
+            const question = assessmentData.questions[questionIndex];
+            const scores = question.options[optionIndex].scores;
+            
+            // Remove previous scores for this question if any
+            if (assessmentData.previousScores && assessmentData.previousScores[questionIndex]) {
+                Object.keys(assessmentData.previousScores[questionIndex]).forEach(skill => {
+                    assessmentData.scores[skill] -= assessmentData.previousScores[questionIndex][skill];
+                });
+            }
+            
+            // Add new scores
+            Object.keys(scores).forEach(skill => {
+                assessmentData.scores[skill] += scores[skill];
             });
+            
+            // Store current scores for this question
+            if (!assessmentData.previousScores) assessmentData.previousScores = {};
+            assessmentData.previousScores[questionIndex] = { ...scores };
             
             updateNavigationButtons();
         }
 
-        function selectAnswer(answerIndex) {
-            const question = filteredQuestions[currentQuestionIndex];
-            answers[question.id] = answerIndex;
-            renderQuestion();
+        function nextQuestion() {
+            if (assessmentData.answers[assessmentData.currentQuestion] === undefined) {
+                alert('Please select an answer before continuing.');
+                return;
+            }
+            
+            if (assessmentData.currentQuestion < assessmentData.questions.length - 1) {
+                assessmentData.currentQuestion++;
+                displayQuestion();
+                updateProgress();
+            } else {
+                showResults();
+            }
+        }
+
+        function previousQuestion() {
+            if (assessmentData.currentQuestion > 0) {
+                assessmentData.currentQuestion--;
+                displayQuestion();
+                updateProgress();
+            }
         }
 
         function updateNavigationButtons() {
-            const prevBtn = document.getElementById('prev-btn');
-            const nextBtn = document.getElementById('next-btn');
-            const question = filteredQuestions[currentQuestionIndex];
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
             
-            prevBtn.disabled = currentQuestionIndex === 0;
-            nextBtn.disabled = answers[question.id] === undefined;
+            prevBtn.disabled = assessmentData.currentQuestion === 0;
             
-            nextBtn.innerHTML = currentQuestionIndex === filteredQuestions.length - 1 ? 
-                'Finish Test <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>' :
-                'Next Question <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>';
+            if (assessmentData.currentQuestion === assessmentData.questions.length - 1) {
+                nextBtn.innerHTML = '<i class="fas fa-flag-checkered"></i> Complete Assessment';
+            } else {
+                nextBtn.innerHTML = 'Next <i class="fas fa-arrow-right"></i>';
+            }
         }
 
-        function calculateResults() {
-            const scores = {
-                personality: 0,
-                mathematics: 0,
-                logic: 0,
-                problemSolving: 0,
-                interests: []
-            };
-
-            filteredQuestions.forEach(question => {
-                const answer = answers[question.id];
-                if (answer !== undefined) {
-                    switch (question.category) {
-                        case 'personality':
-                            scores.personality += (answer + 1) * 25;
-                            break;
-                        case 'mathematics':
-                            const mathCorrect = [1, 0, 0, 2];
-                            if (mathCorrect[question.id - 6] === answer) {
-                                scores.mathematics += 25;
-                            }
-                            break;
-                        case 'logic':
-                            const logicCorrect = [1, 1, 3];
-                            if (logicCorrect[question.id - 10] === answer) {
-                                scores.logic += 33;
-                            }
-                            break;
-                        case 'problem-solving':
-                            const psCorrect = [0, 0, 3];
-                            if (psCorrect[question.id - 13] === answer) {
-                                scores.problemSolving += 33;
-                            }
-                            break;
-                        case 'interests':
-                            const interestAreas = ['Technology', 'Arts', 'Business', 'Science'];
-                            scores.interests.push(interestAreas[answer]);
-                            break;
-                    }
-                }
-            });
-
-            // Generate career recommendations
-            const careerRecommendations = generateCareerRecommendations(scores);
-            
-            results = {
-                ...scores,
-                careerRecommendations
-            };
-            
-            displayResults();
+        function updateProgress() {
+            const progress = ((assessmentData.currentQuestion + 1) / assessmentData.questions.length) * 100;
+            document.getElementById('progressBar').style.width = `${progress}%`;
+            document.getElementById('progressText').textContent = `${Math.round(progress)}% Complete`;
         }
 
-        function generateCareerRecommendations(scores) {
-            const recommendations = [];
+        function showResults() {
+            document.getElementById('questionsSection').classList.add('hidden');
+            document.getElementById('resultsSection').classList.remove('hidden');
             
-            if (scores.mathematics > 70) {
-                recommendations.push('Engineering', 'Data Science', 'Finance', 'Research');
-            }
-            if (scores.logic > 70) {
-                recommendations.push('Software Development', 'Law', 'Consulting', 'Analysis');
-            }
-            if (scores.problemSolving > 70) {
-                recommendations.push('Product Management', 'Entrepreneurship', 'Architecture', 'Medicine');
-            }
-            if (scores.interests.includes('Technology')) {
-                recommendations.push('Computer Science', 'AI/ML', 'Cybersecurity');
-            }
-            if (scores.interests.includes('Arts')) {
-                recommendations.push('Design', 'Media', 'Creative Writing', 'Marketing');
-            }
-            if (scores.interests.includes('Business')) {
-                recommendations.push('Management', 'Sales', 'Economics', 'Strategy');
-            }
-            if (scores.interests.includes('Science')) {
-                recommendations.push('Biology', 'Chemistry', 'Psychology', 'Healthcare');
-            }
-
-            return [...new Set(recommendations)].slice(0, 6);
+            // Normalize scores to percentages
+            const maxPossibleScore = assessmentData.questions.length * 3; // Maximum score per skill
+            const normalizedScores = {};
+            
+            Object.keys(assessmentData.scores).forEach(skill => {
+                normalizedScores[skill] = Math.round((assessmentData.scores[skill] / maxPossibleScore) * 100);
+            });
+            
+            displaySkillResults(normalizedScores);
+            displayCareerRecommendations(normalizedScores);
+            updateProgress();
+            document.getElementById('progressBar').style.width = '100%';
+            document.getElementById('progressText').textContent = '100% Complete - Results Ready!';
         }
 
-        function displayResults() {
-            // Update scores
-            document.getElementById('personality-score').textContent = Math.min(results.personality, 100) + '%';
-            document.getElementById('mathematics-score').textContent = Math.min(results.mathematics, 100) + '%';
-            document.getElementById('logic-score').textContent = Math.min(results.logic, 100) + '%';
-            document.getElementById('problem-solving-score').textContent = Math.min(results.problemSolving, 100) + '%';
+        function displaySkillResults(scores) {
+            const skillsGrid = document.getElementById('skillsGrid');
+            skillsGrid.innerHTML = Object.keys(scores).map(skill => {
+                const skillData = skillDescriptions[skill];
+                const score = scores[skill];
+                return `
+                    <div class="skill-card">
+                        <div class="skill-icon">
+                            <i class="${skillData.icon}"></i>
+                        </div>
+                        <div class="skill-name">${skillData.name}</div>
+                        <div class="skill-score">${score}%</div>
+                        <div class="skill-description">${skillData.description}</div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function displayCareerRecommendations(scores) {
+            // Calculate career matches
+            const careerMatches = careerDatabase.map(career => ({
+                ...career,
+                score: Math.round(career.match(scores))
+            })).sort((a, b) => b.score - a.score);
             
-            // Update career recommendations
-            const careerContainer = document.getElementById('career-recommendations');
-            careerContainer.innerHTML = '';
-            results.careerRecommendations.forEach(career => {
-                const badge = document.createElement('div');
-                badge.className = 'career-badge';
-                badge.textContent = career;
-                careerContainer.appendChild(badge);
-            });
+            // Display top 5 career recommendations
+            const topCareers = careerMatches.slice(0, 5);
+            const recommendationsContainer = document.getElementById('careerRecommendations');
             
-            // Update interests
-            const interestContainer = document.getElementById('interest-areas');
-            interestContainer.innerHTML = '';
-            results.interests.forEach(interest => {
-                const badge = document.createElement('span');
-                badge.className = 'interest-badge';
-                badge.textContent = interest;
-                interestContainer.appendChild(badge);
-            });
+            recommendationsContainer.innerHTML = topCareers.map(career => `
+                <div class="career-card">
+                    <div class="career-title">${career.title}</div>
+                    <div class="career-match">${career.score}% Match</div>
+                    <div class="career-description">${career.description}</div>
+                    <div class="career-skills">
+                        ${career.skills.map(skill => `<span class="skill-tag">${skill}</span>`).join('')}
+                    </div>
+                </div>
+            `).join('');
             
-            showScreen('results');
+            // Store top career for roadmap
+            assessmentData.topCareer = topCareers[0];
         }
 
         function showRoadmap() {
-            const topCareer = results.careerRecommendations[0] || 'Technology';
-            document.getElementById('roadmap-subtitle').textContent = Personalized roadmap for ${topCareer};
-            document.getElementById('roadmap-title').textContent = Roadmap to ${topCareer};
-            showScreen('roadmap');
-        }
-
-        function downloadResults() {
-            const resultText = `
-Career Assessment Results
-=========================
-
-Personality Score: ${Math.min(results.personality, 100)}%
-Mathematics Score: ${Math.min(results.mathematics, 100)}%
-Logic Score: ${Math.min(results.logic, 100)}%
-Problem Solving Score: ${Math.min(results.problemSolving, 100)}%
-
-Interest Areas: ${results.interests.join(', ')}
-
-Recommended Career Paths:
-${results.careerRecommendations.map(career => '• ' + career).join('\n')}
-
-Thank you for taking the Career Path Discovery Assessment!
+            const roadmapSection = document.getElementById('roadmapSection');
+            const roadmapContent = document.getElementById('roadmapContent');
+            
+            const career = assessmentData.topCareer;
+            
+            roadmapContent.innerHTML = `
+                <h4>Career Path: ${career.title}</h4>
+                <p style="color: var(--text-secondary); margin-bottom: 20px;">Based on your ${career.score}% match, here's your personalized roadmap:</p>
+                ${career.roadmap.map((step, index) => `
+                    <div class="roadmap-step">
+                        <div class="step-number">${index + 1}</div>
+                        <div class="step-content">
+                            <h4>${step.title}</h4>
+                            <p>${step.description}</p>
+                        </div>
+                    </div>
+                `).join('')}
+                <div style="margin-top: 20px; padding: 15px; background: var(--card-bg); border-radius: 8px; border-left: 4px solid var(--secondary-blue);">
+                    <strong>💡 Pro Tip:</strong> Focus on building a strong foundation in your top skills while gradually developing complementary abilities. Consider seeking mentorship and gaining practical experience through internships or personal projects.
+                </div>
             `;
             
-            const blob = new Blob([resultText], { type: 'text/plain' });
-            const url = window.URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'career-assessment-results.txt';
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            window.URL.revokeObjectURL(url);
+            roadmapSection.classList.remove('hidden');
+            roadmapSection.scrollIntoView({ behavior: 'smooth' });
         }
-
-        // Event listeners
-        document.getElementById('start-btn').addEventListener('click', () => {
-            showScreen('age');
-        });
-
-        document.getElementById('school-btn').addEventListener('click', () => {
-            selectedAge = 'school';
-            document.getElementById('school-btn').classList.add('selected');
-            document.getElementById('college-btn').classList.remove('selected');
-            document.getElementById('continue-btn').disabled = false;
-        });
-
-        document.getElementById('college-btn').addEventListener('click', () => {
-            selectedAge = 'college';
-            document.getElementById('college-btn').classList.add('selected');
-            document.getElementById('school-btn').classList.remove('selected');
-            document.getElementById('continue-btn').disabled = false;
-        });
-
-        document.getElementById('continue-btn').addEventListener('click', () => {
-            filterQuestions();
-            currentQuestionIndex = 0;
-            answers = {};
-            renderQuestion();
-            showScreen('test');
-        });
-
-        document.getElementById('prev-btn').addEventListener('click', () => {
-            if (currentQuestionIndex > 0) {
-                currentQuestionIndex--;
-                renderQuestion();
-            }
-        });
-
-        document.getElementById('next-btn').addEventListener('click', () => {
-            if (currentQuestionIndex < filteredQuestions.length - 1) {
-                currentQuestionIndex++;
-                renderQuestion();
-            } else {
-                calculateResults();
-            }
-        });
-
-        document.getElementById('roadmap-btn').addEventListener('click', showRoadmap);
-
-        document.getElementById('retake-btn').addEventListener('click', () => {
-            currentStep = 'welcome';
-            selectedAge = 'school';
-            currentQuestionIndex = 0;
-            answers = {};
-            results = null;
-            filteredQuestions = [];
-            
-            // Reset age selection buttons
-            document.getElementById('school-btn').classList.remove('selected');
-            document.getElementById('college-btn').classList.remove('selected');
-            document.getElementById('continue-btn').disabled = true;
-            
-            showScreen('welcome');
-        });
-
-        document.getElementById('download-btn').addEventListener('click', downloadResults);
     </script>
 </body>
 </html>
