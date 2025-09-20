@@ -47,8 +47,8 @@ async def login(form_data: UserLogin):
     if not verify_password(form_data.password, db_user["password"]):
         raise HTTPException(status_code=400, detail="Incorrect password")
 
-    # Create JWT token with expiration
-    access_token = create_access_token(data={"sub": form_data.email}, expires_delta=timedelta(hours=1))
+    # Create JWT token
+    access_token = create_access_token(data={"sub": form_data.email})
 
     # Prepare the response with HttpOnly cookie
     response = RedirectResponse(url="https://futuro-ai.web.app", status_code=302)
