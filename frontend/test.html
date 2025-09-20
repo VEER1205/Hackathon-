@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Career Path Assessment - Static Version</title>
-    <meta name="description" content="Discover your ideal career path with our comprehensive psychometric test">
+    <title>Career Path Discovery - Psychometric Assessment</title>
+    <meta name="description" content="Discover your ideal career path through comprehensive psychometric testing. Get personalized insights into your personality, skills, and interests to guide your future career decisions." />
     <style>
         * {
             margin: 0;
@@ -13,97 +13,151 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
-            color: #ffffff;
-            min-height: 100vh;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: #0a0f1c;
+            color: #e2e8f0;
             line-height: 1.6;
         }
 
         .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
         }
 
         .card {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 16px;
-            padding: 30px;
-            margin: 20px 0;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-            transition: all 0.3s ease;
+            background: linear-gradient(145deg, #1a202c, #2d3748);
+            border-radius: 0.75rem;
+            border: 1px solid #374151;
+            box-shadow: 0 10px 40px -10px rgba(59, 130, 246, 0.2);
+            overflow: hidden;
         }
 
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 40px rgba(138, 43, 226, 0.3);
-        }
-
-        .header {
+        .card-header {
+            padding: 2rem 2rem 1rem;
             text-align: center;
-            margin-bottom: 40px;
+        }
+
+        .card-content {
+            padding: 0 2rem 2rem;
+        }
+
+        .icon-circle {
+            width: 5rem;
+            height: 5rem;
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            box-shadow: 0 0 30px rgba(59, 130, 246, 0.3);
+        }
+
+        .icon {
+            width: 2.5rem;
+            height: 2.5rem;
+            fill: white;
         }
 
         .title {
-            font-size: 3rem;
+            font-size: 2.5rem;
             font-weight: bold;
-            background: linear-gradient(135deg, #8a2be2, #4169e1);
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            margin-bottom: 20px;
+            margin-bottom: 1rem;
         }
 
         .subtitle {
-            font-size: 1.2rem;
-            color: #b0b0b0;
-            max-width: 600px;
-            margin: 0 auto;
+            font-size: 1.125rem;
+            color: #94a3b8;
+            margin-bottom: 2rem;
         }
 
-        .age-selector {
+        .skill-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin: 40px 0;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-bottom: 2rem;
         }
 
-        .age-card {
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
+        @media (min-width: 768px) {
+            .skill-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
         }
 
-        .age-card:hover {
-            transform: scale(1.02);
+        .skill-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 1rem;
+            background: rgba(51, 65, 85, 0.5);
+            border-radius: 0.5rem;
+            border: 1px solid rgba(55, 65, 81, 0.3);
         }
 
-        .age-icon {
-            font-size: 4rem;
-            margin-bottom: 20px;
-            color: #8a2be2;
+        .skill-icon {
+            width: 2rem;
+            height: 2rem;
+            margin-bottom: 0.5rem;
         }
+
+        .personality { fill: #f43f5e; }
+        .mathematics { fill: #06b6d4; }
+        .logic { fill: #10b981; }
+        .problem-solving { fill: #8b5cf6; }
+        .creativity { fill: #f59e0b; }
 
         .btn {
-            background: linear-gradient(135deg, #8a2be2, #4169e1);
-            color: white;
-            border: none;
-            padding: 15px 30px;
-            border-radius: 8px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.75rem 1.5rem;
             font-size: 1rem;
-            font-weight: 600;
+            font-weight: 500;
+            border-radius: 0.5rem;
+            border: none;
             cursor: pointer;
-            transition: all 0.3s ease;
-            width: 100%;
-            margin-top: 20px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            text-decoration: none;
+            gap: 0.5rem;
         }
 
-        .btn:hover {
-            opacity: 0.9;
+        .btn-primary {
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            box-shadow: 0 0 30px rgba(59, 130, 246, 0.3);
             transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid #374151;
+            color: #e2e8f0;
+        }
+
+        .btn-outline:hover {
+            background: rgba(59, 130, 246, 0.1);
+            border-color: #3b82f6;
+        }
+
+        .btn-outline.selected, .btn-outline.active {
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            border-color: #3b82f6;
+            color: white;
+        }
+
+        .btn-lg {
+            padding: 1rem 2rem;
+            font-size: 1.125rem;
         }
 
         .btn:disabled {
@@ -111,502 +165,1153 @@
             cursor: not-allowed;
         }
 
-        .question-container {
-            display: none;
+        .age-btn {
+            width: 100%;
+            height: 4rem;
+            text-align: left;
+            margin-bottom: 1rem;
+        }
+
+        .progress-container {
+            margin-bottom: 2rem;
+        }
+
+        .progress-header {
+            display: flex;
+            align-items: center;
+            justify-content: between;
+            margin-bottom: 1rem;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.5rem 1rem;
+            background: rgba(51, 65, 85, 0.5);
+            border-radius: 0.375rem;
+            font-size: 0.875rem;
+            gap: 0.5rem;
         }
 
         .progress-bar {
             width: 100%;
-            height: 8px;
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 4px;
+            height: 0.5rem;
+            background: rgba(55, 65, 81, 0.5);
+            border-radius: 0.25rem;
             overflow: hidden;
-            margin-bottom: 30px;
         }
 
         .progress-fill {
             height: 100%;
-            background: linear-gradient(135deg, #8a2be2, #4169e1);
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
             transition: width 0.3s ease;
         }
 
-        .question-text {
-            font-size: 1.5rem;
-            margin-bottom: 30px;
+        .question-card {
+            margin-bottom: 2rem;
+        }
+
+        .question-title {
+            font-size: 1.25rem;
             font-weight: 600;
+            margin-bottom: 1.5rem;
         }
 
-        .options {
-            display: grid;
-            gap: 15px;
-            margin-bottom: 30px;
-        }
-
-        .option {
-            background: rgba(255, 255, 255, 0.05);
-            border: 2px solid rgba(255, 255, 255, 0.2);
-            border-radius: 12px;
-            padding: 20px;
-            cursor: pointer;
-            transition: all 0.3s ease;
+        .answer-btn {
+            width: 100%;
             text-align: left;
+            justify-content: flex-start;
+            height: auto;
+            padding: 1rem;
+            margin-bottom: 0.75rem;
         }
 
-        .option:hover {
-            border-color: #8a2be2;
-            background: rgba(138, 43, 226, 0.1);
+        .answer-indicator {
+            width: 1.5rem;
+            height: 1.5rem;
+            border: 2px solid #374151;
+            border-radius: 50%;
+            margin-right: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        .option.selected {
-            border-color: #8a2be2;
-            background: rgba(138, 43, 226, 0.2);
-            box-shadow: 0 0 20px rgba(138, 43, 226, 0.3);
+        .answer-indicator.selected {
+            background: #3b82f6;
+            border-color: #3b82f6;
+        }
+
+        .check-icon {
+            width: 1rem;
+            height: 1rem;
+            fill: white;
         }
 
         .navigation {
             display: flex;
             justify-content: space-between;
-            align-items: center;
-        }
-
-        .btn-secondary {
-            background: transparent;
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            color: white;
-        }
-
-        .results-container {
-            display: none;
+            margin-top: 2rem;
         }
 
         .results-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            margin: 30px 0;
+            grid-template-columns: repeat(1, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 2rem;
         }
 
-        .skill-item {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 20px;
-            border-radius: 12px;
+        @media (min-width: 768px) {
+            .results-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .results-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        .result-card {
             text-align: center;
+            padding: 1.5rem;
         }
 
-        .skill-name {
-            font-weight: 600;
-            margin-bottom: 10px;
-            text-transform: capitalize;
-        }
-
-        .skill-score {
+        .result-score {
             font-size: 2rem;
             font-weight: bold;
-            color: #8a2be2;
-            margin-bottom: 10px;
+            margin-top: 0.5rem;
         }
 
-        .skill-bar {
-            width: 100%;
-            height: 6px;
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 3px;
-            overflow: hidden;
+        .career-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.75rem;
         }
 
-        .skill-bar-fill {
-            height: 100%;
-            background: linear-gradient(135deg, #8a2be2, #4169e1);
-            transition: width 1s ease;
+        @media (min-width: 768px) {
+            .career-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
         }
 
-        .careers-list {
-            margin-top: 30px;
+        .career-badge {
+            background: rgba(51, 65, 85, 0.5);
+            padding: 0.5rem 1rem;
+            border-radius: 0.375rem;
+            text-align: center;
+            font-size: 0.875rem;
         }
 
-        .career-item {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 20px;
-            border-radius: 12px;
-            margin-bottom: 15px;
-            border-left: 4px solid #8a2be2;
-        }
-
-        .career-title {
-            font-size: 1.3rem;
-            font-weight: 600;
-            margin-bottom: 10px;
-        }
-
-        .career-match {
-            background: linear-gradient(135deg, #8a2be2, #4169e1);
+        .interest-badge {
+            background: #f59e0b;
             color: white;
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            font-weight: 600;
+            padding: 0.5rem 1rem;
+            border-radius: 0.375rem;
+            margin-right: 0.75rem;
+            margin-bottom: 0.75rem;
             display: inline-block;
-            margin-bottom: 10px;
+            font-size: 0.875rem;
+        }
+
+        .roadmap-phase {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .phase-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 0.375rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            flex-shrink: 0;
+        }
+
+        .phase-1 { background: #3b82f6; color: white; }
+        .phase-2 { background: #8b5cf6; color: white; }
+        .phase-3 { background: #10b981; color: white; }
+
+        .roadmap-content h3 {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .roadmap-content ul {
+            list-style: none;
+            color: #94a3b8;
+            font-size: 0.875rem;
+        }
+
+        .roadmap-content li {
+            margin-bottom: 0.25rem;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        @media (min-width: 768px) {
+            .skills-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .skill-badge {
+            background: transparent;
+            border: 1px solid #374151;
+            padding: 0.5rem;
+            border-radius: 0.375rem;
+            text-align: center;
+            font-size: 0.875rem;
         }
 
         .hidden {
             display: none !important;
         }
 
+        .text-center {
+            text-align: center;
+        }
+
+        .w-full {
+            width: 100%;
+        }
+
+        .max-w-2xl {
+            max-width: 42rem;
+            width: 100%;
+        }
+
+        .max-w-md {
+            max-width: 28rem;
+            width: 100%;
+        }
+
+        .max-w-3xl {
+            max-width: 48rem;
+            width: 100%;
+        }
+
+        .max-w-4xl {
+            max-width: 56rem;
+            width: 100%;
+        }
+
+        .py-8 {
+            padding-top: 2rem;
+            padding-bottom: 2rem;
+        }
+
+        .space-y-4 > * + * {
+            margin-top: 1rem;
+        }
+
+        .space-y-6 > * + * {
+            margin-top: 1.5rem;
+        }
+
+        .flex {
+            display: flex;
+        }
+
+        .items-center {
+            align-items: center;
+        }
+
+        .justify-between {
+            justify-content: space-between;
+        }
+
+        .mt-6 {
+            margin-top: 1.5rem;
+        }
+
+        .mb-8 {
+            margin-bottom: 2rem;
+        }
+
+        .border-t {
+            border-top: 1px solid #374151;
+        }
+
+        .pt-6 {
+            padding-top: 1.5rem;
+        }
+
         @media (max-width: 768px) {
+            .container {
+                padding: 0.5rem;
+            }
+            
             .title {
                 font-size: 2rem;
             }
             
-            .container {
-                padding: 10px;
+            .card-header {
+                padding: 1.5rem 1rem 1rem;
             }
             
-            .card {
-                padding: 20px;
+            .card-content {
+                padding: 0 1rem 1.5rem;
             }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <!-- Age Selection Screen -->
-        <div id="ageSelection" class="age-selection">
-            <div class="header">
-                <h1 class="title">Career Path Assessment</h1>
-                <p class="subtitle">Discover your strengths, interests, and the perfect career path tailored just for you.</p>
-            </div>
-
-            <div class="age-selector">
-                <div class="card age-card" onclick="startAssessment('school')">
-                    <div class="age-icon">🎓</div>
-                    <h3>School Student</h3>
-                    <p>Currently in high school or preparing for higher education. Explore foundational interests and aptitudes.</p>
-                    <button class="btn">Start Assessment</button>
+    <div id="app">
+        <!-- Welcome Screen -->
+        <div id="welcome-screen" class="container">
+            <div class="card max-w-2xl">
+                <div class="card-header">
+                    <div class="icon-circle">
+                        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M9.5 2A2.5 2.5 0 0 0 7 4.5v15A2.5 2.5 0 0 0 9.5 22h5a2.5 2.5 0 0 0 2.5-2.5v-15A2.5 2.5 0 0 0 14.5 2h-5Z"/>
+                            <path d="M9 6h6"/>
+                            <path d="M10 9h4"/>
+                            <path d="M10 12h4"/>
+                            <path d="M10 15h4"/>
+                        </svg>
+                    </div>
+                    <h1 class="title">Career Path Discovery</h1>
+                    <p class="subtitle">
+                        Discover your ideal career path through our comprehensive psychometric assessment. 
+                        Get personalized insights into your personality, skills, and interests to guide your future decisions.
+                    </p>
                 </div>
-                
-                <div class="card age-card" onclick="startAssessment('college')">
-                    <div class="age-icon">🎯</div>
-                    <h3>College Student</h3>
-                    <p>Currently in college or university. Get detailed insights for career specialization and skill development.</p>
-                    <button class="btn">Start Assessment</button>
+                <div class="card-content">
+                    <div class="skill-grid">
+                        <div class="skill-item">
+                            <svg class="skill-icon personality" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+                                <circle cx="9" cy="7" r="4"/>
+                                <path d="M22 21v-2a4 4 0 0 0-3-3.87"/>
+                                <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                            </svg>
+                            <span>Personality</span>
+                        </div>
+                        <div class="skill-item">
+                            <svg class="skill-icon mathematics" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect width="16" height="20" x="4" y="2" rx="2" ry="2"/>
+                                <path d="M9 22v-4h6v4"/>
+                                <path d="M8 6h.01"/>
+                                <path d="M16 6h.01"/>
+                                <path d="M12 6h.01"/>
+                                <path d="M12 10h.01"/>
+                                <path d="M12 14h.01"/>
+                                <path d="M16 10h.01"/>
+                                <path d="M16 14h.01"/>
+                                <path d="M8 10h.01"/>
+                                <path d="M8 14h.01"/>
+                            </svg>
+                            <span>Mathematics</span>
+                        </div>
+                        <div class="skill-item">
+                            <svg class="skill-icon logic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.29 1.51 4.04 3 5.5Z"/>
+                                <path d="M12 5L8 21l4-7 4 7-4-16"/>
+                            </svg>
+                            <span>Logic</span>
+                        </div>
+                        <div class="skill-item">
+                            <svg class="skill-icon problem-solving" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/>
+                                <path d="M9 18h6"/>
+                                <path d="M10 22h4"/>
+                            </svg>
+                            <span>Problem Solving</span>
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <button id="start-btn" class="btn btn-primary btn-lg">
+                            Start Assessment
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M5 12h14"/>
+                                <path d="M12 5l7 7-7 7"/>
+                            </svg>
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- Question Screen -->
-        <div id="questionContainer" class="question-container">
-            <div class="card">
-                <div class="progress-bar">
-                    <div id="progressFill" class="progress-fill" style="width: 0%"></div>
+        <!-- Age Selection Screen -->
+        <div id="age-screen" class="container hidden">
+            <div class="card max-w-md">
+                <div class="card-header">
+                    <h2 class="title" style="font-size: 2rem;">Select Your Academic Level</h2>
+                    <p class="subtitle">This helps us customize questions to your level</p>
                 </div>
-                
-                <div id="questionText" class="question-text"></div>
-                
-                <div id="optionsContainer" class="options"></div>
-                
+                <div class="card-content space-y-4">
+                    <button id="school-btn" class="btn btn-outline age-btn">
+                        <div>
+                            <div style="font-weight: 600;">School Student</div>
+                            <div style="font-size: 0.875rem; color: #94a3b8;">Grades 6-12</div>
+                        </div>
+                    </button>
+                    <button id="college-btn" class="btn btn-outline age-btn">
+                        <div>
+                            <div style="font-weight: 600;">College Student</div>
+                            <div style="font-size: 0.875rem; color: #94a3b8;">Undergraduate & Graduate</div>
+                        </div>
+                    </button>
+                    <button id="continue-btn" class="btn btn-primary w-full mt-6" disabled>
+                        Continue to Test
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14"/>
+                            <path d="M12 5l7 7-7 7"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Test Screen -->
+        <div id="test-screen" class="container hidden" style="align-items: flex-start; padding-top: 2rem;">
+            <div class="max-w-3xl w-full py-8">
+                <div class="progress-container">
+                    <div class="flex items-center justify-between mb-4">
+                        <div id="category-badge" class="badge">
+                            <svg id="category-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+                                <circle cx="9" cy="7" r="4"/>
+                                <path d="M22 21v-2a4 4 0 0 0-3-3.87"/>
+                                <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                            </svg>
+                            <span id="category-text">Personality</span>
+                        </div>
+                        <span id="question-counter" style="font-size: 0.875rem; color: #94a3b8;">1 of 20</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div id="progress-fill" class="progress-fill" style="width: 5%;"></div>
+                    </div>
+                </div>
+
+                <div class="question-card card">
+                    <div class="card-header">
+                        <h3 id="question-text" class="question-title">How do you prefer to work on group projects?</h3>
+                    </div>
+                    <div class="card-content">
+                        <div id="answers-container">
+                            <!-- Answer options will be populated here -->
+                        </div>
+                    </div>
+                </div>
+
                 <div class="navigation">
-                    <button id="prevBtn" class="btn btn-secondary" onclick="previousQuestion()" disabled>Previous</button>
-                    <button id="nextBtn" class="btn" onclick="nextQuestion()" disabled>Next Question</button>
+                    <button id="prev-btn" class="btn btn-outline" disabled>Previous</button>
+                    <button id="next-btn" class="btn btn-primary" disabled>
+                        Next Question
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14"/>
+                            <path d="M12 5l7 7-7 7"/>
+                        </svg>
+                    </button>
                 </div>
             </div>
         </div>
 
         <!-- Results Screen -->
-        <div id="resultsContainer" class="results-container">
-            <div class="header">
-                <h1 class="title">Your Assessment Results</h1>
-                <p class="subtitle">Based on your responses, here's your personalized career analysis</p>
-            </div>
+        <div id="results-screen" class="container hidden" style="align-items: flex-start; padding-top: 2rem;">
+            <div class="max-w-4xl w-full py-8">
+                <div class="text-center mb-8">
+                    <div class="icon-circle" style="background: linear-gradient(135deg, #10b981, #059669); width: 4rem; height: 4rem;">
+                        <svg class="icon" style="width: 2rem; height: 2rem;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                            <path d="M22 4L12 14.01l-3-3"/>
+                        </svg>
+                    </div>
+                    <h1 class="title" style="font-size: 3rem;">Assessment Complete!</h1>
+                    <p class="subtitle">Here are your personalized results and career recommendations</p>
+                </div>
 
-            <div class="card">
-                <h2>🧠 Your Skills Analysis</h2>
-                <div id="skillsGrid" class="results-grid"></div>
-            </div>
+                <!-- Skill Scores -->
+                <div class="results-grid mb-8">
+                    <div class="card result-card">
+                        <svg class="skill-icon personality mx-auto mb-3" style="width: 2rem; height: 2rem; margin: 0 auto 0.75rem;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+                            <circle cx="9" cy="7" r="4"/>
+                            <path d="M22 21v-2a4 4 0 0 0-3-3.87"/>
+                            <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                        </svg>
+                        <h3 style="font-weight: 600; margin-bottom: 0.5rem;">Personality</h3>
+                        <div id="personality-score" class="result-score personality">75%</div>
+                    </div>
+                    <div class="card result-card">
+                        <svg class="skill-icon mathematics mx-auto mb-3" style="width: 2rem; height: 2rem; margin: 0 auto 0.75rem;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect width="16" height="20" x="4" y="2" rx="2" ry="2"/>
+                            <path d="M9 22v-4h6v4"/>
+                            <path d="M8 6h.01"/>
+                            <path d="M16 6h.01"/>
+                            <path d="M12 6h.01"/>
+                            <path d="M12 10h.01"/>
+                            <path d="M12 14h.01"/>
+                            <path d="M16 10h.01"/>
+                            <path d="M16 14h.01"/>
+                            <path d="M8 10h.01"/>
+                            <path d="M8 14h.01"/>
+                        </svg>
+                        <h3 style="font-weight: 600; margin-bottom: 0.5rem;">Mathematics</h3>
+                        <div id="mathematics-score" class="result-score mathematics">60%</div>
+                    </div>
+                    <div class="card result-card">
+                        <svg class="skill-icon logic mx-auto mb-3" style="width: 2rem; height: 2rem; margin: 0 auto 0.75rem;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.29 1.51 4.04 3 5.5Z"/>
+                            <path d="M12 5L8 21l4-7 4 7-4-16"/>
+                        </svg>
+                        <h3 style="font-weight: 600; margin-bottom: 0.5rem;">Logic</h3>
+                        <div id="logic-score" class="result-score logic">85%</div>
+                    </div>
+                    <div class="card result-card">
+                        <svg class="skill-icon problem-solving mx-auto mb-3" style="width: 2rem; height: 2rem; margin: 0 auto 0.75rem;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/>
+                            <path d="M9 18h6"/>
+                            <path d="M10 22h4"/>
+                        </svg>
+                        <h3 style="font-weight: 600; margin-bottom: 0.5rem;">Problem Solving</h3>
+                        <div id="problem-solving-score" class="result-score problem-solving">70%</div>
+                    </div>
+                </div>
 
-            <div class="card">
-                <h2>🚀 Recommended Careers</h2>
-                <div id="careersList" class="careers-list"></div>
-            </div>
+                <!-- Career Recommendations -->
+                <div class="card mb-8">
+                    <div class="card-header">
+                        <h2 style="font-size: 1.25rem; display: flex; align-items: center; text-align: left;">
+                            <svg style="width: 1.5rem; height: 1.5rem; margin-right: 0.5rem; fill: #3b82f6;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <path d="M16 12l-4-4-4 4"/>
+                                <path d="M12 16V8"/>
+                            </svg>
+                            Recommended Career Paths
+                        </h2>
+                    </div>
+                    <div class="card-content">
+                        <div id="career-recommendations" class="career-grid">
+                            <!-- Career recommendations will be populated here -->
+                        </div>
+                    </div>
+                </div>
 
-            <div class="card" style="text-align: center;">
-                <button class="btn" onclick="restartAssessment()">Take Assessment Again</button>
+                <!-- Interest Areas -->
+                <div class="card mb-8">
+                    <div class="card-header">
+                        <h2 style="font-size: 1.25rem; display: flex; align-items: center; text-align: left;">
+                            <svg style="width: 1.5rem; height: 1.5rem; margin-right: 0.5rem; fill: #3b82f6;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M9.5 2A2.5 2.5 0 0 0 7 4.5v15A2.5 2.5 0 0 0 9.5 22h5a2.5 2.5 0 0 0 2.5-2.5v-15A2.5 2.5 0 0 0 14.5 2h-5Z"/>
+                            </svg>
+                            Your Key Interest Areas
+                        </h2>
+                    </div>
+                    <div class="card-content">
+                        <div id="interest-areas">
+                            <!-- Interest areas will be populated here -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Roadmap Option -->
+                <div class="text-center">
+                    <button id="roadmap-btn" class="btn btn-primary btn-lg">
+                        Get Your Career Roadmap
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14"/>
+                            <path d="M12 5l7 7-7 7"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Roadmap Screen -->
+        <div id="roadmap-screen" class="container hidden" style="align-items: flex-start; padding-top: 2rem;">
+            <div class="max-w-4xl w-full py-8">
+                <div class="text-center mb-8">
+                    <h1 class="title" style="font-size: 3rem;">Your Career Roadmap</h1>
+                    <p id="roadmap-subtitle" class="subtitle">Personalized roadmap for Technology</p>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2 id="roadmap-title" style="font-size: 1.25rem; text-align: left;">Roadmap to Technology</h2>
+                    </div>
+                    <div class="card-content space-y-6">
+                        <div class="roadmap-phase">
+                            <div class="phase-badge phase-1">Phase 1</div>
+                            <div class="roadmap-content">
+                                <h3>Foundation Building (6-12 months)</h3>
+                                <ul>
+                                    <li>• Master fundamental concepts in your chosen field</li>
+                                    <li>• Take relevant online courses and certifications</li>
+                                    <li>• Build basic projects to practice skills</li>
+                                    <li>• Join professional communities and networks</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="roadmap-phase">
+                            <div class="phase-badge phase-2">Phase 2</div>
+                            <div class="roadmap-content">
+                                <h3>Skill Development (1-2 years)</h3>
+                                <ul>
+                                    <li>• Gain hands-on experience through internships</li>
+                                    <li>• Work on advanced projects and portfolios</li>
+                                    <li>• Develop both technical and soft skills</li>
+                                    <li>• Seek mentorship from industry professionals</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="roadmap-phase">
+                            <div class="phase-badge phase-3">Phase 3</div>
+                            <div class="roadmap-content">
+                                <h3>Career Launch (2-3 years)</h3>
+                                <ul>
+                                    <li>• Apply for entry-level positions in your field</li>
+                                    <li>• Continue learning and staying updated with trends</li>
+                                    <li>• Build professional reputation and network</li>
+                                    <li>• Consider specialization areas for growth</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="border-t pt-6">
+                            <h3 style="font-weight: 600; margin-bottom: 0.75rem;">Recommended Skills to Develop:</h3>
+                            <div class="skills-grid">
+                                <div class="skill-badge">Critical Thinking</div>
+                                <div class="skill-badge">Communication</div>
+                                <div class="skill-badge">Problem Solving</div>
+                                <div class="skill-badge">Technical Skills</div>
+                                <div class="skill-badge">Leadership</div>
+                                <div class="skill-badge">Adaptability</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center mt-8">
+                    <button id="retake-btn" class="btn btn-outline" style="margin-right: 1rem;">
+                        Take Test Again
+                    </button>
+                    <button id="download-btn" class="btn btn-primary">
+                        Download Results
+                    </button>
+                </div>
             </div>
         </div>
     </div>
 
     <script>
-        // Assessment data
+        // Questions data
         const questions = [
+            // Personality Questions
             {
-                text: "Which activity would you most enjoy spending your weekend doing?",
-                options: [
-                    "Building or fixing something with your hands",
-                    "Reading about scientific discoveries", 
-                    "Creating art, music, or writing",
-                    "Planning an event or organizing a group project"
-                ],
-                weights: { math: 0.3, science: 0.2, arts: 0.8, business: 0.6, technology: 0.4, social: 0.7 }
+                id: 1,
+                text: "How do you prefer to work on group projects?",
+                options: ["Lead the team and delegate tasks", "Contribute ideas and collaborate equally", "Focus on specific tasks independently", "Support others and help where needed"],
+                category: "personality",
+                ageGroup: "both",
+                difficulty: "easy"
             },
             {
-                text: "What type of problems do you find most engaging?",
-                options: [
-                    "Mathematical equations and puzzles",
-                    "Understanding how things work in nature",
-                    "Finding creative solutions to everyday challenges", 
-                    "Analyzing market trends and business strategies"
-                ],
-                weights: { math: 0.9, science: 0.8, arts: 0.3, business: 0.7, technology: 0.6, social: 0.2 }
+                id: 2,
+                text: "When facing a difficult problem, you typically:",
+                options: ["Break it down into smaller parts", "Ask for help from others", "Research extensively before acting", "Try different approaches until something works"],
+                category: "personality",
+                ageGroup: "both",
+                difficulty: "medium"
             },
             {
-                text: "Which career environment appeals to you most?",
-                options: [
-                    "High-tech office with latest equipment",
-                    "Laboratory or research facility",
-                    "Creative studio or artistic workspace",
-                    "Dynamic office with team collaboration"
-                ],
-                weights: { math: 0.4, science: 0.7, arts: 0.8, business: 0.6, technology: 0.9, social: 0.5 }
+                id: 3,
+                text: "Your ideal work environment would be:",
+                options: ["Fast-paced and dynamic", "Structured and organized", "Creative and flexible", "Collaborative and social"],
+                category: "personality",
+                ageGroup: "both",
+                difficulty: "easy"
             },
             {
-                text: "In group projects, you typically:",
-                options: [
-                    "Take charge and organize the team",
-                    "Focus on research and analysis", 
-                    "Come up with creative ideas",
-                    "Ensure everyone stays motivated"
-                ],
-                weights: { math: 0.3, science: 0.5, arts: 0.7, business: 0.9, technology: 0.4, social: 0.9 }
+                id: 4,
+                text: "How do you handle stress and pressure?",
+                options: ["Stay calm and think logically", "Take breaks and come back refreshed", "Talk through problems with others", "Push through with determination"],
+                category: "personality",
+                ageGroup: "both",
+                difficulty: "medium"
             },
             {
-                text: "What comes next in this sequence: 2, 6, 12, 20, 30, ?",
-                options: ["40", "42", "44", "48"],
-                weights: { math: 0.9, science: 0.7, arts: 0.1, business: 0.4, technology: 0.8, social: 0.1 }
+                id: 5,
+                text: "What motivates you most in your studies/work?",
+                options: ["Achieving excellence and recognition", "Learning new things and growing", "Helping others and making a difference", "Creating innovative solutions"],
+                category: "personality",
+                ageGroup: "both",
+                difficulty: "easy"
+            },
+
+            // Mathematics Questions
+            {
+                id: 6,
+                text: "If a train travels 120 km in 2 hours, what is its average speed?",
+                options: ["50 km/h", "60 km/h", "70 km/h", "80 km/h"],
+                category: "mathematics",
+                ageGroup: "school",
+                difficulty: "easy"
             },
             {
-                text: "When facing a difficult decision, you:",
-                options: [
-                    "Analyze all data and facts thoroughly",
-                    "Trust your intuition and gut feeling",
-                    "Seek advice from others", 
-                    "Consider the impact on everyone involved"
-                ],
-                weights: { math: 0.8, science: 0.8, arts: 0.6, business: 0.5, technology: 0.7, social: 0.8 }
+                id: 7,
+                text: "A rectangular garden has a length of 15m and width of 8m. What is its area?",
+                options: ["120 m²", "130 m²", "46 m²", "23 m²"],
+                category: "mathematics",
+                ageGroup: "school",
+                difficulty: "easy"
             },
             {
-                text: "A school wants to reduce energy costs. What would be your first approach?",
-                options: [
-                    "Calculate current energy usage and identify waste patterns",
-                    "Research renewable energy technologies",
-                    "Design an awareness campaign for students",
-                    "Form a committee to brainstorm solutions"
-                ],
-                weights: { math: 0.8, science: 0.8, arts: 0.5, business: 0.7, technology: 0.8, social: 0.6 }
+                id: 8,
+                text: "If f(x) = 2x² + 3x - 1, what is f(2)?",
+                options: ["13", "11", "9", "7"],
+                category: "mathematics",
+                ageGroup: "college",
+                difficulty: "medium"
             },
             {
-                text: "What motivates you most in your work or studies?",
-                options: [
-                    "Solving complex technical challenges",
-                    "Making scientific breakthroughs",
-                    "Expressing creativity and imagination",
-                    "Leading and inspiring others"
-                ],
-                weights: { math: 0.5, science: 0.8, arts: 0.9, business: 0.7, technology: 0.8, social: 0.6 }
+                id: 9,
+                text: "The probability of getting a head when flipping a fair coin twice is:",
+                options: ["1/4", "1/2", "3/4", "1"],
+                category: "mathematics",
+                ageGroup: "college",
+                difficulty: "medium"
+            },
+
+            // Logic Questions
+            {
+                id: 10,
+                text: "All birds can fly. Penguins are birds. Therefore:",
+                options: ["Penguins can fly", "The statement is incorrect", "Some birds cannot fly", "Logic cannot determine this"],
+                category: "logic",
+                ageGroup: "both",
+                difficulty: "medium"
             },
             {
-                text: "Your ideal work style is:",
-                options: [
-                    "Working independently on complex problems", 
-                    "Collaborating closely with a small team",
-                    "Leading large groups and projects",
-                    "Flexible, switching between solo and team work"
-                ],
-                weights: { math: 0.6, science: 0.7, arts: 0.5, business: 0.8, technology: 0.8, social: 0.6 }
+                id: 11,
+                text: "Complete the pattern: 2, 4, 8, 16, ?",
+                options: ["24", "32", "20", "18"],
+                category: "logic",
+                ageGroup: "school",
+                difficulty: "easy"
             },
             {
-                text: "When learning a new skill, you prefer to:",
-                options: [
-                    "Study the theory first, then practice",
-                    "Jump in and learn by doing",
-                    "Find creative ways to make it interesting",
-                    "Learn with others in a group setting"
-                ],
-                weights: { math: 0.7, science: 0.8, arts: 0.7, business: 0.5, technology: 0.6, social: 0.8 }
+                id: 12,
+                text: "If all A are B, and some B are C, then:",
+                options: ["All A are C", "Some A are C", "No A are C", "Cannot be determined"],
+                category: "logic",
+                ageGroup: "college",
+                difficulty: "hard"
+            },
+
+            // Problem Solving Questions
+            {
+                id: 13,
+                text: "You have a 3-liter and 5-liter jug. How do you measure exactly 4 liters?",
+                options: ["Fill 5L, pour to 3L, empty 3L, pour remaining 2L to 3L, fill 5L again, pour 1L to complete 3L jug", "Fill 3L twice and remove 2L", "Fill 5L and remove 1L", "It's impossible"],
+                category: "problem-solving",
+                ageGroup: "both",
+                difficulty: "hard"
+            },
+            {
+                id: 14,
+                text: "A man lives on the 20th floor but only takes the elevator to the 10th floor on sunny days. Why?",
+                options: ["He's short and can't reach the 20th floor button without an umbrella", "He likes to exercise", "The elevator is broken", "He visits a friend on the 10th floor"],
+                category: "problem-solving",
+                ageGroup: "both",
+                difficulty: "medium"
+            },
+            {
+                id: 15,
+                text: "How would you move a mountain?",
+                options: ["Use heavy machinery and transport it piece by piece", "It's impossible to move a mountain", "Use explosives to break it down", "Move people away from the mountain instead"],
+                category: "problem-solving",
+                ageGroup: "both",
+                difficulty: "hard"
+            },
+
+            // Interest Questions
+            {
+                id: 16,
+                text: "Which activity sounds most appealing to you?",
+                options: ["Conducting scientific experiments", "Creating digital art or music", "Organizing community events", "Analyzing data and trends"],
+                category: "interests",
+                ageGroup: "both",
+                difficulty: "easy"
+            },
+            {
+                id: 17,
+                text: "Your dream weekend would involve:",
+                options: ["Building or fixing something", "Reading and learning new concepts", "Socializing and meeting new people", "Exploring nature or traveling"],
+                category: "interests",
+                ageGroup: "both",
+                difficulty: "easy"
+            },
+            {
+                id: 18,
+                text: "Which subject/field interests you most?",
+                options: ["Technology and Engineering", "Arts and Literature", "Business and Economics", "Healthcare and Life Sciences"],
+                category: "interests",
+                ageGroup: "both",
+                difficulty: "easy"
+            },
+            {
+                id: 19,
+                text: "What type of problems do you enjoy solving?",
+                options: ["Technical and systematic problems", "Creative and open-ended challenges", "People-related and social issues", "Strategic and analytical puzzles"],
+                category: "interests",
+                ageGroup: "both",
+                difficulty: "medium"
+            },
+            {
+                id: 20,
+                text: "In your future career, you'd prefer to:",
+                options: ["Work with cutting-edge technology", "Express creativity and innovation", "Lead teams and make decisions", "Help others and serve the community"],
+                category: "interests",
+                ageGroup: "both",
+                difficulty: "easy"
             }
         ];
 
-        const careers = [
-            { title: "Software Engineer", match: 0, description: "Design and develop software applications" },
-            { title: "Data Scientist", match: 0, description: "Analyze complex data to drive decisions" },
-            { title: "Research Scientist", match: 0, description: "Conduct research to advance knowledge" },
-            { title: "UX/UI Designer", match: 0, description: "Design user experiences for digital products" },
-            { title: "Management Consultant", match: 0, description: "Advise organizations on performance" },
-            { title: "Clinical Psychologist", match: 0, description: "Help people with mental health challenges" }
-        ];
-
-        // State variables
+        // Application state
+        let currentStep = 'welcome';
+        let selectedAge = 'school';
         let currentQuestionIndex = 0;
-        let responses = [];
-        let selectedAge = '';
+        let answers = {};
+        let results = null;
+        let filteredQuestions = [];
 
-        function startAssessment(age) {
-            selectedAge = age;
-            document.getElementById('ageSelection').classList.add('hidden');
-            document.getElementById('questionContainer').classList.remove('hidden');
-            showQuestion();
-        }
+        // DOM elements
+        const screens = {
+            welcome: document.getElementById('welcome-screen'),
+            age: document.getElementById('age-screen'),
+            test: document.getElementById('test-screen'),
+            results: document.getElementById('results-screen'),
+            roadmap: document.getElementById('roadmap-screen')
+        };
 
-        function showQuestion() {
-            const question = questions[currentQuestionIndex];
-            document.getElementById('questionText').textContent = question.text;
-            
-            const optionsContainer = document.getElementById('optionsContainer');
-            optionsContainer.innerHTML = '';
-            
-            question.options.forEach((option, index) => {
-                const optionDiv = document.createElement('div');
-                optionDiv.className = 'option';
-                optionDiv.textContent = option;
-                optionDiv.onclick = () => selectOption(index);
-                optionsContainer.appendChild(optionDiv);
-            });
-            
-            updateProgress();
-            updateNavigationButtons();
-        }
-
-        function selectOption(index) {
-            document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
-            document.querySelectorAll('.option')[index].classList.add('selected');
-            responses[currentQuestionIndex] = index;
-            document.getElementById('nextBtn').disabled = false;
-        }
-
-        function nextQuestion() {
-            if (responses[currentQuestionIndex] === undefined) return;
-            
-            if (currentQuestionIndex < questions.length - 1) {
-                currentQuestionIndex++;
-                showQuestion();
-            } else {
-                showResults();
+        // Category icons and info
+        const categoryData = {
+            personality: {
+                icon: <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>,
+                name: 'Personality'
+            },
+            mathematics: {
+                icon: <rect width="16" height="20" x="4" y="2" rx="2" ry="2"/><path d="M9 22v-4h6v4"/><path d="M8 6h.01"/><path d="M16 6h.01"/><path d="M12 6h.01"/><path d="M12 10h.01"/><path d="M12 14h.01"/><path d="M16 10h.01"/><path d="M16 14h.01"/><path d="M8 10h.01"/><path d="M8 14h.01"/>,
+                name: 'Mathematics'
+            },
+            logic: {
+                icon: <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.29 1.51 4.04 3 5.5Z"/><path d="M12 5L8 21l4-7 4 7-4-16"/>,
+                name: 'Logic'
+            },
+            'problem-solving': {
+                icon: <path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/><path d="M9 18h6"/><path d="M10 22h4"/>,
+                name: 'Problem Solving'
+            },
+            interests: {
+                icon: <circle cx="12" cy="12" r="10"/><path d="M16 12l-4-4-4 4"/><path d="M12 16V8"/>,
+                name: 'Interests'
             }
+        };
+
+        // Utility functions
+        function showScreen(screenName) {
+            Object.values(screens).forEach(screen => screen.classList.add('hidden'));
+            screens[screenName].classList.remove('hidden');
+            currentStep = screenName;
         }
 
-        function previousQuestion() {
-            if (currentQuestionIndex > 0) {
-                currentQuestionIndex--;
-                showQuestion();
-            }
+        function filterQuestions() {
+            filteredQuestions = questions.filter(q => 
+                q.ageGroup === selectedAge || q.ageGroup === 'both'
+            );
         }
 
         function updateProgress() {
-            const progress = ((currentQuestionIndex + 1) / questions.length) * 100;
-            document.getElementById('progressFill').style.width = progress + '%';
+            const progress = ((currentQuestionIndex + 1) / filteredQuestions.length) * 100;
+            document.getElementById('progress-fill').style.width = progress + '%';
+            document.getElementById('question-counter').textContent = 
+                ${currentQuestionIndex + 1} of ${filteredQuestions.length};
+        }
+
+        function updateCategoryBadge(category) {
+            const categoryIcon = document.getElementById('category-icon');
+            const categoryText = document.getElementById('category-text');
+            
+            categoryIcon.innerHTML = categoryData[category].icon;
+            categoryText.textContent = categoryData[category].name;
+        }
+
+        function renderQuestion() {
+            const question = filteredQuestions[currentQuestionIndex];
+            const questionText = document.getElementById('question-text');
+            const answersContainer = document.getElementById('answers-container');
+            
+            questionText.textContent = question.text;
+            updateCategoryBadge(question.category);
+            updateProgress();
+            
+            answersContainer.innerHTML = '';
+            
+            question.options.forEach((option, index) => {
+                const button = document.createElement('button');
+                button.className = 'btn btn-outline answer-btn';
+                button.onclick = () => selectAnswer(index);
+                
+                const isSelected = answers[question.id] === index;
+                if (isSelected) {
+                    button.classList.add('selected');
+                }
+                
+                button.innerHTML = `
+                    <div class="flex items-center">
+                        <div class="answer-indicator ${isSelected ? 'selected' : ''}">
+                            ${isSelected ? '<svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg>' : ''}
+                        </div>
+                        <span style="flex: 1;">${option}</span>
+                    </div>
+                `;
+                
+                answersContainer.appendChild(button);
+            });
+            
+            updateNavigationButtons();
+        }
+
+        function selectAnswer(answerIndex) {
+            const question = filteredQuestions[currentQuestionIndex];
+            answers[question.id] = answerIndex;
+            renderQuestion();
         }
 
         function updateNavigationButtons() {
-            document.getElementById('prevBtn').disabled = currentQuestionIndex === 0;
-            document.getElementById('nextBtn').disabled = responses[currentQuestionIndex] === undefined;
-            document.getElementById('nextBtn').textContent = 
-                currentQuestionIndex === questions.length - 1 ? 'Show Results' : 'Next Question';
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            const question = filteredQuestions[currentQuestionIndex];
+            
+            prevBtn.disabled = currentQuestionIndex === 0;
+            nextBtn.disabled = answers[question.id] === undefined;
+            
+            nextBtn.innerHTML = currentQuestionIndex === filteredQuestions.length - 1 ? 
+                'Finish Test <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>' :
+                'Next Question <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>';
         }
 
         function calculateResults() {
-            const scores = { math: 0, science: 0, arts: 0, business: 0, technology: 0, social: 0 };
-            
-            responses.forEach((responseIndex, questionIndex) => {
-                const question = questions[questionIndex];
-                const weight = (responseIndex + 1) / question.options.length;
-                
-                Object.entries(question.weights).forEach(([skill, skillWeight]) => {
-                    scores[skill] += skillWeight * weight * 100 / questions.length;
-                });
-            });
-            
-            // Normalize and add variance
-            Object.keys(scores).forEach(skill => {
-                scores[skill] = Math.max(20, Math.min(95, scores[skill] + (Math.random() * 20 - 10)));
-                scores[skill] = Math.round(scores[skill]);
-            });
-            
-            // Calculate career matches
-            careers.forEach(career => {
-                let match = 0;
-                switch(career.title) {
-                    case 'Software Engineer':
-                        match = (scores.technology * 0.4 + scores.math * 0.3 + scores.business * 0.3);
-                        break;
-                    case 'Data Scientist':
-                        match = (scores.math * 0.4 + scores.technology * 0.3 + scores.science * 0.3);
-                        break;
-                    case 'Research Scientist':
-                        match = (scores.science * 0.5 + scores.math * 0.3 + scores.technology * 0.2);
-                        break;
-                    case 'UX/UI Designer':
-                        match = (scores.arts * 0.4 + scores.technology * 0.3 + scores.business * 0.3);
-                        break;
-                    case 'Management Consultant':
-                        match = (scores.business * 0.4 + scores.social * 0.3 + scores.math * 0.3);
-                        break;
-                    case 'Clinical Psychologist':
-                        match = (scores.social * 0.5 + scores.science * 0.3 + scores.arts * 0.2);
-                        break;
+            const scores = {
+                personality: 0,
+                mathematics: 0,
+                logic: 0,
+                problemSolving: 0,
+                interests: []
+            };
+
+            filteredQuestions.forEach(question => {
+                const answer = answers[question.id];
+                if (answer !== undefined) {
+                    switch (question.category) {
+                        case 'personality':
+                            scores.personality += (answer + 1) * 25;
+                            break;
+                        case 'mathematics':
+                            const mathCorrect = [1, 0, 0, 2];
+                            if (mathCorrect[question.id - 6] === answer) {
+                                scores.mathematics += 25;
+                            }
+                            break;
+                        case 'logic':
+                            const logicCorrect = [1, 1, 3];
+                            if (logicCorrect[question.id - 10] === answer) {
+                                scores.logic += 33;
+                            }
+                            break;
+                        case 'problem-solving':
+                            const psCorrect = [0, 0, 3];
+                            if (psCorrect[question.id - 13] === answer) {
+                                scores.problemSolving += 33;
+                            }
+                            break;
+                        case 'interests':
+                            const interestAreas = ['Technology', 'Arts', 'Business', 'Science'];
+                            scores.interests.push(interestAreas[answer]);
+                            break;
+                    }
                 }
-                career.match = Math.round(match);
             });
+
+            // Generate career recommendations
+            const careerRecommendations = generateCareerRecommendations(scores);
             
-            careers.sort((a, b) => b.match - a.match);
-            return scores;
+            results = {
+                ...scores,
+                careerRecommendations
+            };
+            
+            displayResults();
         }
 
-        function showResults() {
-            const scores = calculateResults();
+        function generateCareerRecommendations(scores) {
+            const recommendations = [];
             
-            document.getElementById('questionContainer').classList.add('hidden');
-            document.getElementById('resultsContainer').classList.remove('hidden');
-            
-            // Display skills
-            const skillsGrid = document.getElementById('skillsGrid');
-            skillsGrid.innerHTML = '';
-            
-            Object.entries(scores).forEach(([skill, score]) => {
-                const skillDiv = document.createElement('div');
-                skillDiv.className = 'skill-item';
-                skillDiv.innerHTML = `
-                    <div class="skill-name">${skill.charAt(0).toUpperCase() + skill.slice(1)}</div>
-                    <div class="skill-score">${score}%</div>
-                    <div class="skill-bar">
-                        <div class="skill-bar-fill" style="width: ${score}%"></div>
-                    </div>
-                `;
-                skillsGrid.appendChild(skillDiv);
-            });
-            
-            // Display careers
-            const careersList = document.getElementById('careersList');
-            careersList.innerHTML = '';
-            
-            careers.slice(0, 4).forEach(career => {
-                const careerDiv = document.createElement('div');
-                careerDiv.className = 'career-item';
-                careerDiv.innerHTML = `
-                    <div class="career-match">${career.match}% Match</div>
-                    <div class="career-title">${career.title}</div>
-                    <p>${career.description}</p>
-                `;
-                careersList.appendChild(careerDiv);
-            });
+            if (scores.mathematics > 70) {
+                recommendations.push('Engineering', 'Data Science', 'Finance', 'Research');
+            }
+            if (scores.logic > 70) {
+                recommendations.push('Software Development', 'Law', 'Consulting', 'Analysis');
+            }
+            if (scores.problemSolving > 70) {
+                recommendations.push('Product Management', 'Entrepreneurship', 'Architecture', 'Medicine');
+            }
+            if (scores.interests.includes('Technology')) {
+                recommendations.push('Computer Science', 'AI/ML', 'Cybersecurity');
+            }
+            if (scores.interests.includes('Arts')) {
+                recommendations.push('Design', 'Media', 'Creative Writing', 'Marketing');
+            }
+            if (scores.interests.includes('Business')) {
+                recommendations.push('Management', 'Sales', 'Economics', 'Strategy');
+            }
+            if (scores.interests.includes('Science')) {
+                recommendations.push('Biology', 'Chemistry', 'Psychology', 'Healthcare');
+            }
+
+            return [...new Set(recommendations)].slice(0, 6);
         }
 
-        function restartAssessment() {
+        function displayResults() {
+            // Update scores
+            document.getElementById('personality-score').textContent = Math.min(results.personality, 100) + '%';
+            document.getElementById('mathematics-score').textContent = Math.min(results.mathematics, 100) + '%';
+            document.getElementById('logic-score').textContent = Math.min(results.logic, 100) + '%';
+            document.getElementById('problem-solving-score').textContent = Math.min(results.problemSolving, 100) + '%';
+            
+            // Update career recommendations
+            const careerContainer = document.getElementById('career-recommendations');
+            careerContainer.innerHTML = '';
+            results.careerRecommendations.forEach(career => {
+                const badge = document.createElement('div');
+                badge.className = 'career-badge';
+                badge.textContent = career;
+                careerContainer.appendChild(badge);
+            });
+            
+            // Update interests
+            const interestContainer = document.getElementById('interest-areas');
+            interestContainer.innerHTML = '';
+            results.interests.forEach(interest => {
+                const badge = document.createElement('span');
+                badge.className = 'interest-badge';
+                badge.textContent = interest;
+                interestContainer.appendChild(badge);
+            });
+            
+            showScreen('results');
+        }
+
+        function showRoadmap() {
+            const topCareer = results.careerRecommendations[0] || 'Technology';
+            document.getElementById('roadmap-subtitle').textContent = Personalized roadmap for ${topCareer};
+            document.getElementById('roadmap-title').textContent = Roadmap to ${topCareer};
+            showScreen('roadmap');
+        }
+
+        function downloadResults() {
+            const resultText = `
+Career Assessment Results
+=========================
+
+Personality Score: ${Math.min(results.personality, 100)}%
+Mathematics Score: ${Math.min(results.mathematics, 100)}%
+Logic Score: ${Math.min(results.logic, 100)}%
+Problem Solving Score: ${Math.min(results.problemSolving, 100)}%
+
+Interest Areas: ${results.interests.join(', ')}
+
+Recommended Career Paths:
+${results.careerRecommendations.map(career => '• ' + career).join('\n')}
+
+Thank you for taking the Career Path Discovery Assessment!
+            `;
+            
+            const blob = new Blob([resultText], { type: 'text/plain' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'career-assessment-results.txt';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
+        }
+
+        // Event listeners
+        document.getElementById('start-btn').addEventListener('click', () => {
+            showScreen('age');
+        });
+
+        document.getElementById('school-btn').addEventListener('click', () => {
+            selectedAge = 'school';
+            document.getElementById('school-btn').classList.add('selected');
+            document.getElementById('college-btn').classList.remove('selected');
+            document.getElementById('continue-btn').disabled = false;
+        });
+
+        document.getElementById('college-btn').addEventListener('click', () => {
+            selectedAge = 'college';
+            document.getElementById('college-btn').classList.add('selected');
+            document.getElementById('school-btn').classList.remove('selected');
+            document.getElementById('continue-btn').disabled = false;
+        });
+
+        document.getElementById('continue-btn').addEventListener('click', () => {
+            filterQuestions();
             currentQuestionIndex = 0;
-            responses = [];
-            selectedAge = '';
+            answers = {};
+            renderQuestion();
+            showScreen('test');
+        });
+
+        document.getElementById('prev-btn').addEventListener('click', () => {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                renderQuestion();
+            }
+        });
+
+        document.getElementById('next-btn').addEventListener('click', () => {
+            if (currentQuestionIndex < filteredQuestions.length - 1) {
+                currentQuestionIndex++;
+                renderQuestion();
+            } else {
+                calculateResults();
+            }
+        });
+
+        document.getElementById('roadmap-btn').addEventListener('click', showRoadmap);
+
+        document.getElementById('retake-btn').addEventListener('click', () => {
+            currentStep = 'welcome';
+            selectedAge = 'school';
+            currentQuestionIndex = 0;
+            answers = {};
+            results = null;
+            filteredQuestions = [];
             
-            document.getElementById('resultsContainer').classList.add('hidden');
-            document.getElementById('ageSelection').classList.remove('hidden');
-        }
+            // Reset age selection buttons
+            document.getElementById('school-btn').classList.remove('selected');
+            document.getElementById('college-btn').classList.remove('selected');
+            document.getElementById('continue-btn').disabled = true;
+            
+            showScreen('welcome');
+        });
+
+        document.getElementById('download-btn').addEventListener('click', downloadResults);
     </script>
 </body>
 </html>
