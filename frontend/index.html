@@ -811,7 +811,7 @@
 
           <!-- Desktop User Name / Auth Buttons -->
           <div id="user_name" class="user-text">
-            <a href="dashboard.html"><span class="user-text"></span></a>
+            <a href="profile.html"><span class="user-text"></span></a>
           </div>
           <div id="auth" class="auth-buttons">
             <button
@@ -874,7 +874,7 @@
           </div>
 
           <div class="mobile-user-info" id="mobileUserInfo">
-            <a href="dashboard.html"><span id="mobileUserName" class="logo-text"></span></a>
+            <a href="profile.html"><span id="mobileUserName" class="logo-text"></span></a>
           </div>
         </div>
       </div>
@@ -925,7 +925,7 @@
 
           <!-- CTA Buttons -->
           <div class="hero-buttons">
-            <button class="btn btn-hero">
+            <button class="btn btn-hero" onclick="window.location.href='login.html'">
               Get Started Today
               <svg
                 width="16"
@@ -1464,14 +1464,14 @@
           login_button.style.display = "none";
           const user_name = document.getElementById("user_name");
           user_name.style.display = "flex";
-          user_name.innerHTML = `<a href="dashboard.html"><span class="user-text">${user.name}</span></a>`;
+          user_name.innerHTML = `<a href="profile.html"><span class="user-text">${user.name}</span></a>`;
 
           // Mobile elements
           const mobileAuthButtons = document.getElementById("mobileAuthButtons");
           const mobileUserInfo = document.getElementById("mobileUserInfo");
           mobileAuthButtons.style.display = "none";
           mobileUserInfo.style.display = "flex";
-          document.getElementById("mobileUserName").innerHTML = `<a href="dashboard.html"><span class="user-text">${user.name}</span></a>`;
+          document.getElementById("mobileUserName").innerHTML = `<a href="profile.html"><span class="user-text">${user.name}</span></a>`;
 
           return user;
         } catch (err) {
