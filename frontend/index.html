@@ -811,7 +811,7 @@
 
           <!-- Desktop User Name / Auth Buttons -->
           <div id="user_name" class="user-text">
-            <span class="user-text"></span>
+            <a href="dashboard.html"><span class="user-text"></span></a>
           </div>
           <div id="auth" class="auth-buttons">
             <button
@@ -874,7 +874,7 @@
           </div>
 
           <div class="mobile-user-info" id="mobileUserInfo">
-            <span id="mobileUserName" class="logo-text"></span>
+            <a href="dashboard.html"><span id="mobileUserName" class="logo-text"></span></a>
           </div>
         </div>
       </div>
@@ -1464,14 +1464,14 @@
           login_button.style.display = "none";
           const user_name = document.getElementById("user_name");
           user_name.style.display = "flex";
-          user_name.innerHTML = `<span class="user-text">${user.name}</span>`;
+          user_name.innerHTML = `<a href="dashboard.html"><span class="user-text">${user.name}</span></a>`;
 
           // Mobile elements
           const mobileAuthButtons = document.getElementById("mobileAuthButtons");
           const mobileUserInfo = document.getElementById("mobileUserInfo");
           mobileAuthButtons.style.display = "none";
           mobileUserInfo.style.display = "flex";
-          document.getElementById("mobileUserName").textContent = user.name;
+          document.getElementById("mobileUserName").innerHTML = `<a href="dashboard.html"><span class="user-text">${user.name}</span></a>`;
 
           return user;
         } catch (err) {
