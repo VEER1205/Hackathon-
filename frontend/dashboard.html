@@ -3,45 +3,345 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>User Dashboard</title>
+  <title>User Dashboard - Futuro</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
   <style>
+    :root {
+      --background: 240 10% 3.9%;
+      --foreground: 0 0% 98%;
+      --card: 240 10% 5.9%;
+      --card-foreground: 0 0% 98%;
+      --popover: 240 10% 5.9%;
+      --popover-foreground: 0 0% 98%;
+
+      /* Primary - Deep Professional Blue */
+      --primary: 217 91% 60%;
+      --primary-foreground: 0 0% 98%;
+      --primary-glow: 217 91% 70%;
+
+      /* Secondary - Elegant Purple */
+      --secondary: 262 83% 58%;
+      --secondary-foreground: 0 0% 98%;
+
+      /* Accent - Vibrant Cyan */
+      --accent: 188 94% 63%;
+      --accent-foreground: 240 10% 3.9%;
+
+      --muted: 240 5% 15%;
+      --muted-foreground: 240 5% 64.9%;
+      --destructive: 0 62.8% 30.6%;
+      --destructive-foreground: 0 0% 98%;
+      --border: 240 5% 26%;
+      --input: 240 5% 26%;
+      --ring: 217 91% 60%;
+      --radius: 0.75rem;
+
+      /* Custom Design Tokens */
+      --gradient-primary: linear-gradient(
+        135deg,
+        hsl(var(--primary)),
+        hsl(var(--primary-glow))
+      );
+      --gradient-secondary: linear-gradient(
+        135deg,
+        hsl(var(--secondary)),
+        hsl(var(--accent))
+      );
+      --gradient-hero: linear-gradient(
+        135deg,
+        hsl(var(--background)) 0%,
+        hsl(240 15% 9%) 100%
+      );
+      --gradient-card: linear-gradient(
+        145deg,
+        hsl(var(--card)) 0%,
+        hsl(240 8% 8%) 100%
+      );
+
+      /* Shadows with brand colors */
+      --shadow-primary: 0 10px 40px -10px hsl(var(--primary) / 0.3);
+      --shadow-secondary: 0 10px 40px -10px hsl(var(--secondary) / 0.3);
+      --shadow-glow: 0 0 60px hsl(var(--primary-glow) / 0.4);
+      --shadow-elegant: 0 20px 60px -10px hsl(240 10% 3.9% / 0.8);
+
+      /* Animation variables */
+      --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      --transition-bounce: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    }
+
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
     
     body {
-      background: linear-gradient(135deg, #4e54c8, #8f94fb);
-      color: #fff;
+      font-family: "Inter", system-ui, -apple-system, sans-serif;
+      background: var(--gradient-hero);
+      color: hsl(var(--foreground));
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+
+    /* Header Styles */
+    .header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 50;
+      background: hsl(var(--background) / 0.8);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid hsl(var(--border) / 0.5);
+    }
+
+    .header-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 4rem;
+      position: relative;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .logo-icon {
+      width: 2.5rem;
+      height: 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .logo-icon img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .logo-text {
+      font-size: 1.5rem;
+      font-weight: 700;
+      background: var(--gradient-primary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .nav {
+      display: none;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    .nav a {
+      color: hsl(var(--muted-foreground));
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    .nav a:hover {
+      color: hsl(var(--primary));
+    }
+
+    .nav a.active {
+      color: hsl(var(--foreground));
+    }
+
+    .auth-buttons {
+      display: none;
+      align-items: center;
+      gap: 1rem;
+    }
+    
+    .user-name {
+      display: none;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .btn {
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
+      text-decoration: none;
+      font-weight: 500;
+      transition: var(--transition-smooth);
+      cursor: pointer;
+      border: none;
+      font-family: inherit;
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: hsl(var(--muted-foreground));
+    }
+
+    .btn-ghost:hover {
+      color: hsl(var(--primary));
+    }
+
+    .btn-hero {
+      position: relative;
+      overflow: hidden;
+      border-radius: 0.5rem;
+      padding: 0.75rem 2rem;
+      font-weight: 600;
+      transition: all 0.3s;
+      background: var(--gradient-primary);
+      color: white;
+      box-shadow: var(--shadow-primary);
+    }
+
+    .btn-hero:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-glow);
+    }
+
+    .mobile-menu-btn {
+      display: flex;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0.75rem;
+      border-radius: 0.5rem;
+      color: hsl(var(--foreground));
+      transition: all 0.3s ease;
+    }
+
+    .mobile-menu-btn:hover {
+      background: hsl(var(--accent) / 0.2);
+    }
+
+    .mobile-menu {
+      display: none;
+      padding: 1rem 0;
+      border-top: 1px solid hsl(var(--border) / 0.5);
+      background: hsl(var(--background) / 0.95);
+      backdrop-filter: blur(16px);
+    }
+
+    .mobile-menu.open {
+      display: block;
+      animation: slideDown 0.3s ease-out;
+    }
+
+    @keyframes slideDown {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .mobile-nav {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .mobile-nav a {
+      text-decoration: none;
+      color: hsl(var(--muted-foreground));
+      font-weight: 500;
+      padding: 0.75rem 1rem;
+      border-radius: 0.5rem;
+      transition: all 0.3s ease;
+    }
+
+    .mobile-nav a:hover,
+    .mobile-nav a.active {
+      color: hsl(var(--primary));
+      background: hsl(var(--primary) / 0.1);
+    }
+
+    .mobile-auth {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      margin-top: 1rem;
+      padding: 1rem;
+      border-top: 1px solid hsl(var(--border));
+    }
+
+    .mobile-user-info {
+      display: none;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 1rem;
+      border-top: 1px solid hsl(var(--border));
+      margin-top: 1rem;
+    }
+
+    /* Main Content */
+    .main-content {
       display: flex;
       justify-content: center;
-      align-items: flex-start;
-      padding: 40px 20px;
+      align-items: center;
       min-height: 100vh;
+      padding: 100px 20px 40px;
+    }
+
+    .loading-screen {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 40px;
+    }
+
+    .spinner {
+      border: 4px solid hsl(var(--border));
+      border-top: 4px solid hsl(var(--primary));
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      animation: spin 2s linear infinite;
+      margin: 0 auto 20px;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
     }
     
     .dashboard {
-      background: rgba(0,0,0,0.75);
+      background: var(--gradient-card);
       padding: 40px;
       border-radius: 20px;
       width: 600px;
       max-width: 95%;
       text-align: center;
-      box-shadow: 0 8px 30px rgba(0,0,0,0.5);
+      box-shadow: var(--shadow-elegant);
       backdrop-filter: blur(10px);
-      border: 1px solid rgba(255,255,255,0.1);
+      border: 1px solid hsl(var(--border) / 0.3);
+      display: none;
     }
     
     h2 {
       margin-bottom: 25px;
       font-size: 28px;
-      background: linear-gradient(90deg, #00c6ff, #0072ff);
+      background: var(--gradient-primary);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      text-shadow: 0 0 10px rgba(0, 198, 255, 0.3);
+      background-clip: text;
     }
     
     .profile-container {
@@ -58,15 +358,15 @@
       height: 150px;
       border-radius: 50%;
       object-fit: cover;
-      border: 4px solid #00c6ff;
+      border: 4px solid hsl(var(--primary));
       cursor: pointer;
-      transition: 0.3s;
-      box-shadow: 0 0 20px rgba(0, 198, 255, 0.5);
-      background-color: rgba(0, 0, 0, 0.2);
+      transition: all 0.3s;
+      box-shadow: var(--shadow-primary);
+      background-color: hsl(var(--card));
       display: flex;
       align-items: center;
       justify-content: center;
-      color: rgba(255, 255, 255, 0.5);
+      color: hsl(var(--muted-foreground));
       font-size: 14px;
       text-align: center;
       padding: 10px;
@@ -74,13 +374,13 @@
     
     .profile-pic:hover {
       transform: scale(1.05);
-      box-shadow: 0 0 25px rgba(0, 198, 255, 0.8);
-      color: rgba(255, 255, 255, 0.8);
+      box-shadow: var(--shadow-glow);
+      color: hsl(var(--foreground));
     }
     
     .upload-instruction {
       font-size: 14px;
-      color: #ccc;
+      color: hsl(var(--muted-foreground));
       margin-top: 10px;
       text-align: center;
     }
@@ -94,7 +394,7 @@
       display: block;
       margin: 15px 0 8px;
       font-weight: bold;
-      color: #00c6ff;
+      color: hsl(var(--primary));
     }
     
     input {
@@ -102,53 +402,82 @@
       padding: 14px;
       margin-bottom: 18px;
       border-radius: 8px;
-      border: 2px solid rgba(255,255,255,0.1);
+      border: 2px solid hsl(var(--border));
       font-size: 15px;
-      background: rgba(0,0,0,0.3);
-      color: white;
+      background: hsl(var(--card));
+      color: hsl(var(--foreground));
       transition: all 0.3s ease;
     }
     
     input:focus {
       outline: none;
-      border-color: #00c6ff;
-      box-shadow: 0 0 15px rgba(0, 198, 255, 0.5);
+      border-color: hsl(var(--primary));
+      box-shadow: var(--shadow-primary);
     }
     
     input:required {
-      border-left: 4px solid #00c6ff;
+      border-left: 4px solid hsl(var(--primary));
     }
     
-    button {
-      background: linear-gradient(90deg, #00c6ff, #0072ff);
+    .save-button {
+      background: var(--gradient-primary);
       border: none;
       padding: 16px;
       border-radius: 8px;
-      color: #fff;
+      color: white;
       font-weight: bold;
       cursor: pointer;
       width: 100%;
       font-size: 16px;
       margin-top: 10px;
       transition: all 0.3s ease;
-      box-shadow: 0 0 15px rgba(0, 198, 255, 0.4);
+      box-shadow: var(--shadow-primary);
     }
     
-    button:hover {
+    .save-button:hover {
       transform: translateY(-3px);
-      box-shadow: 0 0 20px rgba(0, 198, 255, 0.6);
+      box-shadow: var(--shadow-glow);
     }
     
-    button:active {
+    .save-button:active {
       transform: translateY(0);
     }
     
     .optional {
-      color: #888;
+      color: hsl(var(--muted-foreground));
       font-style: italic;
     }
-    
-    @media (max-width: 600px) {
+
+    /* Responsive Design */
+    @media (min-width: 768px) {
+      .nav {
+        display: flex;
+      }
+      .auth-buttons {
+        display: flex;
+      }
+      .user-name {
+        display: flex;
+      }
+      .mobile-menu-btn {
+        display: none;
+      }
+    }
+
+    @media (max-width: 767px) {
+      .nav {
+        display: none;
+      }
+      .auth-buttons {
+        display: none;
+      }
+      .user-name {
+        display: none;
+      }
+      .mobile-menu-btn {
+        display: flex;
+      }
+      
       .dashboard {
         padding: 25px;
       }
@@ -166,56 +495,259 @@
   </style>
 </head>
 <body>
-  <div class="dashboard">
-    <h2>Set Up Your Profile</h2>
-
-    <!-- Profile Picture Upload -->
-    <div class="profile-container">
-      <label for="profilePic">
-        <div id="profileImage" class="profile-pic">
-          Upload Photo
+  <!-- Header -->
+  <header class="header">
+    <div class="container">
+      <div class="header-content">
+        <!-- Logo -->
+        <div class="logo">
+          <div class="logo-icon">
+            <img src="logo1.png" alt="Futuro Logo" />
+          </div>
+          <span class="logo-text">Futuro</span>
         </div>
-      </label>
-      <input type="file" id="profilePic" accept="image/*" style="display: none;">
-      <p class="upload-instruction">Click the area above to upload your profile photo</p>
+
+        <!-- Desktop Navigation -->
+        <nav class="nav">
+          <a href="index.html">Home</a>
+          <a href="index.html#about">About</a>
+          <a href="index.html#features">Features</a>
+          <a href="chatbot.html">Chat Bot</a>
+          <a href="test.html">Psychometric Test</a>
+          <a href="dashboard.html" class="active">Dashboard</a>
+        </nav>
+
+        <!-- Desktop User Name / Auth Buttons -->
+        <div id="user_name" class="user-name">
+          <span class="logo-text"></span>
+        </div>
+        <div id="auth" class="auth-buttons">
+          <button
+            class="btn btn-ghost"
+            onclick="window.location.href='login.html'"
+          >
+            Login
+          </button>
+          <button class="btn btn-hero" onclick="window.location.href='login.html'">Sign Up</button>
+        </div>
+
+        <!-- Mobile Menu Button -->
+        <button
+          class="mobile-menu-btn"
+          id="mobileMenuBtn"
+          aria-label="Toggle mobile menu"
+        >
+          <svg
+            id="menuIcon"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <line x1="4" x2="20" y1="6" y2="6"></line>
+            <line x1="4" x2="20" y1="12" y2="12"></line>
+            <line x1="4" x2="20" y1="18" y2="18"></line>
+          </svg>
+          <svg
+            id="closeIcon"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            style="display: none"
+          >
+            <path d="m18 6-12 12"></path>
+            <path d="m6 6 12 12"></path>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Mobile Menu -->
+      <div class="mobile-menu" id="mobileMenu">
+        <nav class="mobile-nav">
+          <a href="index.html">Home</a>
+          <a href="index.html#about">About</a>
+          <a href="index.html#features">Features</a>
+          <a href="chatbot.html">Chat Bot</a>
+          <a href="test.html">Psychometric Test</a>
+          <a href="dashboard.html" class="active">Dashboard</a>
+        </nav>
+
+        <div class="mobile-auth" id="mobileAuthButtons">
+          <button class="btn btn-ghost" onclick="window.location.href='login.html'">Login</button>
+          <button class="btn btn-hero" onclick="window.location.href='login.html'">Sign Up</button>
+        </div>
+
+        <div class="mobile-user-info" id="mobileUserInfo">
+          <span id="mobileUserName" class="user-name"></span>
+          <button class="btn btn-ghost" id="mobileLogoutBtn">
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+              <polyline points="16,17 21,12 16,7"></polyline>
+              <line x1="21" y1="12" x2="9" y2="12"></line>
+            </svg>
+            Logout
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="main-content">
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loading-screen">
+      <div class="spinner"></div>
+      <h2>Loading Dashboard...</h2>
+      <p>Please wait while we verify your login status.</p>
     </div>
 
-    <!-- User Info Form -->
-    <div class="form-section">
-      <label for="name">Full Name (Required):</label>
-      <input type="text" id="name" placeholder="Enter your full name (Surname - Name - FatherName)" required>
+    <div class="dashboard" id="dashboard">
+      <h2>Set Up Your Profile</h2>
 
-      <label for="dob">Date of Birth (Required):</label>
-      <input type="date" id="dob" required>
+      <!-- Profile Picture Upload -->
+      <div class="profile-container">
+        <label for="profilePic">
+          <div id="profileImage" class="profile-pic">
+            Upload Photo
+          </div>
+        </label>
+        <input type="file" id="profilePic" accept="image/*" style="display: none;">
+        <p class="upload-instruction">Click the area above to upload your profile photo</p>
+      </div>
 
-      <label for="email">Email (Required):</label>
-      <input type="email" id="email" placeholder="Enter your email address" required>
+      <!-- User Info Form -->
+      <div class="form-section">
+        <label for="name">Full Name (Required):</label>
+        <input type="text" id="name" placeholder="Enter your full name" required>
 
-      <label for="phone">Phone (Optional):</label>
-      <input type="tel" id="phone" placeholder="Enter your phone number">
+        <label for="dob">Date of Birth (Required):</label>
+        <input type="date" id="dob" required>
 
-      <label for="linkedin">LinkedIn (Optional):</label>
-      <input type="url" id="linkedin" placeholder="Paste LinkedIn profile link">
+        <label for="email">Email (Required):</label>
+        <input type="email" id="email" placeholder="Enter your email address" required>
 
-      <label for="github">GitHub (Optional):</label>
-      <input type="url" id="github" placeholder="Paste GitHub profile link">
+        <label for="phone">Phone <span class="optional">(Optional)</span>:</label>
+        <input type="tel" id="phone" placeholder="Enter your phone number">
 
-      <!-- Save Button -->
-      <button onclick="saveData()">
-        <i class="fas fa-save"></i> Save Details & View Profile
-      </button>
+        <label for="linkedin">LinkedIn <span class="optional">(Optional)</span>:</label>
+        <input type="url" id="linkedin" placeholder="Paste LinkedIn profile link">
+
+        <label for="github">GitHub <span class="optional">(Optional)</span>:</label>
+        <input type="url" id="github" placeholder="Paste GitHub profile link">
+
+        <!-- Save Button -->
+        <button class="save-button" onclick="saveData()">
+          <i class="fas fa-save"></i> Save Details & View Profile
+        </button>
+      </div>
     </div>
   </div>
 
   <script>
-    // Load saved data if available
-    window.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function() {
+      // Check authentication first
+      checkAuthenticationStatus();
+      
+      // Mobile menu functionality
+      const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+      const mobileMenu = document.getElementById('mobileMenu');
+      const menuIcon = document.getElementById('menuIcon');
+      const closeIcon = document.getElementById('closeIcon');
+
+      if (mobileMenuBtn) {
+        mobileMenuBtn.addEventListener('click', function() {
+          mobileMenu.classList.toggle('open');
+          
+          if (mobileMenu.classList.contains('open')) {
+            menuIcon.style.display = 'none';
+            closeIcon.style.display = 'block';
+          } else {
+            menuIcon.style.display = 'block';
+            closeIcon.style.display = 'none';
+          }
+        });
+      }
+
+      // Close mobile menu when clicking on navigation links
+      document.querySelectorAll('.mobile-nav a').forEach(link => {
+        link.addEventListener('click', () => {
+          mobileMenu.classList.remove('open');
+          menuIcon.style.display = 'block';
+          closeIcon.style.display = 'none';
+        });
+      });
+    });
+
+    async function checkAuthenticationStatus() {
+      try {
+        const res = await fetch(
+          "https://hackathon-pflh.onrender.com/auth/me",
+          {
+            method: "GET",
+            credentials: "include",
+          }
+        );
+
+        if (!res.ok) {
+          // User is not logged in, redirect to login
+          window.location.href = 'login.html';
+          return;
+        }
+
+        const user = await res.json();
+        
+        // Hide loading screen and show dashboard
+        document.getElementById('loading-screen').style.display = 'none';
+        document.getElementById('dashboard').style.display = 'block';
+
+        // Update navigation for logged-in user
+        const login_button = document.getElementById("auth");
+        login_button.style.display = "none";
+        const user_name = document.getElementById("user_name");
+        user_name.style.display = "flex";
+        user_name.innerHTML = `<span class="logo-text">${user.name}</span>`;
+
+        // Mobile elements
+        const mobileAuthButtons = document.getElementById("mobileAuthButtons");
+        const mobileUserInfo = document.getElementById("mobileUserInfo");
+        if (mobileAuthButtons && mobileUserInfo) {
+          mobileAuthButtons.style.display = "none";
+          mobileUserInfo.style.display = "flex";
+          document.getElementById("mobileUserName").textContent = user.name;
+        }
+
+        // Pre-fill form with user data
+        document.getElementById('name').value = user.name || '';
+        document.getElementById('email').value = user.email || '';
+        
+        // Load additional saved data if available
+        loadSavedData();
+
+      } catch (err) {
+        console.error("Authentication check failed:", err);
+        window.location.href = 'login.html';
+      }
+    }
+
+    function loadSavedData() {
+      // Add today's date as the max for date of birth
+      document.getElementById('dob').max = new Date().toISOString().split("T")[0];
+      
       const savedData = localStorage.getItem('userProfileData');
       if (savedData) {
         const userData = JSON.parse(savedData);
-        document.getElementById('name').value = userData.name || '';
         document.getElementById('dob').value = userData.dob || '';
-        document.getElementById('email').value = userData.email || '';
         document.getElementById('phone').value = userData.phone || '';
         document.getElementById('linkedin').value = userData.linkedin || '';
         document.getElementById('github').value = userData.github || '';
@@ -228,16 +760,7 @@
           profileImage.innerHTML = '';
         }
       }
-      
-      // Add today's date as the max for date of birth
-      document.getElementById('dob').max = new Date().toISOString().split("T")[0];
-      
-      // Store data for admin panel
-      const adminData = localStorage.getItem('adminUserData');
-      if (!adminData) {
-        localStorage.setItem('adminUserData', JSON.stringify([]));
-      }
-    });
+    }
 
     // Profile picture preview
     document.getElementById("profilePic").addEventListener("change", function(event) {
@@ -260,8 +783,8 @@
       document.getElementById("profilePic").click();
     });
 
-    // Save data to localStorage and redirect to profile
-    function saveData() {
+    // Save data and sync with backend
+    async function saveData() {
       const userData = {
         name: document.getElementById("name").value,
         dob: document.getElementById("dob").value,
@@ -279,25 +802,26 @@
         return;
       }
 
-      // Save to localStorage for profile page
+      // Save to localStorage
       localStorage.setItem('userProfileData', JSON.stringify(userData));
       
-      // Save to admin data storage
-      const adminData = JSON.parse(localStorage.getItem('adminUserData') || '[]');
-      
-      // Check if user already exists
-      const existingUserIndex = adminData.findIndex(user => user.email === userData.email);
-      
-      if (existingUserIndex !== -1) {
-        // Update existing user
-        adminData[existingUserIndex] = userData;
-      } else {
-        // Add new user with ID
-        userData.id = '#' + (adminData.length + 1).toString().padStart(3, '0');
-        adminData.push(userData);
+      try {
+        // Sync with backend
+        const response = await fetch('https://hackathon-pflh.onrender.com/user/profile', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          credentials: 'include',
+          body: JSON.stringify(userData)
+        });
+
+        if (!response.ok) {
+          console.warn('Failed to sync with backend, saved locally only');
+        }
+      } catch (error) {
+        console.warn('Backend sync failed, saved locally only:', error);
       }
-      
-      localStorage.setItem('adminUserData', JSON.stringify(adminData));
       
       // Redirect to profile page
       window.location.href = 'profile.html';
