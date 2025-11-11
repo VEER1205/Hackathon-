@@ -4,6 +4,12 @@ from starlette.middleware.sessions import SessionMiddleware
 import os
 from app.config import settings
 from app.routes import user_routes,gemini, auth_routes
+from starlette.requests import Request
+from starlette.responses import JSONResponse
+from fastapi.responses import RedirectResponse
+from starlette.exceptions import HTTPException as StarletteHTTPException
+
+
 
 app = FastAPI(title="PathFinder API")
 
@@ -34,6 +40,23 @@ app.include_router(user_routes.router)
 app.include_router(gemini.router,)
 app.include_router(auth_routes.router)
 
+
+
 @app.get("/", tags=["Health"])
 async def root():
     return {"status": "ok", "service": "PathFinder API","version": "1.1.0"}
+
+def wants_html(request: Request):
+    return "text/html" in request.headers.get("accept", "")
+
+@app.exception_handler(StarletteHTTPException)
+async def http_exception_handler(request: Request, exc: StarletteHTTPException):
+    if wants_html(request):
+        return RedirectResponse("/error", status_code=exc.status_code)
+    return JSONResponse({"error": "Something went wrong 😞"}, status_code=exc.status_code)
+
+@app.exception_handler(Exception)
+async def unhandled_exception_handler(request: Request, exc: Exception):
+    if wants_html(request):
+        return RedirectResponse("/error", status_code=500)
+    return JSONResponse({"error": "Something went wrong 😞"}, status_code=500)

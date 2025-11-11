@@ -36,7 +36,12 @@
       {
         "source": "/",
         "destination": "/index.html"
+      },
+      {
+        "source": "/error",
+        "destination": "/error.html"
       }
+
     ]
   }
 }
