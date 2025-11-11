@@ -19,7 +19,8 @@ origins = [
     "http://127.0.0.1:5500",
     "http://localhost:3000",
     "http://127.0.0.1:3000",
-    "https://futuro-ai.web.app", # dev only; tighten for prod
+    "https://futuro-ai.web.app",
+    "https://hackwave-sxj1.onrender.com"# dev only; tighten for prod
 ]
 
 app.add_middleware(
