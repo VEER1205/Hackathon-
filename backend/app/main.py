@@ -61,3 +61,7 @@ async def unhandled_exception_handler(request: Request, exc: Exception):
     if wants_html(request):
         return RedirectResponse("https://futuro-ai.web.app/error", status_code=500)
     return JSONResponse({"error": "Something went wrong 😞"}, status_code=500)
+
+@app.api_route("/health", methods=["GET", "HEAD"], tags=["Health"])
+async def health_check():
+    return {"status": "ok"}
